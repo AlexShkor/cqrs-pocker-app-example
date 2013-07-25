@@ -54,6 +54,11 @@ namespace AKQ.Domain
             _cards.Remove(card);
             return card;
         }
+
+        public List<Card> GetAllCards()
+        {
+            return _cards;
+        }
     }
 
     public class GameException: Exception

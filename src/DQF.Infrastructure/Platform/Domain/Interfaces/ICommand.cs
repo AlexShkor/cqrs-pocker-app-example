@@ -5,7 +5,6 @@ namespace PAQK.Platform.Domain.Interfaces
     /// </summary>
     public interface ICommand
     {
-        string Id { get; set; }
         ICommandMetadata Metadata { get; set; }
     }
 }

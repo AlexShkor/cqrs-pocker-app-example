@@ -102,7 +102,10 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Databases\MongoAdminDatabase.cs" />
     <Compile Include="Documents\Administration\LogItem.cs" />
+    <Compile Include="Domain\Aggregates\Game\Commands\CheckGame.cs" />
+    <Compile Include="Domain\Aggregates\Game\Commands\FoldGame.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CreateSite.cs" />
+    <Compile Include="Domain\Aggregates\Game\Data\UserPosition.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\GameCreated.cs" />
     <Compile Include="Domain\Aggregates\Game\GameAggregate.cs" />
     <Compile Include="Domain\Aggregates\Game\GameApplicationService.cs" />
@@ -275,6 +278,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AKQ.Domain\AKQ.Domain.csproj">
+      <Project>{55B9E81B-E790-45D7-B4FE-29E7CAEA17AF}</Project>
+      <Name>AKQ.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

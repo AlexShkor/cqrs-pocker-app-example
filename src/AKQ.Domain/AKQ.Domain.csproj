@@ -115,6 +115,7 @@
     <Compile Include="Bridge\PlayerBid.cs" />
     <Compile Include="Bridge\PlayerPosition.cs" />
     <Compile Include="Bridge\PlayersManager.cs" />
+    <Compile Include="Bridge\PokerSets\PockerSet.cs" />
     <Compile Include="Bridge\Rank.cs" />
     <Compile Include="Bridge\TournamentInfo.cs" />
     <Compile Include="EventHandlers\UserProgress\RepetitionUserProgressHandler.cs" />
