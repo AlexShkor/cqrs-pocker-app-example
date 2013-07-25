@@ -1,0 +1,51 @@
+﻿<div class="container">
+    <h4>Practice results</h4>
+    <p>
+        You can view and analyse PBN file of game using <a target="_blank" href="http://www.bridge-captain.com/downloadDD.html">Double Dummy Solver</a>.
+    </p>
+    <div data-bind="with: model">
+        <div>
+            <ul class="nav nav-tabs" data-bind="foreach: items">
+                <li class="big-font" data-bind="css: { active: index() == $root.selectedSet().index() }">
+                    <a data-bind="click: $root.select" href="#">Set <span data-bind="    text: index"></span></a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <!-- ko with: $root.selectedSet -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="span3">Deal</th>
+                        <th class="span2">Contract</th>
+                        <th>Results (click buttons below)</th>
+                        <th class="span2">Tags</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ko foreach: deals -->
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-vertical ">
+                                <button type="button" class="btn disabled "><strong class="dark-gray" data-bind="text: boardNumber"></strong></button>
+                                <button type="button" class="btn btn-success" data-bind="click: $root.playAgain">Play Again</button>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="label label-contract big-font">
+                                <span data-bind="text: contractValue"></span>
+                                <span data-bind="html: contractSuitHtml, style: { 'font-size': contractSuitFontSize, color: contractSuitColor }" style="font-weight: bold;"></span>
+                            </span>
+                        </td>
+                        <td data-bind="foreach: games">
+                            <a title="View Game" data-bind="click: $root.viewGame, text: result, css: cssClass" href="#" class="alert big-font pull-left result-item"></a>
+                        </td>
+                        <td data-bind="text: tags"></td>
+                    </tr>
+                    <!-- /ko -->
+            </table>
+            <h2>Result <span data-bind="text: rating"></span>%</h2>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>

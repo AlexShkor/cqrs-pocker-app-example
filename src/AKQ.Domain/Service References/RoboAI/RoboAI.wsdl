@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RoboAI" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://www.w3.org/2001/XMLSchema" />
+      <xsd:import schemaLocation="http://robobridge.cloudapp.net/services/RoboAI.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IRoboAI_GetBid_InputMessage">
+    <wsdl:part name="gameState" type="xsd:string" />
+    <wsdl:part name="conventionCard" type="xsd:string" />
+    <wsdl:part name="seat" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_GetBid_OutputMessage">
+    <wsdl:part name="GetBidResult" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_GetCard_InputMessage">
+    <wsdl:part name="gameState" type="xsd:string" />
+    <wsdl:part name="conventionCard" type="xsd:string" />
+    <wsdl:part name="seat" type="xsd:string" />
+    <wsdl:part name="quality" type="xsd:int" />
+    <wsdl:part name="time" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_GetCard_OutputMessage">
+    <wsdl:part name="GetCardResult" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_ExplainBid_InputMessage">
+    <wsdl:part name="gameState" type="xsd:string" />
+    <wsdl:part name="conventionCard" type="xsd:string" />
+    <wsdl:part name="bidIndex" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_ExplainBid_OutputMessage">
+    <wsdl:part name="ExplainBidResult" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_ClaimOk_InputMessage">
+    <wsdl:part name="gameState" type="xsd:string" />
+    <wsdl:part name="conventionCard" type="xsd:string" />
+    <wsdl:part name="seat" type="xsd:string" />
+    <wsdl:part name="tricksForMe" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_ClaimOk_OutputMessage">
+    <wsdl:part name="ClaimOkResult" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_PossibleBids_InputMessage">
+    <wsdl:part name="gameState" type="xsd:string" />
+    <wsdl:part name="conventionCard" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_PossibleBids_OutputMessage">
+    <wsdl:part name="PossibleBidsResult" type="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_DoubleDummy_Tricks_InputMessage">
+    <wsdl:part name="gameState" type="xsd:string" />
+    <wsdl:part name="declarer" type="xsd:string" />
+    <wsdl:part name="trumpSuit" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="IRoboAI_DoubleDummy_Tricks_OutputMessage">
+    <wsdl:part name="DoubleDummy_TricksResult" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:portType name="IRoboAI">
+    <wsdl:operation name="GetBid" parameterOrder="gameState conventionCard seat">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRoboAI/GetBid" message="tns:IRoboAI_GetBid_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRoboAI/GetBidResponse" message="tns:IRoboAI_GetBid_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCard" parameterOrder="gameState conventionCard seat quality time">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRoboAI/GetCard" message="tns:IRoboAI_GetCard_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRoboAI/GetCardResponse" message="tns:IRoboAI_GetCard_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExplainBid" parameterOrder="gameState conventionCard bidIndex">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRoboAI/ExplainBid" message="tns:IRoboAI_ExplainBid_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRoboAI/ExplainBidResponse" message="tns:IRoboAI_ExplainBid_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClaimOk" parameterOrder="gameState conventionCard seat tricksForMe">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRoboAI/ClaimOk" message="tns:IRoboAI_ClaimOk_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRoboAI/ClaimOkResponse" message="tns:IRoboAI_ClaimOk_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PossibleBids" parameterOrder="gameState conventionCard">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRoboAI/PossibleBids" message="tns:IRoboAI_PossibleBids_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRoboAI/PossibleBidsResponse" message="tns:IRoboAI_PossibleBids_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DoubleDummy_Tricks" parameterOrder="gameState declarer trumpSuit">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRoboAI/DoubleDummy_Tricks" message="tns:IRoboAI_DoubleDummy_Tricks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRoboAI/DoubleDummy_TricksResponse" message="tns:IRoboAI_DoubleDummy_Tricks_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IRoboAI" type="tns:IRoboAI">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="GetBid">
+      <soap:operation soapAction="http://tempuri.org/IRoboAI/GetBid" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCard">
+      <soap:operation soapAction="http://tempuri.org/IRoboAI/GetCard" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExplainBid">
+      <soap:operation soapAction="http://tempuri.org/IRoboAI/ExplainBid" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClaimOk">
+      <soap:operation soapAction="http://tempuri.org/IRoboAI/ClaimOk" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PossibleBids">
+      <soap:operation soapAction="http://tempuri.org/IRoboAI/PossibleBids" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoubleDummy_Tricks">
+      <soap:operation soapAction="http://tempuri.org/IRoboAI/DoubleDummy_Tricks" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RoboAI">
+    <wsdl:port name="BasicHttpBinding_IRoboAI" binding="tns:BasicHttpBinding_IRoboAI">
+      <soap:address location="http://robobridge.cloudapp.net/services/RoboAI.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

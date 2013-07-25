@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+}
+@*<div>
+    <ul class="nav nav-tabs">
+        <li class="@IsActive("games")">
+            <a href="/home/results/">Games</a>
+        </li>
+        <li class="@IsActive("tournaments")">
+            <a href="/home/results/tournament">Tournaments</a>
+        </li>
+    </ul>
+</div>*@
+
+<div>
+    @RenderBody()
+</div>
+
+@helper IsActive(string linkName)
+{
+    var cssClass = linkName == (string) ViewBag.ActiveLink ? "active" : "";
+    <text> @cssClass</text>
+}

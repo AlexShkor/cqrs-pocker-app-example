@@ -1,0 +1,38 @@
+﻿@using System.Web.Optimization
+@using AKQ.Web.App_Start
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>AKQbridge | @ViewBag.Title</title>
+
+        <link rel="SHORTCUT ICON" href="~/Assets/app/css/img/favicon.ico" />
+        @Styles.Render("~/content/css")
+        @Scripts.Render("~/scripts/jquery-2.0.2.min.js")
+        @Scripts.Render("~/scripts/knockout-2.2.1.js")
+        @Scripts.Render("~/scripts/sammy-0.7.4.min.js")
+        @Scripts.Render("~/scripts/amplify.min.js")
+        @Scripts.Render("~/scripts/knockout.mapping-latest.js")
+        @Scripts.Render("~/scripts/underscore.min.js")
+        @Scripts.Render("~/scripts/common.js")
+        @Scripts.Render("~/scripts/send.js")
+        @Scripts.Render("~/scripts/jquery.signalR-1.1.2.min.js")
+        @Scripts.Render("~/signalr/hubs")
+        @RenderSection("HeaderScripts", false)
+        @RenderSection("scripts", false)
+    </head>
+<body class="landing-layout">
+    <div id="globalLoader" 
+         style="display: none;" >
+        <div class="circle"></div>
+        <div class="circle1"></div>
+    </div>
+    
+@Html.Partial("Navigation")
+    <div id="main">@RenderBody()</div>
+    <script id="requireStartPoint" data-version="@BundleConfig.ContentVersion" data-main="/assets/app/js/main.js" src="/assets/vendor/require/require.js"></script>
+</body>
+</html>
+
+

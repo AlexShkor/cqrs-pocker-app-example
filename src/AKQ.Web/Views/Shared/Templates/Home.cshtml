@@ -1,0 +1,110 @@
+﻿<div class="container-narrow">
+    <input type="hidden" id="isAuth" name="isAuth" value="@Request.IsAuthenticated.ToString()"/>
+
+    <div data-bind="visible: registerModalVisible" style="display: none" class="modal">
+        <div class="modal-header">
+            <a href="#" data-bind="click: closeRegister" class="pull-right red big-font">&times;</a>
+            <h3>You are not signed in</h3>
+        </div>
+        <div class="modal-body">
+            <div>
+                <p class="">Please <a href="/account/login">Log In</a> or <a href="/account/register">Sign Up</a> to play game.</p>
+                <p class="">You can play as Guest, but your results won't be stored.</p>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+
+            <ul class="nav nav-pills pull-right">
+                <li class="warning"><a href="#" data-bind="click: playAnyway">Play as Guest</a></li>
+                <li class="active"><a href="/account/login">Log In</a></li>
+                <li class="active"><a href="/account/loginwithfacebook">Log In with Facebook</a></li>
+                <li><a href="/account/register">Sign Up</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-bind="visible: visible" style="display: none" class="modal">
+        <div class="modal-header">
+            <a href="#" data-bind="click: close" class="close">&times;</a>
+            <h3>Tournament</h3>
+        </div>
+        <div class="modal-body">
+            <div data-bind="visible: loading">
+                <div class="circle"></div>
+                <div class="circle1"></div>
+            </div>
+            <div data-bind="visible: !loading()">
+                <p data-bind="visible: registred" class="lead">You have registered.</p>
+                <p class="lead">Play starts in   <span data-bind="text: secondsToStart"></span>sec.</p>
+
+                @*     <p class="lead"><span data-bind="text: players"></span> playres registred.</p>*@
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-bind="click: close" class="btn btn-large">Close</a>
+            <a href="#" data-bind="visible: registred, click: withdraw" class="btn btn-large btn-warning">Cancel Registration</a>
+            <a href="#" data-bind="visible: !registred(), click: register" class="btn btn-large btn-success">Register</a>
+        </div>
+    </div>
+    <div class="jumbotron">
+        <h1 class="highlight">Play card games based on bridge!</h1>
+
+        <p class="lead subtitle">All you need is a modern browser.</p>
+        <div class="landing-hero">
+            <div >
+                <a class="btn btn-large btn-success" data-bind="click: practise">Practice</a>
+                <h4 class="light-gray font-normal">Practice your card play.</h4>
+                <h4 class="light-gray font-normal">Play set contracts.</h4>
+                <h4 class="light-gray font-normal">No bidding just pure card play.</h4>
+            </div>
+            <br />
+                <div>
+                <a class="btn btn-large btn-success" data-bind="click: repetition">Repetition</a>
+            </div>
+        </div>
+
+
+
+        @*  <div class="span4">  
+                <a class="btn btn-large btn-success" data-bind="click: practise" href="#/game/create/attack">Practice</a>
+                 <h4>Practice your card play.</h4>
+                 <h4>Play set contracts. No bidding just pure card play.</h4>
+            </div>
+            <div class="span4">  
+                <a class="btn btn-large" data-bind="click: open, css: { 'btn-warning': registred, 'btn-success': !registred() }" href="#/tournament">Compete
+                    <span data-bind="visible: registred, text: secondsToStart"></span>
+                </a>
+                <h4>Compete against others.</h4>
+                <h4>Play set contracts. No bidding just pure card play.</h4>
+                <h4>Play 3 deals in 10 mins.</h4>
+            </div>*@
+
+
+        <h2 class="light-gray font-normal">akqbridge@hotmail.com</h2>
+    </div>
+    @*        <div class="row-fluid marketing">
+           
+                <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'akqbridge'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+        </div>*@
+
+
+    <div class="footer">
+        <input type="hidden" id="homePageIndicator" value="true" />
+        <p class="light">© AKQ<span class="redsuit">bridge</span>.com 2013</p>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿<div class="playAreaDealer">
+    @TrickBox("west")
+    <div class="pull-left">
+        @TrickBox("north")
+        @TrickBox("south")
+    </div>
+    @TrickBox("east")
+</div>
+
+@helper TrickBox(string side)
+{
+    var firstLetter = side[0].ToString();
+    <!-- ko with: currentTrick -->                            
+    <!-- ko with: @firstLetter -->                            
+    <!-- ko with: trickCard -->                            
+    <div class="@side box">
+        <div class="card" data-bind="template: 'cardTemplate', forecolor: color, css: { winningCard: $parent.isWon }"></div>
+    </div>
+    <!-- /ko -->   
+    <!-- /ko -->   
+    <!-- /ko -->   
+}

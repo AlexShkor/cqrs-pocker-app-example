@@ -1,0 +1,31 @@
+﻿@model AKQ.Web.Models.TournamentsListViewModel
+@{
+    ViewBag.Title = "Tournaments";
+}
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Duration</th>
+                <th>Hands to play</th>
+                <th>Started</th>
+                <th>Time Left</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.DurationInMinutes min</td>
+                    <td>@item.HandsToPlay hands</td>
+                    <td>@item.Started</td>
+                    <td>@item.TimeLeft</td>
+                    <td>
+                        <a class="btn btn-small" href="/game/tournament/@item.Id/next">Join</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

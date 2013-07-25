@@ -1,0 +1,43 @@
+﻿@model AKQ.Web.Models.ResultsViewModel
+@{
+    Layout = "_ResultsLayout.cshtml";
+    ViewBag.Title = "Games Results";
+    ViewBag.ActiveLink = "games";
+}
+<p>
+    You can view and analyse PBN file of game using <a target="_blank" href="http://www.bridge-captain.com/downloadDD.html">Double Dummy Solver</a>.
+</p>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Deal</th>
+                <th>Contract</th>
+                <th>Results</th>
+                <th class="span2">Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr >
+                    <td><a title="Play Again"  href="#/game/create/deal/@item.DealId">@item.BoardNumber</a> </td>
+                    <td>
+                        @item.ContractValue
+                        <span style="font-weight: bold; font-size: @item.ContractSuitFontSize ; color: @item.ContractSuitColor">@Html.Raw(item.ContractSuitHtml)</span>
+                    </td>
+                    <td>@foreach(var game in item.Games)
+                        {
+                            <a title="View Game"  href="#/game/replay/@game.GameId"class="alert alert-@game.CssClass pull-left result-item">
+                                @game.Result
+                            </a>
+                        }
+                    </td>
+                    <td>
+                       @item.Tags
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

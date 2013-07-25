@@ -1,0 +1,21 @@
+﻿@*<!-- ko with: $root -->
+<div class="sidebarSection">
+    <div class="btn-group" data-bind="css: { open: tagsSelectVisible }">
+            <a class="btn btn-large dropdown-toggle" data-bind="click: toggleTagsSelect" href="#">
+                <span data-bind="html: tagsCaption"></span>
+                <span class="caret"></span>
+            </a>
+            <!-- ko with: model -->
+            <ul class="dropdown-menu" data-bind="foreach: tactics.tags">
+                <li>
+                    <a href="#" data-bind="click: $root.toggleTag" >
+                        <i data-bind="css: { 'icon-check': selected, 'icon-check-empty': !selected() }"></i>
+                        <span data-bind="text: title"></span>
+                    </a>
+
+                </li>
+            </ul>
+               <!-- /ko -->
+        </div>
+</div>
+ <!-- /ko -->*@

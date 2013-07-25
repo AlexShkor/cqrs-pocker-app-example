@@ -1,0 +1,12 @@
+﻿ <!-- ko with: hands['E'] -->
+<div class="playAreaEastWest">
+    <!-- ko foreach: { data: cards, as: 'item' } -->
+    <div data-bind="foreach: item" class="cards-row east">
+        <div class="card overlap" data-bind="template:'cardTemplate', forecolor: color, css: { selectableCardSouth: isSelectable },
+                                                  click: $root.playCard"></div>
+    </div>
+    <!-- /ko -->
+    <h3 class="text-center" data-bind="text: playerName"></h3>
+</div>
+
+<!-- /ko -->

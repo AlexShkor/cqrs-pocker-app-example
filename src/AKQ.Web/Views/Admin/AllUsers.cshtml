@@ -1,0 +1,18 @@
+﻿@model System.Collections.Generic.IEnumerable<AKQ.Domain.Documents.User>
+
+<div class="container">
+<table class="table table-striped table-condensed">
+    <tbody>
+        @foreach(var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.Username</td>
+                <td><a href="http://www.facebook.com/@user.FacebookId">@user.FacebookId</a> </td>
+                <td><a href="/#/results/game-sets/@user.Id/1">Game Sets</a> </td>
+                <td><a href="/#/history/@user.Id">History</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+    </div>

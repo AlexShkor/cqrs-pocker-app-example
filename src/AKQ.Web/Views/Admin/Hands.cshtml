@@ -1,0 +1,16 @@
+﻿@{
+   ViewBag.Title = "AKQBridge Hand Administration";
+}
+
+
+   <script type="text/javascript" src="@Url.Content("~/Scripts/AKQ/admin.js")"></script>
+   <link href="@Url.Content("~/Content/admin.css")" rel="stylesheet" type="text/css" />
+
+<div class="admincontainer">
+   <h2>Hand Admin</h2>
+   @using (Html.BeginForm("Upload", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+   {
+      <input type="file" name="file" />
+      <input type="submit" value="OK" />
+   }
+</div>

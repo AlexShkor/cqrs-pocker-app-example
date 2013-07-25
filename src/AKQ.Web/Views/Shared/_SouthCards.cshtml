@@ -1,0 +1,24 @@
+﻿    <!-- ko with: hands['S'] -->
+<div class="playAreaNorthSouth">
+   
+    <div class="horisontal-cards-holder">
+        <div class="horisontal-cards-container">
+            <!-- ko foreach: { data: cards, as: 'item' } -->
+            <!-- ko foreach: item -->
+            <div class="card" data-bind="template:'cardTemplate', forecolor: color,
+                                                  css: { selectableCardSouth: isSelectable },
+                                                  click: $root.playCard"></div>
+            <!-- /ko -->
+            
+            <div class="cards-devider"></div>
+            
+            <!-- ko if: $index() == 1 -->
+            <div class="cards-devider"></div>
+             <!-- /ko -->
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="claer"></div>
+    <h3 class="player-name-under-cards" data-bind="text: playerName"></h3>
+</div>
+<!-- /ko -->
