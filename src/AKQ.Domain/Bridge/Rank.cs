@@ -65,7 +65,8 @@ namespace AKQ.Domain
             Ace = new Rank(14, "A", "Ace");
         }
 
-        private static readonly Dictionary<string, Rank> Ranks = new Dictionary<string, Rank>(); 
+        private static readonly Dictionary<string, Rank> Ranks = new Dictionary<string, Rank>();
+        private static readonly SortedSet<Rank> AllRanks = new SortedSet<Rank>(); 
 
         private Rank(int score, string shortName, string fullName, IEnumerable<string> additionalMappingValues = null)
         {
@@ -74,6 +75,7 @@ namespace AKQ.Domain
             _shortName = shortName;
             _fullName = fullName;
             Ranks[shortName] = this;
+            AllRanks.Add(this);
             if (additionalMappingValues != null)
             {
                 foreach (var mappingValue in additionalMappingValues)
@@ -81,6 +83,11 @@ namespace AKQ.Domain
                     Ranks[mappingValue] = this;
                 }
             }
+        }
+
+        public static IEnumerable<Rank> GetAll()
+        {
+            return AllRanks;
         }
 
         public static Rank FromString(string value)

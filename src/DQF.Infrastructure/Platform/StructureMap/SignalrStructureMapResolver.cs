@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using StructureMap;
 
-namespace AKQ.Domain
+namespace PAQK.Platform.StructureMap
 {
-    public class StructureMapResolver : DefaultDependencyResolver
+    public class SignalrStructureMapResolver : DefaultDependencyResolver
     {
         private readonly IContainer _container;
 
-        public StructureMapResolver(IContainer container)
+        public SignalrStructureMapResolver(IContainer container)
         {
             _container = container;
         }

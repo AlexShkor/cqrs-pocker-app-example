@@ -36,6 +36,7 @@ using Microsoft.Practices.ServiceLocation;
 using NLog;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using PAQK.Platform.StructureMap;
 using StructureMap;
 
 namespace AKQ.Web.App_Start
@@ -44,49 +45,10 @@ namespace AKQ.Web.App_Start
     {
         public static void Configure()
         {
-            ObjectFactory.Initialize(x => x.Scan(scan =>
-            {
-                scan.TheCallingAssembly();
-                scan.WithDefaultConventions();
-            }));
-
             IContainer container = ObjectFactory.Container;
-            var resolver = new StructureMapDependencyResolver(container);
-            container.Configure(config =>
-            {
-                config.For<Logger>().Use(x => LogManager.GetCurrentClassLogger());
-                config.For<IRoboBridgeAI>().Use<RoboBridgeAI>();
-                config.For<GamesManager>().Singleton().Use<GamesManager>();
-                config.For<IServiceLocator>().Singleton().Use(resolver);
-                config.For<IBridgeGameCallback>().Use<BridgeGameCallback>();
-                config.For<IEventHandler>().Use<UserInterfaceReactor>();
-                config.For<IEventHandler>().Use<BridgeAICommandsProducer>();
-                config.For<IEventHandler>().Use<BridgeGameFinilizer>();
-                config.For<IEventHandler>().Use<BridgeGameDocumentHandler>();
-                config.For<IEventHandler>().Use<TournamentDocumentHandler>();
-                config.For<IEventHandler>().Use<UserProgressHandler>();
-                config.For<IEventHandler>().Use<RepetitionUserProgressHandler>();
-                config.For<IEventHandler>().Use<StatiscticsHandler>();
-            });
-
-            //Domain
-            new Bootstaper().Configure(container);
-            
-            //MVC
-            DependencyResolver.SetResolver(resolver);
-            GlobalConfiguration.Configuration.DependencyResolver = new StructureMapDependencyResolver(container);
-            //SignalR
-            GlobalHost.DependencyResolver = new StructureMapResolver(container);
-            var settings = new JsonSerializerSettings();
-            settings.ContractResolver = new SignalRContractResolver();
-            var serializer = new JsonNetSerializer(settings);
-            GlobalHost.DependencyResolver.Register(typeof(IJsonSerializer), () => serializer);
-           // GlobalHost.DependencyResolver.UseRedis("pub-redis-19094.us-east-1-2.3.ec2.garantiadata.com", 19094, "SBSNZmFRzQ249Dt0", new[] { "signalr.key" });
-            RouteTable.Routes.MapHubs(new HubConfiguration() { Resolver = GlobalHost.DependencyResolver });
-
-
-            //Paralect platform
             new PAQK.Bootstrapper().Configure(container);
+            GlobalHost.DependencyResolver = new SignalrStructureMapResolver(container);
+            RouteTable.Routes.MapHubs(new HubConfiguration() { Resolver = GlobalHost.DependencyResolver });
         }
     }
 }

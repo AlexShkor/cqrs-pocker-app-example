@@ -1,5 +1,5 @@
 ﻿using System;
- 
+using System.Collections.Generic;
 using AKQ.Domain.Utils;
 
 namespace AKQ.Domain
@@ -57,6 +57,17 @@ namespace AKQ.Domain
         public bool IsSuit(Suit suit)
         {
             return suit == Suit;
+        }
+
+        public static IEnumerable<Card> GetAll()
+        {
+            foreach (var suit in Suit.GetAll())
+            {
+                foreach (var rank in Rank.GetAll())
+                {
+                    yield return new Card(suit, rank);
+                }
+            }
         }
     }
 }

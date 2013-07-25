@@ -40,6 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FluentValidation.3.4.6.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.1.1.2\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\libs\Microsoft.Practices\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -59,7 +62,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\..\packages\NLog.2.0.1.2\lib\net40\NLog.dll</HintPath>
@@ -99,6 +102,11 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Databases\MongoAdminDatabase.cs" />
     <Compile Include="Documents\Administration\LogItem.cs" />
+    <Compile Include="Domain\Aggregates\Game\Commands\CreateSite.cs" />
+    <Compile Include="Domain\Aggregates\Game\Events\GameCreated.cs" />
+    <Compile Include="Domain\Aggregates\Game\GameAggregate.cs" />
+    <Compile Include="Domain\Aggregates\Game\GameApplicationService.cs" />
+    <Compile Include="Domain\Aggregates\Game\GameState.cs" />
     <Compile Include="Domain\Aggregates\Site\Commands\StartScheduler.cs" />
     <Compile Include="Domain\Aggregates\Site\Commands\StopScheduler.cs" />
     <Compile Include="Domain\Aggregates\Site\Events\SchedulerStarted.cs" />
@@ -145,6 +153,7 @@
     <Compile Include="Platform\Scheduling\IQuartzServer.cs" />
     <Compile Include="Platform\Scheduling\IScheduledJob.cs" />
     <Compile Include="Platform\Scheduling\SchedulerBootstrapper.cs" />
+    <Compile Include="Platform\StructureMap\SignalrStructureMapResolver.cs" />
     <Compile Include="Platform\Upgrade\DuplicatedUpgraderNumberException.cs" />
     <Compile Include="Platform\Upgrade\EventUpgrader.cs" />
     <Compile Include="Platform\Upgrade\IUpgrader.cs" />

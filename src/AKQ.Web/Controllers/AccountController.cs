@@ -12,6 +12,7 @@ using AKQ.Web.Authentication;
 using AKQ.Web.Models;
 using AKQ.Web.Models.Security;
 using AttributeRouting;
+using PAQK;
 using RestSharp.Extensions;
 using AttributeRouting.Web.Mvc;
 using Facebook;
@@ -27,7 +28,7 @@ namespace AKQ.Web.Controllers
         private readonly UsersService _usersService;
         private readonly CryptographicHelper _cryptoHelper;
         private readonly IdGenerator _idGenerator;
-        private readonly AkqSettings _settings;
+        private readonly SiteSettings _settings;
         private readonly AuthenticationService _authenticationService;
         private readonly FacebookClient _fb;
         private readonly MailService _mailService;
@@ -46,8 +47,8 @@ namespace AKQ.Web.Controllers
             CryptographicHelper cryptoHelper, 
             IdGenerator idGenerator, 
             AuthenticationService authenticationService, 
-            FacebookClientFactory fbFactory, 
-            AkqSettings settings, 
+            FacebookClientFactory fbFactory,
+            SiteSettings settings, 
             MailService mailService)
         {
             _usersService = usersService;

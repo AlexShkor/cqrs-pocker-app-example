@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AKQ.Domain
 {
@@ -13,6 +14,12 @@ namespace AKQ.Domain
         private readonly string _htmlColor;
 
         private static readonly Dictionary<string, Suit> ShortNameToValue;
+        private static readonly SortedSet<Suit> AllSuits = new SortedSet<Suit>(); 
+
+        public static IEnumerable<Suit> GetAll()
+        {
+            return AllSuits;
+        } 
 
         public static readonly Suit NoTrumps;
         public static readonly Suit Hearts;
@@ -36,6 +43,7 @@ namespace AKQ.Domain
             {
                 var result = new Suit(value, shortName, fullName, html, color);
                 ShortNameToValue.Add(shortName,result);
+                AllSuits.Add(result);
                 return result;
             });
 
@@ -43,8 +51,6 @@ namespace AKQ.Domain
             Diamonds = addMapping(2,"D", "Diamonds", "&diams;", "red");
             Hearts = addMapping(3,"H", "Hearts", "&hearts;", "red");
             Spades = addMapping(4,"S", "Spades", "&spades;", "black");
-            NoTrumps = addMapping(5,"NT", "NoTrumps", "NT", "inherit");
-            ShortNameToValue.Add("N", NoTrumps);
         }
 
         public string ShortName
