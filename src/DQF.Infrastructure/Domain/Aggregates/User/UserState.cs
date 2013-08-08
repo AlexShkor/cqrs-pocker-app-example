@@ -1,20 +1,17 @@
 ﻿using PAQK.Domain.Aggregates.User.Events;
+using PAQK.Platform.Domain;
 
 namespace PAQK.Domain.Aggregates.User
 {
-    public class UserState
+    public sealed class UserState: AggregateState
     {
         public string Id { get; private set; }
         public bool UserWasDeleted { get; set; }
 
-        public void On(UserCreated e)
+        public UserState()
         {
-            Id = e.Id;
-        }
-
-        public void On(UserDeleted e)
-        {
-            UserWasDeleted = true;
+            On((UserCreated e) => Id = e.Id);
+            On((UserDeleted e) => UserWasDeleted = true);
         }
     }
 }

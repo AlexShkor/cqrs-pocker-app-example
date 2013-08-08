@@ -104,10 +104,11 @@
     <Compile Include="Documents\Administration\LogItem.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CheckGame.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\FoldGame.cs" />
-    <Compile Include="Domain\Aggregates\Game\Commands\CreateSite.cs" />
+    <Compile Include="Domain\Aggregates\Game\Commands\CreateGame.cs" />
     <Compile Include="Domain\Aggregates\Game\Data\UserPosition.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\GameCreated.cs" />
-    <Compile Include="Domain\Aggregates\Game\GameAggregate.cs" />
+    <Compile Include="Domain\Aggregates\Game\Events\TableCreated.cs" />
+    <Compile Include="Domain\Aggregates\Game\GameTableAggregate.cs" />
     <Compile Include="Domain\Aggregates\Game\GameApplicationService.cs" />
     <Compile Include="Domain\Aggregates\Game\GameState.cs" />
     <Compile Include="Domain\Aggregates\Site\Commands\StartScheduler.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Databases\MongoEventsDatabase.cs" />
     <Compile Include="Platform\Collections\IOrderedDictionary.cs" />
     <Compile Include="Platform\Collections\OrderedDictionary.cs" />
+    <Compile Include="Platform\Domain\AggregateState.cs" />
     <Compile Include="Platform\Mongo\NameValueCollectionSerializer.cs" />
     <Compile Include="Platform\Mvc\ViewInBrowserFileResult.cs" />
     <Compile Include="Platform\Output\AbstractLogger.cs" />

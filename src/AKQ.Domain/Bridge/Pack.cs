@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace AKQ.Domain
 {
+    [Serializable]
+    [BsonSerializer(typeof(PackSerializer))]
     public class Pack
     {
         private const int MAX_CARDS_COUNT = 52;
@@ -55,13 +58,17 @@ namespace AKQ.Domain
             return card;
         }
 
+        public IEnumerable<Card> TakeFew(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                yield return TakeRandom();
+            }
+        } 
+
         public List<Card> GetAllCards()
         {
             return _cards;
         }
-    }
-
-    public class GameException: Exception
-    {
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using AKQ.Domain.Utils;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace AKQ.Domain
 {
     [Serializable]
+    [BsonSerializer(typeof(CardSerializer))]
     public struct Card
     {
         private readonly Rank _rank;

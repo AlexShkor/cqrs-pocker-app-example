@@ -5,8 +5,10 @@ namespace PAQK.Domain.Aggregates.Game.Commands
 {
     public class CreateGame : Command
     {
-        public List<string> Users { get; set; }
+        public string GameId { get; set; }
+    }
 
-        public string TableId { get; set; }
+    public class CreateTable : Command
+    {
     }
 }

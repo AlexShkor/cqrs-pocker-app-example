@@ -6,16 +6,21 @@ namespace PAQK.Domain.Aggregates.Game
 {
     public class GameApplicationService : IMessageHandler
     {
-        private readonly IRepository<GameAggregate> _repository;
+        private readonly IRepository<GameTableAggregate> _repository;
 
-        public GameApplicationService(IRepository<GameAggregate> repository)
+        public GameApplicationService(IRepository<GameTableAggregate> repository)
         {
             _repository = repository;
         }
 
+        public void Handle(CreateTable c)
+        {
+            _repository.Perform(c.Id,game => game.CreateTable(c.Id));
+        }
+
         public void Handle(CreateGame c)
         {
-            _repository.Perform(c.Id,game => game.Create(c.Id, c.Users));
+            _repository.Perform(c.Id,game => game.CreateGame(c.GameId));
         }
     }
 }

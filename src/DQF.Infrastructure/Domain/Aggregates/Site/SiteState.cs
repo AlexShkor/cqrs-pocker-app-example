@@ -1,14 +1,15 @@
 ﻿using PAQK.Domain.Aggregates.Site.Events;
+using PAQK.Platform.Domain;
 
 namespace PAQK.Domain.Aggregates.Site
 {
-    public class SiteState
+    public sealed class SiteState : AggregateState
     {
         public string Id { get; set; }
 
-        public void On(SiteCreated e)
+        public SiteState()
         {
-            Id = e.Id;
+            On((SiteCreated e) => Id = e.Id);
         }
     }
 }

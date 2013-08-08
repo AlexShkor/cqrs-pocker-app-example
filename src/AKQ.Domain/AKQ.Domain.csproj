@@ -104,6 +104,8 @@
   <ItemGroup>
     <Compile Include="BridgeGameFactory.cs" />
     <Compile Include="Bridge\Bid.cs" />
+    <Compile Include="Bridge\Exceptions\GameException.cs" />
+    <Compile Include="Serialization\CardSerializer.cs" />
     <Compile Include="Bridge\Contract.cs" />
     <Compile Include="Bridge\Deck.cs" />
     <Compile Include="Bridge\Exceptions\BridgeGameException.cs" />
@@ -153,6 +155,7 @@
     <Compile Include="Messaging\IMessageQueue.cs" />
     <Compile Include="Messaging\ProcessingOrderAttribute.cs" />
     <Compile Include="Messaging\QueueNamesEnum.cs" />
+    <Compile Include="Serialization\PackSerializer.cs" />
     <Compile Include="Services\BestPlaysService.cs" />
     <Compile Include="Services\RobotPlayStatisticService.cs" />
     <Compile Include="Services\TournamentDealService.cs" />

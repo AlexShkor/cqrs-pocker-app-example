@@ -7,8 +7,9 @@ namespace PAQK.Domain.Aggregates.Game.Events
 {
     public class GameCreated: Event
     {
-        public List<UserPosition> Users { get; set; }
         public List<Card> Cards { get; set; }
         public string DealerUserId { get; set; }
+        public object GameId { get; set; }
+        public List<TablePlayer> Players { get; set; }
     }
 }

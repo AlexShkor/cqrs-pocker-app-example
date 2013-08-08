@@ -50,7 +50,7 @@ namespace PAQK.Platform.Domain
 
             var aggregate = AggregateCreator.CreateAggregateRoot<TAggregate>();
             var state = AggregateCreator.CreateAggregateState(typeof(TAggregate));
-            StateSpooler.Spool(state, transitions);
+            StateSpooler.Spool((AggregateState)state, transitions);
             aggregate.Setup(state, transitions.Count == 0 ? 0 : transitions.Last().Id.Version);
 
             return aggregate;

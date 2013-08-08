@@ -14,6 +14,12 @@ namespace PAQK.Platform.Domain.Messages
         private ICommandMetadata _metadata = new CommandMetadata();
 
         /// <summary>
+        /// ID of aggregate
+        /// </summary>
+        public string Id { get; set; }
+
+
+        /// <summary>
         /// Command metadata
         /// </summary>
         public ICommandMetadata Metadata
