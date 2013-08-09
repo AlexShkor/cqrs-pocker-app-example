@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AKQ.Tests", "src\AKQ.Tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAKQ", "src\DQF.Infrastructure\PAKQ.csproj", "{56CAF3FE-51AC-419B-82D2-82CA4A8242F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAKQ.Hubs", "PAKQ.Hubs\PAKQ.Hubs.csproj", "{596DA196-4B1B-46CD-9A68-64D471517236}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{56CAF3FE-51AC-419B-82D2-82CA4A8242F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56CAF3FE-51AC-419B-82D2-82CA4A8242F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56CAF3FE-51AC-419B-82D2-82CA4A8242F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{596DA196-4B1B-46CD-9A68-64D471517236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{596DA196-4B1B-46CD-9A68-64D471517236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{596DA196-4B1B-46CD-9A68-64D471517236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{596DA196-4B1B-46CD-9A68-64D471517236}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

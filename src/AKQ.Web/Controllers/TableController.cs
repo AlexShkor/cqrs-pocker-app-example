@@ -21,5 +21,11 @@ namespace AKQ.Web.Controllers
             return View();
         }
 
+
+        public ActionResult GetAll()
+        {
+            var model = _tables.GetAll();
+            return Json(model);
+        }
     }
 }

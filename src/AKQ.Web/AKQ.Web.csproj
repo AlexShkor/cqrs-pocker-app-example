@@ -552,6 +552,7 @@
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Shared\Templates\RepetitionResults.cshtml" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Views\Table\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\app\templates\" />

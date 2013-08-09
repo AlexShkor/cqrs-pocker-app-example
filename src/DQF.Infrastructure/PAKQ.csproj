@@ -102,7 +102,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Databases\MongoAdminDatabase.cs" />
     <Compile Include="Documents\Administration\LogItem.cs" />
-    <Compile Include="Documents\TableDocument.cs" />
+    <Compile Include="ViewServices\TableDocument.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CheckGame.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CreateTable.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\FoldGame.cs" />
@@ -281,6 +281,7 @@
     <Compile Include="Databases\ViewDatabase.cs" />
     <Compile Include="ViewServices\TableViewService.cs" />
     <Compile Include="ViewServices\UserViewService.cs" />
+    <Compile Include="Views\GameView.cs" />
     <Compile Include="Views\Site\SiteView.cs" />
     <Compile Include="Views\UserView.cs" />
   </ItemGroup>
