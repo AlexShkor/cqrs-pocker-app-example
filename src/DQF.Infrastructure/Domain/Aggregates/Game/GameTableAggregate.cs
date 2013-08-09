@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AKQ.Domain;
-using AKQ.Domain.UserEvents;
 using PAQK.Domain.Aggregates.Game.Data;
 using PAQK.Domain.Aggregates.Game.Events;
 using PAQK.Domain.Aggregates.Site;
@@ -15,11 +14,15 @@ namespace PAQK.Domain.Aggregates.Game
     public class GameTableAggregate : Aggregate<GameTableState>
     {
 
-        public void CreateTable(string id)
+        public void CreateTable(string id, string name, long buyIn, long smallBlind)
         {
             Apply(new TableCreated()
             {
                 Id = id,
+                Name = name,
+                BuyIn = buyIn,
+                SmallBlind = smallBlind,
+                MaxPlayers = State.MaxPlayers
             });
         }
 
@@ -44,7 +47,7 @@ namespace PAQK.Domain.Aggregates.Game
             });
         }
 
-        public void JoinTable(string userId, string gameId, int position, long cashInCents)
+        public void JoinTable(string userId, int position, long cashInCents)
         {
             if (State.IsTableFull())
             {
@@ -54,22 +57,24 @@ namespace PAQK.Domain.Aggregates.Game
             {
                 throw new InvalidOperationException("Position is already taken.");
             }
-            Apply(new UserJoined
+            if (!State.HasUser(userId))
             {
-                GameId = gameId,
-                Position = position,
-                Id = State.TableId,
-                UserId = userId,
-                Cash = cashInCents
-            });
+                Apply(new PlayerJoined
+                {
+                    Position = position,
+                    Id = State.TableId,
+                    UserId = userId,
+                    Cash = cashInCents
+                });
+            }
         }
 
         private void DealCards(string gameId)
         {
             var takenCards = new List<PlayerCard>();
-            for (int i = 0; i < 10; i++)
+
+            foreach (var place in State.Places.Values)
             {
-                var place = State.Places[i];
                 if (place.HasUser())
                 {
                     var cards = State.Pack.TakeFew(2);
@@ -77,7 +82,7 @@ namespace PAQK.Domain.Aggregates.Game
                     {
                         takenCards.Add(new PlayerCard()
                         {
-                            Position = i,
+                            Position = place.Position,
                             UserId = place.UserId,
                             Card = card
                         });

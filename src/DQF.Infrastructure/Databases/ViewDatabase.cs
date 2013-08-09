@@ -1,4 +1,5 @@
 ﻿using System;
+using PAQK.Documents;
 using PAQK.Views;
 using Uniform;
 
@@ -14,6 +15,7 @@ namespace PAQK.Databases
     {
         public const string Users = "users";
         public const string Sites = "sites";
+        public const string Tables = "tables";
     }
 
     public class ViewDatabase
@@ -55,6 +57,7 @@ namespace PAQK.Databases
         {
             get { return GetMongoCollection<SiteView>(ViewCollections.Sites); }
         }
-        
+
+        public IDocumentCollection<TableView> Tables { get { return GetMongoCollection<TableView>(ViewCollections.Tables); } }
     }
 }

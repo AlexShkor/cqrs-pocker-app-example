@@ -66,12 +66,10 @@ namespace PAQK.Platform.Domain
         {
             foreach (ICommand command in commands)
             {
-                command.Metadata = new CommandMetadata()
-                {
-                    CommandId = Guid.NewGuid().ToString(),
-                    CreatedDate = DateTime.UtcNow,
-                    TypeName = command.GetType().FullName,
-                };
+                command.Metadata.CommandId = Guid.NewGuid().ToString();
+                command.Metadata.CreatedDate = DateTime.UtcNow;
+                command.Metadata.TypeName = command.GetType().FullName;
+                command.Metadata.CommandId = Guid.NewGuid().ToString();
             }
         }
     }

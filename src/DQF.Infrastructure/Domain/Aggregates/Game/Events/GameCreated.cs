@@ -9,7 +9,7 @@ namespace PAQK.Domain.Aggregates.Game.Events
     {
         public List<Card> Cards { get; set; }
         public string DealerUserId { get; set; }
-        public object GameId { get; set; }
+        public string GameId { get; set; }
         public List<TablePlayer> Players { get; set; }
     }
 }

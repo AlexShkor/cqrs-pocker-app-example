@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using System;
+using PAQK.Documents;
 using PAQK.Platform.Mongo;
 using PAQK.Views;
 
@@ -71,6 +72,10 @@ namespace PAQK.Databases
         {
             get { return GetCollection<SiteView>(ViewCollections.Sites); }
         }
-        
+
+        public ReadonlyMongoCollection<TableView> Tables
+        {
+            get { return GetCollection<TableView>(ViewCollections.Tables); }
+        }
     }
 }

@@ -3,6 +3,9 @@ using System.Web.Mvc;
 using AKQ.Domain.Documents;
 using AKQ.Web.Authentication;
 using MongoDB.Bson;
+using PAQK.Platform.Domain;
+using PAQK.Platform.Domain.Interfaces;
+using StructureMap.Attributes;
 
 namespace AKQ.Web.Controllers
 {
@@ -19,6 +22,9 @@ namespace AKQ.Web.Controllers
             public const string FbExpiresIn = "fb_expires_in";
         }
 
+        [SetterProperty]
+        public ICommandBus CommandBus { get; set; }
+
         protected string UserId
         {
             get
@@ -27,13 +33,7 @@ namespace AKQ.Web.Controllers
                 {
                     return User.Id;
                 }
-                var id = (string)Session[SessionKeys.UserId];
-                if (string.IsNullOrEmpty(id))
-                {
-                    id = ObjectId.GenerateNewId().ToString();
-                    Session[SessionKeys.UserId] = id;
-                }
-                return id;
+                return null;
             }
         }
 
@@ -41,17 +41,7 @@ namespace AKQ.Web.Controllers
         {
             get
             {
-                var name = (string)Session[SessionKeys.UserName];
-                if (string.IsNullOrEmpty(name))
-                {
-                    name = User != null ? User.Username : DefaultUsername;
-                    Session[SessionKeys.UserName] = name;
-                }
-                return name;
-            }
-            set
-            {
-                Session[SessionKeys.UserName] = value;
+                    return User != null ? User.Username : DefaultUsername;
             }
         }
 
@@ -85,6 +75,15 @@ namespace AKQ.Web.Controllers
                 ViewBag.UserCreated = Session.LCID;
             }
             base.OnActionExecuting(filterContext);
+        }
+
+        protected void Send(params ICommand[] commands)
+        {
+            foreach (var command in commands)
+            {
+                command.Metadata.UserId = UserId;
+            }
+            CommandBus.Send(commands);
         }
     }
 }

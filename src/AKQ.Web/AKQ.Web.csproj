@@ -232,6 +232,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\ModelBinders\JsonModelBinder.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
+    <Compile Include="Controllers\TableController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyResolver.cs" />
@@ -591,7 +592,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>38800</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:38800/</IISUrl>
+          <IISUrl>http://localhost:37700/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

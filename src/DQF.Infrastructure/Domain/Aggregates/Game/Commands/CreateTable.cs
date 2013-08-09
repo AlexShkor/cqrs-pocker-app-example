@@ -1,15 +1,13 @@
 ﻿using PAQK.Platform.Domain.Messages;
 
-namespace PAQK.Domain.Aggregates.Game.Events
+namespace PAQK.Domain.Aggregates.Game.Commands
 {
-    public class TableCreated: Event
+    public class CreateTable : Command
     {
         public string Name { get; set; }
 
         public long BuyIn { get; set; }
 
         public long SmallBlind { get; set; }
-
-        public int MaxPlayers { get; set; }
     }
 }

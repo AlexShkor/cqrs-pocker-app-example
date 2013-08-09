@@ -77,7 +77,7 @@ namespace AKQ.Web.Controllers
             }
 
             _authenticationService.LoginUser(user, true);
-            UserName = user.Username;
+            //UserName = user.Username;
             if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                       && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
             {

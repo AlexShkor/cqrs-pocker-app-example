@@ -33,40 +33,6 @@ namespace AKQ.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonNetResult Upload(HttpPostedFileBase file)
-        {
-            var deals = new List<BridgeDeal>();
-
-            using (var reader = new StreamReader(file.InputStream))
-            {
-                string line;
-                List<string> list = null;
-                var active = false;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    if (line.StartsWith("B"))
-                    {
-                        list = new List<string>();
-                        active = true;
-                    }
-                    if (active)
-                        list.Add(line);
-
-                    if (line.StartsWith("M"))
-                    {
-                        active = false;
-                        var deal = new BridgeDeal(list);
-                        deal.Id = _idGenerator.Generate();
-                        deals.Add(deal);
-                    }
-                }
-            }
-
-            _bridgeDealService.InsertBatch(deals.ToArray());
-
-            return new JsonNetResult("done");
-        }
 
         public ActionResult AllUsers()
         {
@@ -79,20 +45,5 @@ namespace AKQ.Web.Controllers
             var model = _usersLogs.GetAll().OrderByDescending(x=> x.Date);
             return View(model);
         }
-
-        //public ActionResult SendUsersToSegmentIo()
-        //{
-        //    var users = _usersService.GetAll();
-        //    foreach (var user in users)
-        //    {
-        //        Analytics.Client.Identify(user.Id, new Traits()
-        //        {
-        //            {"Name", user.Username},
-        //            {"Email", user.Email},
-        //            {"Facebook Id", user.FacebookId}
-        //        }, user.Registred);
-        //    }
-        //    return Content("success");
-        //}
     }
 }

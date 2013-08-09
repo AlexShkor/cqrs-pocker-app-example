@@ -7,8 +7,4 @@ namespace PAQK.Domain.Aggregates.Game.Commands
     {
         public string GameId { get; set; }
     }
-
-    public class CreateTable : Command
-    {
-    }
 }

@@ -12,19 +12,27 @@ namespace PAQK.Domain.Aggregates.Game
     {
         public Dictionary<string,TablePlayer> JoinedPlayers { get; private set; }
 
-        public Dictionary<int,string> Places { get; private set; }
+        public Dictionary<int,GamePlayer> Places { get; private set; }
 
-        public object CurrentGame { get; private set; }
+        public string CurrentGame { get; private set; }
 
         public string TableId { get; set; }
 
+        public long BuyIn { get; private set; }
+
+        public long SmallBlind { get; private set; }
+
         public Pack Pack { get; set; }
+
+        public readonly int MaxPlayers = 10;
 
         public GameTableState()
         {
             On((TableCreated e) =>
             {
                 TableId = e.Id;
+                SmallBlind = e.SmallBlind;
+                BuyIn = e.BuyIn;
             }); 
             On((GameFinished e) =>
             {
@@ -37,7 +45,7 @@ namespace PAQK.Domain.Aggregates.Game
                 Pack = new Pack(e.Cards);
                 SitPlayers(e.Players);
             });
-            On((UserJoined e) => JoinedPlayers.Add(e.UserId, new TablePlayer()
+            On((PlayerJoined e) => JoinedPlayers.Add(e.UserId, new TablePlayer()
             {
                 Cash = e.Cash,
                 Position = e.Position,
@@ -53,9 +61,13 @@ namespace PAQK.Domain.Aggregates.Game
         private void SitPlayers(List<TablePlayer> players)
         {
             Places.Clear();
-            foreach (var player in players)
+            foreach (var player in players.OrderBy(x=> x.Position))
             {
-                Places.Add(player.Position,player.UserId);
+                Places.Add(player.Position,new GamePlayer()
+                {
+                    Position = player.Position,
+                    UserId = player.UserId
+                });
             }
         }
 
@@ -66,12 +78,17 @@ namespace PAQK.Domain.Aggregates.Game
 
         public bool IsTableFull()
         {
-            return JoinedPlayers.Count >= 10;
+            return JoinedPlayers.Count >= MaxPlayers;
         }
 
         public bool IsPositionTaken(int position)
         {
             return JoinedPlayers.Values.Any(x => x.Position == position);
+        }
+
+        public bool HasUser(string userId)
+        {
+            return JoinedPlayers.ContainsKey(userId);
         }
     }
 
@@ -84,9 +101,8 @@ namespace PAQK.Domain.Aggregates.Game
         public int Position { get; set; }
     }
 
-    public class UserJoined: Event
+    public class PlayerJoined: Event
     {
-        public string GameId { get; set; }
 
         public int Position { get; set; }
 

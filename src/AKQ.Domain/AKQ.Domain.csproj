@@ -105,7 +105,6 @@
     <Compile Include="BridgeGameFactory.cs" />
     <Compile Include="Bridge\Bid.cs" />
     <Compile Include="Bridge\Exceptions\GameException.cs" />
-    <Compile Include="Serialization\CardSerializer.cs" />
     <Compile Include="Bridge\Contract.cs" />
     <Compile Include="Bridge\Deck.cs" />
     <Compile Include="Bridge\Exceptions\BridgeGameException.cs" />
@@ -113,12 +112,10 @@
     <Compile Include="Bridge\Game.cs" />
     <Compile Include="Bridge\GameState.cs" />
     <Compile Include="Bridge\Hand.cs" />
-    <Compile Include="Bridge\Pack.cs" />
     <Compile Include="Bridge\PlayerBid.cs" />
     <Compile Include="Bridge\PlayerPosition.cs" />
     <Compile Include="Bridge\PlayersManager.cs" />
     <Compile Include="Bridge\PokerSets\PockerSet.cs" />
-    <Compile Include="Bridge\Rank.cs" />
     <Compile Include="Bridge\TournamentInfo.cs" />
     <Compile Include="EventHandlers\UserProgress\RepetitionUserProgressHandler.cs" />
     <Compile Include="IntercomHelper.cs" />
@@ -155,7 +152,6 @@
     <Compile Include="Messaging\IMessageQueue.cs" />
     <Compile Include="Messaging\ProcessingOrderAttribute.cs" />
     <Compile Include="Messaging\QueueNamesEnum.cs" />
-    <Compile Include="Serialization\PackSerializer.cs" />
     <Compile Include="Services\BestPlaysService.cs" />
     <Compile Include="Services\RobotPlayStatisticService.cs" />
     <Compile Include="Services\TournamentDealService.cs" />
@@ -189,13 +185,11 @@
     <Compile Include="ViewModel\HandViewModel.cs" />
     <Compile Include="ViewModel\CardViewModel.cs" />
     <Compile Include="Services\RoomsViewService.cs" />
-    <Compile Include="Bridge\Card.cs" />
     <Compile Include="Documents\FeedbackItem.cs" />
     <Compile Include="Bridge\BridgeGame.cs" />
     <Compile Include="Documents\BridgeDeal.cs" />
     <Compile Include="EventHandlers\UserInterfaceReactor.cs" />
     <Compile Include="Bridge\Player.cs" />
-    <Compile Include="Bridge\Suit.cs" />
     <Compile Include="Bridge\Trick.cs" />
     <Compile Include="Documents\User.cs" />
     <Compile Include="Hubs\BridgeHub.cs" />
@@ -221,7 +215,6 @@
     <Compile Include="Services\RoboBridgeAI.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Utils\CommonExtensions.cs" />
-    <Compile Include="Utils\Guard.cs" />
     <Compile Include="Utils\IEnumerableExtensions.cs" />
     <Compile Include="ViewModel\EstimateItem.cs" />
     <Compile Include="ViewModel\EstimatesViewModel.cs" />
@@ -266,6 +259,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DQF.Infrastructure\PAKQ.csproj">
+      <Project>{56caf3fe-51ac-419b-82d2-82ca4a8242f2}</Project>
+      <Name>PAKQ</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PbnParser\PbnParser.csproj">
       <Project>{9D5B79E7-CD5D-45CD-A2BE-AB67DAFBB887}</Project>
       <Name>PbnParser</Name>
