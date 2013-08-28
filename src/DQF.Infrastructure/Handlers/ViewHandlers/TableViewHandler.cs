@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System.Linq;
+using MongoDB.Bson;
 using PAQK.Databases;
 using PAQK.Documents;
 using PAQK.Domain.Aggregates.Game;
@@ -9,6 +10,7 @@ using PAQK.Platform.Dispatching.Attributes;
 using PAQK.Platform.Dispatching.Interfaces;
 using PAQK.Views;
 using Uniform;
+using TableView = PAQK.Views.TableView;
 
 namespace PAQK.Handlers.ViewHandlers
 {
@@ -32,8 +34,18 @@ namespace PAQK.Handlers.ViewHandlers
                 Name = e.Name,
                 BuyIn = e.BuyIn,
                 SmallBlind = e.SmallBlind,
-                Players = 0,
                 MaxPlayers = e.MaxPlayers
+            });
+        }
+
+        public void Handle(CardsDealed e)
+        {
+            _tables.Update(e.Id, view =>
+            {
+                foreach (var playerCard in e.Cards)
+                {
+                    view.AddPlayerCard(playerCard.UserId, playerCard.Card);
+                }
             });
         }
 
@@ -42,15 +54,39 @@ namespace PAQK.Handlers.ViewHandlers
             _tables.Delete(e.Id);
         }
 
-        public void Handle(PlayerLeft e)
+        public void Handle(GameCreated e)
         {
-            _tables.Update(e.Id,table => table.Players--);
+            _tables.Update(e.Id, table => table.Players = e.Players.Select(x =>
+            {
+                var user = _db.Users.GetById(x.UserId);
+                return new PlayerDocument()
+                {
+                    UserId = x.UserId,
+                    Position = x.Position,
+                    Cash = x.Cash,
+                    Name = user.UserName
+                };
+
+            }).ToList());
         }
 
-        public void Handle(PlayerJoined e)
-        {
-            _tables.Update(e.Id, table => table.Players++);
-        }
+        //public void Handle(PlayerJoined e)
+        //{
+        //    var user = _db.Users.GetById(e.UserId);
+        //    _tables.Update(e.Id, table => table.JoinedPlayers.Add(new PlayerDocument()
+        //    {
+        //        UserId = e.UserId,
+        //        Position = e.Position,
+        //        Cash = e.Cash,
+        //        Name = user.UserName
+        //    }));
+        //}
+
+
+        //public void Handle(PlayerLeft e)
+        //{
+        //    _tables.Update(e.Id, table => table.JoinedPlayers.RemoveAll(x => x.UserId == e.UserId));
+        //}
 
     }
 }

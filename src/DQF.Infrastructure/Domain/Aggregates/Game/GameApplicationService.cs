@@ -1,7 +1,6 @@
 using PAQK.Domain.Aggregates.Game.Commands;
 using PAQK.Platform.Dispatching.Interfaces;
 using PAQK.Platform.Domain.Interfaces;
-using PAQK.Platform.Domain.Messages;
 
 namespace PAQK.Domain.Aggregates.Game
 {
@@ -28,14 +27,29 @@ namespace PAQK.Domain.Aggregates.Game
         {
             _repository.Perform(c.Id,table => table.JoinTable(c.UserId, c.Position,c.Cash));
         }
-    }
 
-    public class JoinTable: Command
-    {
-        public int Position { get; set; }
+        #region Bidding
 
-        public string UserId { get; set; }
+        public void Handle(CallBid c)
+        {
+            _repository.Perform(c.Id,table => table.Call(c.UserId));
+        }
 
-        public long Cash { get; set; }
+        public void Handle(CheckBid c)
+        {
+            _repository.Perform(c.Id,table => table.Check(c.UserId));
+        }
+
+        public void Handle(RaiseBid c)
+        {
+            _repository.Perform(c.Id,table => table.Raise(c.UserId, c.Amount));
+        }
+
+        public void Handle(FoldBid c)
+        {
+            _repository.Perform(c.Id,table => table.Fold(c.UserId));
+        }
+
+        #endregion
     }
 }

@@ -2,6 +2,7 @@
 using PAQK.Documents;
 using PAQK.Views;
 using Uniform;
+using TableView = PAQK.Views.TableView;
 
 namespace PAQK.Databases
 {

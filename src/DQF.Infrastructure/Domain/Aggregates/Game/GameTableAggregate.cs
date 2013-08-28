@@ -7,7 +7,7 @@ using PAQK.Domain.Aggregates.Game.Events;
 using PAQK.Domain.Aggregates.Site;
 using PAQK.Platform.Domain;
 using PAQK.Platform.Domain.Interfaces;
-using PAQK.Platform.Domain.Messages;
+using PAQK.Platform.Extensions;
 
 namespace PAQK.Domain.Aggregates.Game
 {
@@ -28,6 +28,14 @@ namespace PAQK.Domain.Aggregates.Game
 
         public void CreateGame(string id)
         {
+            if (State.GameId.HasValue())
+            {
+                throw new InvalidOperationException("Game can't be created on this table while previous game isn't finished.");
+            }
+            if (State.JoinedPlayers.Count < 2)
+            {
+                throw new InvalidOperationException("Not enough players to start the game.");
+            }
             var pack = new Pack();
             Apply(new GameCreated()
             {
@@ -37,6 +45,29 @@ namespace PAQK.Domain.Aggregates.Game
                 Cards = pack.GetAllCards()
             });
             DealCards(id);
+            SetDealerAndBlind();
+        }
+
+        private void SetDealerAndBlind()
+        {
+            var dealer = State.GetNextPlayer(State.Dealer);
+            var smallBlind = State.GetNextPlayer(dealer);
+            var bigBlind = State.GetNextPlayer(smallBlind);
+            Apply(new DealerAssigned
+            {
+                Id = State.TableId,
+                GameId = State.GameId,
+                Dealer = State.GetPlayerInfo(dealer),
+                SmallBlind = State.GetPlayerInfo(smallBlind),
+                BigBlind = State.GetPlayerInfo(bigBlind),
+            });
+            Apply(new BlindBidsMade
+            {
+                Id = State.TableId,
+                GameId = State.GameId,
+                SmallBlind = State.GetBidInfo(smallBlind, State.SmallBlind),
+                BigBlind = State.GetBidInfo(smallBlind, State.BigBlind),
+            });
         }
 
         public void FinishGame(string id)
@@ -73,20 +104,17 @@ namespace PAQK.Domain.Aggregates.Game
         {
             var takenCards = new List<PlayerCard>();
 
-            foreach (var place in State.Places.Values)
+            foreach (var place in State.Players.Values)
             {
-                if (place.HasUser())
+                var cards = State.Pack.TakeFew(2);
+                foreach (var card in cards)
                 {
-                    var cards = State.Pack.TakeFew(2);
-                    foreach (var card in cards)
+                    takenCards.Add(new PlayerCard()
                     {
-                        takenCards.Add(new PlayerCard()
-                        {
-                            Position = place.Position,
-                            UserId = place.UserId,
-                            Card = card
-                        });
-                    }
+                        Position = place.Position,
+                        UserId = place.UserId,
+                        Card = card
+                    });
                 }
             }
             Apply(new CardsDealed
@@ -96,22 +124,29 @@ namespace PAQK.Domain.Aggregates.Game
                 Cards = takenCards
             });
         }
-    }
 
-    public class CardsDealed : Event
-    {
-        public string GameId { get; set; }
-        public List<PlayerCard> Cards { get; set; }
-    }
+        public void Check(string userId)
+        {
+        }
 
-    public class PlayerCard
-    {
-        public string UserId { get; set; }
-        public int Position { get; set; }
-        public Card Card { get; set; }
-    }
+        public void Call(string userId)
+        {
+            
+        }
 
-    public class GameFinished : Event
-    {
+        public void Raise(string userId, long amount)
+        {
+            
+        }
+
+        public void Fold(string userId)
+        {
+            Apply(new PlayerFoldBid
+            {
+                Id = State.TableId,
+                GameId = State.GameId,
+                UserId = userId
+            });
+        }
     }
 }

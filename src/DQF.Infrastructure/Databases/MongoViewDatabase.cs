@@ -3,6 +3,7 @@ using System;
 using PAQK.Documents;
 using PAQK.Platform.Mongo;
 using PAQK.Views;
+using TableView = PAQK.Views.TableView;
 
 namespace PAQK.Databases
 {
