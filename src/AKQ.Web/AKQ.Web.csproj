@@ -277,7 +277,22 @@
     <Content Include="Assets\app\css\img\grey.png" />
     <Content Include="Assets\app\css\login.css" />
     <Content Include="Assets\app\css\m-buttons.css" />
-    <Content Include="Assets\app\js\app.js" />
+    <TypeScriptCompile Include="Assets\app\js\home.ts" />
+    <Content Include="Assets\app\js\home.js">
+      <DependentUpon>home.ts</DependentUpon>
+    </Content>
+    <Content Include="Assets\app\js\home.min.js">
+      <DependentUpon>home.ts</DependentUpon>
+    </Content>
+    <Content Include="Views\Home\ViewTemplateActionResult.cshtml" />
+    <Content Include="Views\Home\Page404.cshtml" />
+    <TypeScriptCompile Include="Assets\app\js\app.ts" />
+    <Content Include="Assets\app\js\app.js">
+      <DependentUpon>app.ts</DependentUpon>
+    </Content>
+    <Content Include="Assets\app\js\app.min.js">
+      <DependentUpon>app.ts</DependentUpon>
+    </Content>
     <Content Include="Assets\vendor\amplify.js" />
     <Content Include="Assets\vendor\amplify.min.js" />
     <Content Include="Assets\vendor\bootstrap-popover.js" />
@@ -403,6 +418,9 @@
     <Content Include="Assets\vendor\sammy-0.7.4.min.js" />
     <Content Include="Assets\vendor\sammy-latest.min.js" />
     <Content Include="Assets\vendor\sammy.js" />
+    <Content Include="Assets\app\js\app.min.js.map">
+      <DependentUpon>app.js</DependentUpon>
+    </Content>
     <None Include="Assets\vendor\jquery-2.0.2.intellisense.js" />
     <Content Include="Assets\vendor\jquery-2.0.2.js" />
     <Content Include="Assets\vendor\jquery-2.0.2.min.js" />
@@ -742,7 +760,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\_LoginLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Shared\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_BaseLayout.cshtml" />
     <Content Include="Views\Home\Results.cshtml" />
     <Content Include="Views\Home\Explain.cshtml" />

@@ -29,7 +29,7 @@ namespace AKQ.Web.Controllers
         {
             get
             {
-                return User != null ? ((AkqIdentity)User.Identity).Email : null;
+                return Request.IsAuthenticated ? ((AkqIdentity)User.Identity).Email : null;
             }
         }
 
@@ -37,7 +37,7 @@ namespace AKQ.Web.Controllers
         {
             get
             {
-                return User != null ? User.Identity.Name : null;
+                return Request.IsAuthenticated ? User.Identity.Name : null;
             }
         }
 
