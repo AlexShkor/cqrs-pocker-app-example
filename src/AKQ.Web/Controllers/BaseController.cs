@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
-using AKQ.Domain.Documents;
 using AKQ.Web.Authentication;
 using MongoDB.Bson;
 using PAQK.Platform.Domain;
 using PAQK.Platform.Domain.Interfaces;
+using PAQK.Views;
 using StructureMap.Attributes;
 
 namespace AKQ.Web.Controllers
@@ -29,11 +29,7 @@ namespace AKQ.Web.Controllers
         {
             get
             {
-                if (User != null)
-                {
-                    return User.Id;
-                }
-                return null;
+                return User != null ? ((AkqIdentity)User.Identity).Email : null;
             }
         }
 
@@ -41,16 +37,7 @@ namespace AKQ.Web.Controllers
         {
             get
             {
-                    return User != null ? User.Username : DefaultUsername;
-            }
-        }
-
-        protected new User User
-        {
-            get
-            {
-                var akqPrincipal = base.User as AkqPrincipal;
-                return akqPrincipal != null ? ((AkqIdentity)akqPrincipal.Identity).User : null;
+                return User != null ? User.Identity.Name : null;
             }
         }
 
@@ -66,8 +53,8 @@ namespace AKQ.Web.Controllers
             ViewBag.Title = action.Equals("index",StringComparison.InvariantCultureIgnoreCase) ? controller : action;
             if (User != null)
             {
-                ViewBag.UserEmail = User.Email;
-                ViewBag.UserCreated = User.Registred.ToFileTimeUtc();
+                ViewBag.UserEmail = UserId;
+
             }
             else
             {

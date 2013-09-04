@@ -15,27 +15,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.IO;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
 using System.Web.Routing;
-using AKQ.Domain;
-using AKQ.Domain.EventHandlers;
-using AKQ.Domain.Infrastructure;
-using AKQ.Domain.Messaging;
-using AKQ.Domain.Services;
-using AKQ.Web.App_Start.DependencyResolution;
-using AKQ.Web.Controllers;
-using AKQ.Web.Serialization;
-using Facebook;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
-using Microsoft.AspNet.SignalR.Json;
-using Microsoft.Practices.ServiceLocation;
-using NLog;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using PAQK.Platform.StructureMap;
 using StructureMap;
 

@@ -58,7 +58,6 @@
     <Compile Include="AggregatesTest\GameAggregateTest.cs" />
     <Compile Include="AggregatesTest\ObjectComparer.cs" />
     <Compile Include="BidTest.cs" />
-    <Compile Include="ContainerSetUp.cs" />
     <Compile Include="GamesManagerTests\ConcurentCreation.cs" />
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />

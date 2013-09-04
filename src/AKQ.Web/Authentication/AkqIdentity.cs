@@ -1,20 +1,27 @@
 using System.Security.Principal;
-using AKQ.Domain.Documents;
+using PAQK.Views;
 
 namespace AKQ.Web.Authentication
 {
     public class AkqIdentity : IIdentity
     {
-        public AkqIdentity(User user)
-        {
-            User = user;
-        }
+        private readonly string _email;
+        private readonly string _username;
 
-        public User User { get; set; }
+        public AkqIdentity(string email, string username)
+        {
+            _email = email;
+            _username = username;
+        }
 
         public string Name
         {
-            get { return User.Username; }
+            get { return _username; }
+        }
+
+        public string Email
+        {
+            get { return _email; }
         }
 
         public string AuthenticationType

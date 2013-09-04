@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using AKQ.Domain.GameEvents;
 using AKQ.Domain.Messaging;
 using AKQ.Domain.Services;
-using AKQ.Domain.UserEvents;
 
 namespace AKQ.Tests
 {

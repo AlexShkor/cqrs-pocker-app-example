@@ -44,7 +44,21 @@ namespace PAQK.ViewServices
                 }
         }
 
-        
+
+        public UserView GetUserByCredentionals(string email, string getPasswordHash)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public object GetByFacebookId(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UserView GetUserName(string userName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 

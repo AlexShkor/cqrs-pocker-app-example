@@ -5,13 +5,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
-using AKQ.Domain.Documents;
 using AKQ.Web.App_Start;
 using AKQ.Web.Authentication;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Conventions;
-using NLog;
-using Segmentio;
 
 namespace AKQ.Web
 {
@@ -28,7 +23,6 @@ namespace AKQ.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Analytics.Initialize("kf9yt4pnlb4qf60cvbl1");
         }
 
 
@@ -49,10 +43,9 @@ namespace AKQ.Web
             {
                 return;
             }
-            string[] data = authTicket.UserData.Split('|');
+            var username = authTicket.UserData;
 
-            var user = new User {Role = data[0], Username = data[1], Id = authTicket.Name};
-            Context.User = new AkqPrincipal(new AkqIdentity(user));
+            Context.User = new AkqPrincipal(new AkqIdentity(authTicket.Name,username));
         }
 
         protected void Application_BeginRequest(Object sender, EventArgs e)

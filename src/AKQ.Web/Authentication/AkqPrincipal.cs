@@ -11,7 +11,7 @@ namespace AKQ.Web.Authentication
 
         public bool IsInRole(string role)
         {
-            return role == ((AkqIdentity)Identity).User.Role;
+            return true;
         }
 
         public IIdentity Identity { get; private set; }

@@ -35,16 +35,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Analytics.NET">
-      <HintPath>..\..\packages\Analytics.1.1.0\lib\Analytics.NET.dll</HintPath>
-    </Reference>
     <Reference Include="AttributeRouting, Version=3.5.6.0, Culture=neutral, PublicKeyToken=c10f85d521a011a9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\AttributeRouting.Core.3.5.6\lib\net40\AttributeRouting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.1.1.2\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.1.1.3\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -102,7 +99,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BridgeGameFactory.cs" />
     <Compile Include="Bridge\Bid.cs" />
     <Compile Include="Bridge\Exceptions\GameException.cs" />
     <Compile Include="Bridge\Contract.cs" />
@@ -117,90 +113,34 @@
     <Compile Include="Bridge\PlayersManager.cs" />
     <Compile Include="Bridge\PokerSets\PockerSet.cs" />
     <Compile Include="Bridge\TournamentInfo.cs" />
-    <Compile Include="EventHandlers\UserProgress\RepetitionUserProgressHandler.cs" />
-    <Compile Include="IntercomHelper.cs" />
     <Compile Include="DDSApiContract\DdsApiClient.cs" />
     <Compile Include="DDSApiContract\GetAllCards.cs" />
     <Compile Include="DDSApiContract\SolveGame.cs" />
     <Compile Include="DDSApiContract\TrickResult.cs" />
-    <Compile Include="Documents\Game\BridgeGameDocument.cs" />
-    <Compile Include="Documents\Game\CardDocument.cs" />
-    <Compile Include="Documents\ContactDocument.cs" />
-    <Compile Include="Documents\Game\HandDocument.cs" />
-    <Compile Include="Documents\Game\PlayerCardDocument.cs" />
-    <Compile Include="Documents\Game\PlayerDocument.cs" />
-    <Compile Include="Documents\Game\Tag.cs" />
-    <Compile Include="Documents\Tournament\TournamentDocument.cs" />
-    <Compile Include="Documents\Tournament\TournamentGameInfo.cs" />
-    <Compile Include="Documents\Tournament\TournamentPlayerInfo.cs" />
-    <Compile Include="Documents\Game\TrickDocument.cs" />
-    <Compile Include="Documents\Progress\UserProgress.cs" />
-    <Compile Include="EventHandlers\BridgeAICommandsProducer.cs" />
-    <Compile Include="EventHandlers\BridgeGameDocumentHandler.cs" />
-    <Compile Include="EventHandlers\BridgeGameFinilizer.cs" />
-    <Compile Include="EventHandlers\StatiscticsHandler.cs" />
-    <Compile Include="EventHandlers\TournamentDocumentHandler.cs" />
-    <Compile Include="EventHandlers\UserProgress\UserProgressHandler.cs" />
     <Compile Include="Hubs\UsersHub.cs" />
-    <Compile Include="Hubs\TournamentHub.cs" />
     <Compile Include="Infrastructure\Services\MailService.cs" />
-    <Compile Include="Messaging\Commands\MakeBid.cs" />
+    <Compile Include="Messaging\Commands\GameCommand.cs" />
     <Compile Include="Messaging\Dispatcher.cs" />
     <Compile Include="Messaging\EventsQueue.cs" />
-    <Compile Include="Messaging\ICommandService.cs" />
+    <Compile Include="Messaging\GameEvents\GameEvent.cs" />
     <Compile Include="Messaging\IEventHandler.cs" />
     <Compile Include="Messaging\IMessageQueue.cs" />
     <Compile Include="Messaging\ProcessingOrderAttribute.cs" />
     <Compile Include="Messaging\QueueNamesEnum.cs" />
-    <Compile Include="Services\BestPlaysService.cs" />
-    <Compile Include="Services\RobotPlayStatisticService.cs" />
-    <Compile Include="Services\TournamentDealService.cs" />
-    <Compile Include="Services\TournamentDocumentsService.cs" />
-    <Compile Include="Services\UserLogsService.cs" />
-    <Compile Include="Services\UserProgressService.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="ViewModel\ContractViewModel.cs" />
-    <Compile Include="ViewModel\Room\RoomPlayerViewModel.cs" />
-    <Compile Include="Messaging\Commands\CreateGame.cs" />
-    <Compile Include="Messaging\Commands\GameCommand.cs" />
-    <Compile Include="GamesManager.cs" />
-    <Compile Include="Hubs\RoomHub.cs" />
     <Compile Include="Infrastructure\LowerCamelCaseContractResolver.cs" />
-    <Compile Include="Messaging\Commands\JoinGame.cs" />
-    <Compile Include="Messaging\GameEvents\GameCreated.cs" />
-    <Compile Include="PBN\BridgeGameExt.cs" />
     <Compile Include="PBN\Extensions.cs" />
-    <Compile Include="Messaging\BridgeGameCallback.cs" />
-    <Compile Include="Messaging\GameEvents\GameEvent.cs" />
-    <Compile Include="Messaging\GameEvents\GameStarted.cs" />
     <Compile Include="Messaging\IBridgeEventHandler.cs" />
-    <Compile Include="Messaging\IBridgeGameCallback.cs" />
-    <Compile Include="Messaging\GameEvents\CardPlayed.cs" />
-    <Compile Include="Messaging\GameEvents\GameFinished.cs" />
-    <Compile Include="Messaging\GameEvents\PlayerJoined.cs" />
-    <Compile Include="Messaging\GameEvents\PlayerTurn.cs" />
-    <Compile Include="Messaging\GameEvents\TrickEnded.cs" />
-    <Compile Include="Messaging\Commands\PlayCard.cs" />
-    <Compile Include="Messaging\Commands\StartGame.cs" />
     <Compile Include="ViewModel\HandViewModel.cs" />
     <Compile Include="ViewModel\CardViewModel.cs" />
-    <Compile Include="Services\RoomsViewService.cs" />
-    <Compile Include="Documents\FeedbackItem.cs" />
-    <Compile Include="Bridge\BridgeGame.cs" />
-    <Compile Include="Documents\BridgeDeal.cs" />
-    <Compile Include="EventHandlers\UserInterfaceReactor.cs" />
     <Compile Include="Bridge\Player.cs" />
     <Compile Include="Bridge\Trick.cs" />
-    <Compile Include="Documents\User.cs" />
-    <Compile Include="Hubs\BridgeHub.cs" />
     <Compile Include="Infrastructure\CryptographicHelper.cs" />
     <Compile Include="Infrastructure\IdGenerator.cs" />
-    <Compile Include="Infrastructure\Mongodb\MongoDocumentsDatabase.cs" />
     <Compile Include="Infrastructure\Mvc\BaseFilter.cs" />
     <Compile Include="Infrastructure\Mvc\PagedResult.cs" />
     <Compile Include="Infrastructure\Mvc\PagingInfo.cs" />
-    <Compile Include="Infrastructure\Mvc\ViewService.cs" />
-    <Compile Include="Infrastructure\Mvc\ViewServiceFiltered.cs" />
     <Compile Include="Infrastructure\Settings\SettingsMapper.cs" />
     <Compile Include="Infrastructure\Settings\SettingsPrefixAttribute.cs" />
     <Compile Include="Infrastructure\Settings\SettingsPropertyAttribute.cs" />
@@ -210,18 +150,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Services\BridgeDealService.cs" />
-    <Compile Include="Services\BridgeGameDocumentsService.cs" />
-    <Compile Include="Services\RoboBridgeAI.cs" />
-    <Compile Include="Services\UsersService.cs" />
     <Compile Include="Utils\CommonExtensions.cs" />
     <Compile Include="Utils\IEnumerableExtensions.cs" />
     <Compile Include="ViewModel\EstimateItem.cs" />
     <Compile Include="ViewModel\EstimatesViewModel.cs" />
-    <Compile Include="ViewModel\GameViewModel.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />
     <Compile Include="ViewModel\SuitEstimateViewModel.cs" />
-    <Compile Include="ViewModel\TacticsViewModel.cs" />
     <Compile Include="ViewModel\TagViewModel.cs" />
     <Compile Include="ViewModel\TrickItemViewModel.cs" />
     <Compile Include="ViewModel\TrickViewModel.cs" />

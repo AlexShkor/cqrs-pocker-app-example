@@ -3,29 +3,26 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using AKQ.Domain;
-using AKQ.Domain.Documents;
 using AKQ.Domain.Infrastructure;
 using AKQ.Domain.Infrastructure.Services;
-using AKQ.Domain.Services;
 using AKQ.Web.Authentication;
 using AKQ.Web.Models;
 using AKQ.Web.Models.Security;
 using AttributeRouting;
 using PAQK;
+using PAQK.Domain.Aggregates.User.Commands;
+using PAQK.ViewServices;
 using RestSharp.Extensions;
 using AttributeRouting.Web.Mvc;
 using Facebook;
 using MongoDB.Bson;
-using Segmentio;
-using Segmentio.Model;
 
 namespace AKQ.Web.Controllers
 {
     [RoutePrefix("account")]
     public class AccountController : BaseController
     {
-        private readonly UsersService _usersService;
+        private readonly UsersViewService _usersService;
         private readonly CryptographicHelper _cryptoHelper;
         private readonly IdGenerator _idGenerator;
         private readonly SiteSettings _settings;
@@ -43,7 +40,7 @@ namespace AKQ.Web.Controllers
         }
 
         public AccountController(
-            UsersService usersService, 
+            UsersViewService usersService, 
             CryptographicHelper cryptoHelper, 
             IdGenerator idGenerator, 
             AuthenticationService authenticationService, 
@@ -76,7 +73,7 @@ namespace AKQ.Web.Controllers
                 return View(loginModel);
             }
 
-            _authenticationService.LoginUser(user, true);
+            _authenticationService.LoginUser(user.Email,user.UserName, true);
             //UserName = user.Username;
             if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                       && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -115,19 +112,14 @@ namespace AKQ.Web.Controllers
             }
             if (!ModelState.IsValid) return View(signUpModel);
 
-            var hashedPassword = _cryptoHelper.GetPasswordHash(signUpModel.Password);
-            var newUser = new User(signUpModel.EmailAddress, signUpModel.Username, hashedPassword);
-            newUser.Id = GetIdForNewUser();
-            _usersService.Save(newUser);
-
-            Analytics.Client.Identify(newUser.Id, new Traits()
-                {
-                    {"Name", newUser.Username},
-                    {"Email", newUser.Email},
-                    {"Facebook Id", newUser.FacebookId}
-                }, newUser.Registred);
-
-            _authenticationService.LoginUser(newUser, true);
+            var cmd = new CreateUser
+            {
+                Email = signUpModel.EmailAddress,
+                Password = signUpModel.Password,
+                UserName = signUpModel.Username
+            };
+            Send(cmd);
+            _authenticationService.LoginUser(cmd.Email,cmd.UserName, true);
             if (signUpModel.ReturnUrl.HasValue())
             {
                 return Redirect(signUpModel.ReturnUrl);
@@ -153,22 +145,15 @@ namespace AKQ.Web.Controllers
             var user = _usersService.GetByFacebookId((string) fbUser.id);
             if (user == null)
             {
-                user = new User
+                var cmd = new CreateUser
                 {
-                    Id = GetIdForNewUser(),
                     Email = fbUser.email,
                     FacebookId = fbUser.id,
-                    Username = fbUser.name
+                    UserName = fbUser.name
                 };
-                _usersService.Save(user);
-                Analytics.Client.Identify(user.Id, new Traits()
-                {
-                    {"Name", user.Username},
-                    {"Email", user.Email},
-                    {"Facebook Id", user.FacebookId}
-                }, user.Registred);
+                Send(cmd);
             }
-            _authenticationService.LoginUser(user, true);
+            _authenticationService.LoginUser(fbUser.email,fbUser.name, true);
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
@@ -264,14 +249,19 @@ namespace AKQ.Web.Controllers
         public ActionResult ChangePasswordPost(ChangePasswordModel model)
         {
             var user = _usersService.GetById(UserId);
-            if (user.HashedPassword != _cryptoHelper.GetPasswordHash(model.OldPassword))
+            if (user.PasswordHash != _cryptoHelper.GetPasswordHash(model.OldPassword))
             {
                 ModelState.AddModelError("OldPassword", "Old password is incorrect.");
             }
             if (ModelState.IsValid)
             {
-                user.HashedPassword = _cryptoHelper.GetPasswordHash(model.NewPassword);
-                _usersService.Save(user);
+                var cmd = new ChangePassword
+                {
+                    Id = user.Id,
+                    PasswordHash = _cryptoHelper.GetPasswordHash(model.NewPassword),
+                    PasswordSalt = _cryptoHelper.GenerateSalt()
+                };
+                Send(cmd);
                 return Redirect("/");
             }
             return View("ChangePassword",model);
@@ -295,8 +285,11 @@ namespace AKQ.Web.Controllers
             if (ModelState.IsValid)
             {
                 var newPass = GenerateNewPassword(7);
-                user.HashedPassword = _cryptoHelper.GetPasswordHash(newPass);
-                _usersService.Save(user);
+                var cmd = new ResetPassword
+                {
+                    Id = email
+                };
+                Send(cmd);
                 _mailService.SendPasswordReseted(email,newPass);
                 return Redirect("/");
             }
