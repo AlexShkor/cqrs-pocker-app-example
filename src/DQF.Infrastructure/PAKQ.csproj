@@ -100,6 +100,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AKQ.Infrastructure\Authentication\AkqIdentity.cs" />
+    <Compile Include="AKQ.Infrastructure\Authentication\AkqPrincipal.cs" />
+    <Compile Include="AKQ.Infrastructure\Authentication\AuthenticationService.cs" />
+    <Compile Include="AKQ.Infrastructure\Authentication\FacebookAuthorize.cs" />
+    <Compile Include="AKQ.Infrastructure\BaseController.cs" />
+    <Compile Include="AKQ.Infrastructure\PokerSets\PockerSet.cs" />
+    <Compile Include="AKQ.Infrastructure\Hubs\UsersHub.cs" />
+    <Compile Include="AKQ.Infrastructure\Infrastructure\IdGenerator.cs" />
+    <Compile Include="AKQ.Infrastructure\Infrastructure\LowerCamelCaseContractResolver.cs" />
+    <Compile Include="AKQ.Infrastructure\Utils\CommonExtensions.cs" />
+    <Compile Include="AKQ.Infrastructure\Utils\IEnumerableExtensions.cs" />
+    <Compile Include="AKQ.Infrastructure\Utils\StringExtensions.cs" />
+    <Compile Include="AKQ.Infrastructure\ViewModel\CardViewModel.cs" />
     <Compile Include="AppConstants.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Databases\MongoAdminDatabase.cs" />
@@ -118,6 +131,7 @@
     <Compile Include="Domain\Aggregates\Game\Data\PlayerInfo.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\PlayerFoldBid.cs" />
     <Compile Include="Domain\Aggregates\User\Commands\ResetPassword.cs" />
+    <Compile Include="Handlers\SingleUseEventHandlers\SignalR\TableHubEventHandler.cs" />
     <Compile Include="Views\TableView.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CheckBid.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CreateTable.cs" />
@@ -303,7 +317,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Handlers\IndexHandlers\" />
-    <Folder Include="Handlers\SingleUseEventHandlers\" />
     <Folder Include="Handlers\ViewHandlers\ReducedHandlers\" />
     <Folder Include="Handlers\WorkflowHandlers\" />
   </ItemGroup>

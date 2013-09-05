@@ -3,7 +3,7 @@
 
 interface IHomeScope extends ng.IScope {
     title: string;
-    onDisplay: Function;
+    onDisplay();
     clickCounter: number;
 }
 

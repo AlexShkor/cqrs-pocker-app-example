@@ -57,23 +57,14 @@
     <Compile Include="AggregatesTest\BaseAggregateTest.cs" />
     <Compile Include="AggregatesTest\GameAggregateTest.cs" />
     <Compile Include="AggregatesTest\ObjectComparer.cs" />
-    <Compile Include="BidTest.cs" />
     <Compile Include="GamesManagerTests\ConcurentCreation.cs" />
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />
     <Compile Include="PokerSetTests\PockerSetsPresentingTests.cs" />
     <Compile Include="RankTest.cs" />
-    <Compile Include="TestHandler.cs" />
-    <Compile Include="Trick\TrickTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Trick\TrickTestAsync.cs" />
-    <Compile Include="Trick\TrickTestExtenssions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AKQ.Domain\AKQ.Domain.csproj">
-      <Project>{55B9E81B-E790-45D7-B4FE-29E7CAEA17AF}</Project>
-      <Name>AKQ.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AKQ.Web\AKQ.Web.csproj">
       <Project>{B9D0EA51-72B6-4591-B403-06DB1E8BA39D}</Project>
       <Name>AKQ.Web</Name>

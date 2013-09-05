@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using AttributeRouting;
+using PAQK;
 using PAQK.Domain.Aggregates.Game.Commands;
 using AttributeRouting.Web.Mvc;
 

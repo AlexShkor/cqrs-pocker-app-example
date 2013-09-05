@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AKQ.Domain;
-using AKQ.Domain.PokerSets;
 using NUnit.Framework;
+using PAQK.Domain.Data;
+using PAQK.PokerSets;
 
 namespace AKQ.Tests.PokerSetTests
 {

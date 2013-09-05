@@ -1,6 +1,6 @@
 using System;
 
-namespace AKQ.Domain.Utils
+namespace PAQK.Helpers
 {
     public static class Guard
     {

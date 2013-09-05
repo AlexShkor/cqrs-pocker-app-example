@@ -1,5 +1,5 @@
-using AKQ.Domain;
 using NUnit.Framework;
+using PAQK.Domain.Data;
 
 namespace AKQ.Tests
 {

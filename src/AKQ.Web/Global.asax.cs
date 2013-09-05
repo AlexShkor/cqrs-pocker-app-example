@@ -6,7 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using AKQ.Web.App_Start;
-using AKQ.Web.Authentication;
+using PAQK.Authentication;
 
 namespace AKQ.Web
 {
@@ -25,9 +25,6 @@ namespace AKQ.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-
-
-
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
             HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
@@ -43,17 +40,11 @@ namespace AKQ.Web
             {
                 return;
             }
-            var username = authTicket.UserData;
+            string[] data = authTicket.UserData.Split('|');
+            var email = data[0];
+            var username = data[1];
 
-            Context.User = new AkqPrincipal(new AkqIdentity(authTicket.Name,username));
-        }
-
-        protected void Application_BeginRequest(Object sender, EventArgs e)
-        {
-            if (Request.Url.Host.Equals("akqbridge.apphb.com",StringComparison.InvariantCultureIgnoreCase))
-            {
-                Response.RedirectPermanent("http://akqbridge.com");
-            }
+            Context.User = new AkqPrincipal(new AkqIdentity(authTicket.Name,email, username));
         }
     }
 }

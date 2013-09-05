@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using AKQ.Domain;
 using MongoDB.Bson.Serialization.Attributes;
+using PAQK.Domain.Data;
 using Uniform;
 
 namespace PAQK.Views

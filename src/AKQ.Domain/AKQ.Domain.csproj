@@ -99,50 +99,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bridge\Bid.cs" />
-    <Compile Include="Bridge\Exceptions\GameException.cs" />
-    <Compile Include="Bridge\Contract.cs" />
+    <Compile Include="Authentication\AkqIdentity.cs" />
+    <Compile Include="Authentication\AkqPrincipal.cs" />
+    <Compile Include="Authentication\AuthenticationService.cs" />
+    <Compile Include="Authentication\FacebookAuthorize.cs" />
     <Compile Include="Bridge\Deck.cs" />
-    <Compile Include="Bridge\Exceptions\BridgeGameException.cs" />
-    <Compile Include="Bridge\Exceptions\BridgeGameNotFound.cs" />
-    <Compile Include="Bridge\Game.cs" />
-    <Compile Include="Bridge\GameState.cs" />
-    <Compile Include="Bridge\Hand.cs" />
-    <Compile Include="Bridge\PlayerBid.cs" />
-    <Compile Include="Bridge\PlayerPosition.cs" />
-    <Compile Include="Bridge\PlayersManager.cs" />
     <Compile Include="Bridge\PokerSets\PockerSet.cs" />
-    <Compile Include="Bridge\TournamentInfo.cs" />
-    <Compile Include="DDSApiContract\DdsApiClient.cs" />
-    <Compile Include="DDSApiContract\GetAllCards.cs" />
-    <Compile Include="DDSApiContract\SolveGame.cs" />
-    <Compile Include="DDSApiContract\TrickResult.cs" />
     <Compile Include="Hubs\UsersHub.cs" />
     <Compile Include="Infrastructure\Services\MailService.cs" />
-    <Compile Include="Messaging\Commands\GameCommand.cs" />
-    <Compile Include="Messaging\Dispatcher.cs" />
-    <Compile Include="Messaging\EventsQueue.cs" />
-    <Compile Include="Messaging\GameEvents\GameEvent.cs" />
-    <Compile Include="Messaging\IEventHandler.cs" />
-    <Compile Include="Messaging\IMessageQueue.cs" />
-    <Compile Include="Messaging\ProcessingOrderAttribute.cs" />
-    <Compile Include="Messaging\QueueNamesEnum.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
-    <Compile Include="ViewModel\ContractViewModel.cs" />
     <Compile Include="Infrastructure\LowerCamelCaseContractResolver.cs" />
-    <Compile Include="PBN\Extensions.cs" />
-    <Compile Include="Messaging\IBridgeEventHandler.cs" />
-    <Compile Include="ViewModel\HandViewModel.cs" />
     <Compile Include="ViewModel\CardViewModel.cs" />
-    <Compile Include="Bridge\Player.cs" />
-    <Compile Include="Bridge\Trick.cs" />
     <Compile Include="Infrastructure\IdGenerator.cs" />
-    <Compile Include="Infrastructure\Mvc\BaseFilter.cs" />
-    <Compile Include="Infrastructure\Mvc\PagedResult.cs" />
-    <Compile Include="Infrastructure\Mvc\PagingInfo.cs" />
-    <Compile Include="Infrastructure\Settings\SettingsMapper.cs" />
-    <Compile Include="Infrastructure\Settings\SettingsPrefixAttribute.cs" />
-    <Compile Include="Infrastructure\Settings\SettingsPropertyAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\RoboAI\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -151,13 +119,6 @@
     </Compile>
     <Compile Include="Utils\CommonExtensions.cs" />
     <Compile Include="Utils\IEnumerableExtensions.cs" />
-    <Compile Include="ViewModel\EstimateItem.cs" />
-    <Compile Include="ViewModel\EstimatesViewModel.cs" />
-    <Compile Include="ViewModel\PlayerViewModel.cs" />
-    <Compile Include="ViewModel\SuitEstimateViewModel.cs" />
-    <Compile Include="ViewModel\TagViewModel.cs" />
-    <Compile Include="ViewModel\TrickItemViewModel.cs" />
-    <Compile Include="ViewModel\TrickViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -192,10 +153,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DQF.Infrastructure\PAKQ.csproj">
-      <Project>{56caf3fe-51ac-419b-82d2-82ca4a8242f2}</Project>
-      <Name>PAKQ</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PbnParser\PbnParser.csproj">
       <Project>{9D5B79E7-CD5D-45CD-A2BE-AB67DAFBB887}</Project>
       <Name>PbnParser</Name>

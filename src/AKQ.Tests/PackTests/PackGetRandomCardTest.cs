@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AKQ.Domain;
 using NUnit.Framework;
-using AKQ.Domain.Bridge;
+using PAQK.Domain.Data;
 
 namespace AKQ.Tests.PackTests
 {

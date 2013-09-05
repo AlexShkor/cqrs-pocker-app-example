@@ -235,20 +235,15 @@
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="Models\Security\ChangePasswordModel.cs" />
     <Compile Include="Serialization\SignalRContractResolver.cs" />
-    <Compile Include="Authentication\AkqIdentity.cs" />
-    <Compile Include="Authentication\AkqPrincipal.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\DependencyResolution\StructureMapDependencyResolver.cs" />
     <Compile Include="App_Start\DependencyResolution\StructureMapDependencyScope.cs" />
-    <Compile Include="Authentication\AuthenticationService.cs" />
-    <Compile Include="Authentication\FacebookAuthorize.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActionParams\Feedback\AddFeedbackParam.cs" />
     <Compile Include="Controllers\ActionResults\JsonNetResult.cs" />
     <Compile Include="Controllers\ActionResults\LowerCamelCaseContractResolver.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="FacebookClientFactory.cs" />
@@ -278,12 +273,20 @@
     <Content Include="Assets\app\css\login.css" />
     <Content Include="Assets\app\css\m-buttons.css" />
     <TypeScriptCompile Include="Assets\app\js\tables.ts" />
+    <TypeScriptCompile Include="Assets\app\js\signals.ts" />
+    <Content Include="Assets\app\js\signals.js">
+      <DependentUpon>signals.ts</DependentUpon>
+    </Content>
+    <Content Include="Assets\app\js\signals.min.js">
+      <DependentUpon>signals.ts</DependentUpon>
+    </Content>
     <Content Include="Assets\app\js\tables.js">
       <DependentUpon>tables.ts</DependentUpon>
     </Content>
     <Content Include="Assets\app\js\tables.min.js">
       <DependentUpon>tables.ts</DependentUpon>
     </Content>
+    <Content Include="Scripts\typings\signalr\signalr.d.ts" />
     <Content Include="Views\Tables\Tables.cshtml" />
     <Content Include="Views\Shared\_ClassicLayout.cshtml" />
     <TypeScriptCompile Include="Assets\app\js\home.ts" />
@@ -804,17 +807,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AKQ.Domain\AKQ.Domain.csproj">
-      <Project>{55b9e81b-e790-45d7-b4fe-29e7caea17af}</Project>
-      <Name>AKQ.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DQF.Infrastructure\PAKQ.csproj">
       <Project>{56CAF3FE-51AC-419B-82D2-82CA4A8242F2}</Project>
       <Name>PAKQ</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PbnParser\PbnParser.csproj">
-      <Project>{9D5B79E7-CD5D-45CD-A2BE-AB67DAFBB887}</Project>
-      <Name>PbnParser</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

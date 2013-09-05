@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using AKQ.Domain.Infrastructure;
-using AKQ.Domain.Infrastructure.Services;
-using AKQ.Web.Authentication;
 using AKQ.Web.Models;
 using AKQ.Web.Models.Security;
 using AttributeRouting;
 using PAQK;
+using PAQK.Authentication;
 using PAQK.Domain.Aggregates.User.Commands;
 using PAQK.Helpers;
+using PAQK.Infrastructure;
 using PAQK.ViewServices;
 using RestSharp.Extensions;
 using AttributeRouting.Web.Mvc;
@@ -29,7 +28,6 @@ namespace AKQ.Web.Controllers
         private readonly SiteSettings _settings;
         private readonly AuthenticationService _authenticationService;
         private readonly FacebookClient _fb;
-        private readonly MailService _mailService;
 
         public string FacebookCallbackUri
         {
@@ -46,8 +44,7 @@ namespace AKQ.Web.Controllers
             IdGenerator idGenerator, 
             AuthenticationService authenticationService, 
             FacebookClientFactory fbFactory,
-            SiteSettings settings, 
-            MailService mailService)
+            SiteSettings settings)
         {
             _usersService = usersService;
             _cryptoHelper = cryptoHelper;
@@ -55,7 +52,6 @@ namespace AKQ.Web.Controllers
             _authenticationService = authenticationService;
             _fb = fbFactory.GetClient();
             _settings = settings;
-            _mailService = mailService;
         }
 
         public ActionResult Login(string returnUrl)
@@ -290,7 +286,6 @@ namespace AKQ.Web.Controllers
                     Id = email
                 };
                 Send(cmd);
-                _mailService.SendPasswordReseted(email,newPass);
                 return Redirect("/");
             }
             return View("Forgot",(object)email);

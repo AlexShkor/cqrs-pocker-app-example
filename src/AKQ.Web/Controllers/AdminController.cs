@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AKQ.Domain.Infrastructure;
+using PAQK;
 using PAQK.Domain.Aggregates.Game.Commands;
+using PAQK.Infrastructure;
 using PAQK.ViewServices;
 
 namespace AKQ.Web.Controllers

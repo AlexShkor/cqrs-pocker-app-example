@@ -3,8 +3,9 @@ using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using PAQK.Domain.Data;
 
-namespace AKQ.Domain
+namespace PAQK.Domain.Serialization
 {
     public class CardSerializer : BsonBaseSerializer
     {

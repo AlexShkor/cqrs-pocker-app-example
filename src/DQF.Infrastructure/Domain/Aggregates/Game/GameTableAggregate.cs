@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AKQ.Domain;
+using MongoDB.Bson;
 using PAQK.Domain.Aggregates.Game.Data;
 using PAQK.Domain.Aggregates.Game.Events;
 using PAQK.Domain.Aggregates.Site;
+using PAQK.Domain.Data;
 using PAQK.Platform.Domain;
 using PAQK.Platform.Domain.Interfaces;
 using PAQK.Platform.Extensions;
@@ -98,7 +99,16 @@ namespace PAQK.Domain.Aggregates.Game
                     UserId = userId,
                     Cash = cashInCents
                 });
+                if (State.GameId == null && State.JoinedPlayers.Count >= 2)
+                {
+                    CreateGame(GenerateGameId());
+                }
             }
+        }
+
+        private static string GenerateGameId()
+        {
+            return ObjectId.GenerateNewId().ToString();
         }
 
         private void DealCards(string gameId)

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using AKQ.Domain;
 using Newtonsoft.Json.Linq;
 using PAQK.Domain.Aggregates.Game.Data;
 using PAQK.Domain.Aggregates.Game.Events;
+using PAQK.Domain.Data;
 using PAQK.Platform.Domain;
 
 namespace PAQK.Domain.Aggregates.Game

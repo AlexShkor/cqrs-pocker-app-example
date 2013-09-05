@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using AKQ.Domain;
 using PAQK.Domain.Aggregates.Game.Data;
+using PAQK.Domain.Data;
 using PAQK.Platform.Domain.Messages;
 
 namespace PAQK.Domain.Aggregates.Game.Events

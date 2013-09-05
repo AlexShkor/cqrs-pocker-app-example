@@ -1,7 +1,7 @@
 /// <reference path="../../../Scripts/typings/angularjs/angular.d.ts" />
 
 interface ITablesScope extends ng.IScope {
-    items: any[];
+    items: ITable[];
     join: Function;
 }
 
