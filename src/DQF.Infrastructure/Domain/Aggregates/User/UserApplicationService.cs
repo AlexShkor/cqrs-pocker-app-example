@@ -31,7 +31,9 @@ namespace PAQK.Domain.Aggregates.User
 
         public void Handle(ChangePassword c)
         {
-            _repository.Perform(c.Id, user => user.ChangePassword(c));
+            var salt = _crypto.GenerateSalt();
+            var hash = _crypto.GetPasswordHash(c.NewPassword, salt);
+            _repository.Perform(c.Id, user => user.ChangePassword(hash,salt,c.IsChangedByAdmin));
         }
 
         public void Handle(DeleteUser c)

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AKQ.Domain;
 using MongoDB.Bson.Serialization.Attributes;
+using Quartz.Xml.JobSchedulingData20;
 using Uniform;
 
 namespace PAQK.Views
@@ -21,6 +22,12 @@ namespace PAQK.Views
         public List<Card> Deck { get; set; }
 
         public List<PlayerDocument> Players { get; set; }
+
+        public TableView()
+        {
+            Deck = new List<Card>();
+            Players = new List<PlayerDocument>();
+        }
 
         public void AddPlayerCard(string userId, Card card)
         {

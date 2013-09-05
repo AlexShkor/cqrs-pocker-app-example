@@ -51,15 +51,15 @@ namespace PAQK.Domain.Aggregates.User
             }
         }
 
-        public void ChangePassword(ChangePassword c)
+        public void ChangePassword(string passwordHash, string passwordSalt, bool isChangedByAdmin)
         {
+
             Apply(new PasswordChanged
             {
-                Id = c.Id,
-                PasswordHash = c.PasswordHash,
-                PasswordSalt = c.PasswordSalt,
-                Date = c.Date,
-                WasChangedByAdmin = c.IsChangedByAdmin,
+                Id = State.Id,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                WasChangedByAdmin = isChangedByAdmin,
             });
         }
 

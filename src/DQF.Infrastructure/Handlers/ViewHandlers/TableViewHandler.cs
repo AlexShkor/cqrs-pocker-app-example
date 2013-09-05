@@ -30,7 +30,7 @@ namespace PAQK.Handlers.ViewHandlers
         {
             _tables.Save(new TableView()
             {
-                Id = ObjectId.GenerateNewId().ToString(),
+                Id = e.Id,
                 Name = e.Name,
                 BuyIn = e.BuyIn,
                 SmallBlind = e.SmallBlind,
@@ -70,23 +70,23 @@ namespace PAQK.Handlers.ViewHandlers
             }).ToList());
         }
 
-        //public void Handle(PlayerJoined e)
-        //{
-        //    var user = _db.Users.GetById(e.UserId);
-        //    _tables.Update(e.Id, table => table.JoinedPlayers.Add(new PlayerDocument()
-        //    {
-        //        UserId = e.UserId,
-        //        Position = e.Position,
-        //        Cash = e.Cash,
-        //        Name = user.UserName
-        //    }));
-        //}
+        public void Handle(PlayerJoined e)
+        {
+            var user = _db.Users.GetById(e.UserId);
+            _tables.Update(e.Id, table => table.Players.Add(new PlayerDocument()
+            {
+                UserId = e.UserId,
+                Position = e.Position,
+                Cash = e.Cash,
+                Name = user.UserName
+            }));
+        }
 
 
-        //public void Handle(PlayerLeft e)
-        //{
-        //    _tables.Update(e.Id, table => table.JoinedPlayers.RemoveAll(x => x.UserId == e.UserId));
-        //}
+        public void Handle(PlayerLeft e)
+        {
+            _tables.Update(e.Id, table => table.Players.RemoveAll(x => x.UserId == e.UserId));
+        }
 
     }
 }

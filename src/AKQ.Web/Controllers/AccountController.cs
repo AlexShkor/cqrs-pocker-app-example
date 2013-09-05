@@ -11,6 +11,7 @@ using AKQ.Web.Models.Security;
 using AttributeRouting;
 using PAQK;
 using PAQK.Domain.Aggregates.User.Commands;
+using PAQK.Helpers;
 using PAQK.ViewServices;
 using RestSharp.Extensions;
 using AttributeRouting.Web.Mvc;
@@ -249,7 +250,7 @@ namespace AKQ.Web.Controllers
         public ActionResult ChangePasswordPost(ChangePasswordModel model)
         {
             var user = _usersService.GetById(UserId);
-            if (user.PasswordHash != _cryptoHelper.GetPasswordHash(model.OldPassword))
+            if (user.PasswordHash != _cryptoHelper.GetPasswordHash(model.OldPassword, user.PasswordSalt))
             {
                 ModelState.AddModelError("OldPassword", "Old password is incorrect.");
             }
@@ -258,8 +259,7 @@ namespace AKQ.Web.Controllers
                 var cmd = new ChangePassword
                 {
                     Id = user.Id,
-                    PasswordHash = _cryptoHelper.GetPasswordHash(model.NewPassword),
-                    PasswordSalt = _cryptoHelper.GenerateSalt()
+                    NewPassword = model.NewPassword,
                 };
                 Send(cmd);
                 return Redirect("/");

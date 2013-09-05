@@ -136,7 +136,6 @@
     <Compile Include="ViewModel\CardViewModel.cs" />
     <Compile Include="Bridge\Player.cs" />
     <Compile Include="Bridge\Trick.cs" />
-    <Compile Include="Infrastructure\CryptographicHelper.cs" />
     <Compile Include="Infrastructure\IdGenerator.cs" />
     <Compile Include="Infrastructure\Mvc\BaseFilter.cs" />
     <Compile Include="Infrastructure\Mvc\PagedResult.cs" />

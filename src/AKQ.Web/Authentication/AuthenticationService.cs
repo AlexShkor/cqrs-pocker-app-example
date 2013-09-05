@@ -6,6 +6,7 @@ using AKQ.Domain.Infrastructure;
 using AKQ.Domain.Services;
 using AKQ.Web.Controllers;
 using MongoDB.Bson;
+using PAQK.Helpers;
 using PAQK.Views;
 using PAQK.ViewServices;
 
@@ -25,18 +26,21 @@ namespace AKQ.Web.Authentication
 
         public UserView ValidateUser(string email, string password)
         {
-            var user = _users.GetUserByCredentionals(email, _crypto.GetPasswordHash(password));
-
-            return user;
+            var user = _users.GetByEmail(email);
+            if (user.PasswordHash == _crypto.GetPasswordHash(password, user.PasswordSalt))
+            {
+                return user;
+            }
+            return null;
         }
 
         public void LoginUser(string email, string username, bool rememberMe = true)
         {
-            var data = String.Format("{0}", email);
+            var data = String.Format("{0}", username);
 
             var authTicket = new FormsAuthenticationTicket(
                 10,
-                email,
+                _crypto.GetMd5Hash(email),
                 DateTime.Now,
                 DateTime.Now.AddDays(14),
                 rememberMe,
