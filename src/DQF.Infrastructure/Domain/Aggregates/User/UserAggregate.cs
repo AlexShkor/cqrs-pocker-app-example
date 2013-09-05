@@ -13,7 +13,8 @@ namespace PAQK.Domain.Aggregates.User
             string userName, 
             string passwordHash, 
             string passwordSalt, 
-            string email)
+            string email,
+            string facebookId)
         {
             if (State.Id.HasValue())
             {
@@ -44,6 +45,8 @@ namespace PAQK.Domain.Aggregates.User
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt,
                     CreationDate = DateTime.Now,
+                    FacebookId = facebookId,
+                    Cash = 5000
                 });
             }
         }

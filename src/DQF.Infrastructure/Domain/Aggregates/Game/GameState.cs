@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using AKQ.Domain;
+using Newtonsoft.Json.Linq;
 using PAQK.Domain.Aggregates.Game.Data;
 using PAQK.Domain.Aggregates.Game.Events;
 using PAQK.Platform.Domain;
@@ -11,6 +12,9 @@ namespace PAQK.Domain.Aggregates.Game
 {
     public sealed class GameTableState: AggregateState
     {
+
+        public static readonly int[] Positions = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
         public Dictionary<string,TablePlayer> JoinedPlayers { get; private set; }
 
         public Dictionary<int,GamePlayer> Players { get; private set; }
@@ -59,6 +63,8 @@ namespace PAQK.Domain.Aggregates.Game
                 SmallBlind = e.SmallBlind;
                 BuyIn = e.BuyIn;
                 Dealer = 0;
+                JoinedPlayers = new Dictionary<string, TablePlayer>();
+                Players = new Dictionary<int, GamePlayer>();
             }); 
             On((GameFinished e) =>
             {

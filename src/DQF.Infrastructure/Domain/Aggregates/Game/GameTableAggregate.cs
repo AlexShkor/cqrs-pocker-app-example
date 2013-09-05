@@ -78,12 +78,13 @@ namespace PAQK.Domain.Aggregates.Game
             });
         }
 
-        public void JoinTable(string userId, int position, long cashInCents)
+        public void JoinTable(string userId, long cashInCents)
         {
             if (State.IsTableFull())
             {
                 throw new InvalidOperationException("Table is full.");
             }
+            var position = GameTableState.Positions.Except(State.JoinedPlayers.Select(x => x.Value.Position)).First();
             if (State.IsPositionTaken(position))
             {
                 throw new InvalidOperationException("Position is already taken.");

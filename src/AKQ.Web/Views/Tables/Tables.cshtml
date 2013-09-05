@@ -1,0 +1,19 @@
+﻿
+
+<div class="container">
+    <h2>Tables</h2>
+    <table class="table">
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td>
+                    <a href="" ng-click="join(item)">Join</a>
+                </td>
+                <td>{{item.Name}}</td>
+                <td>{{item.BuyIn}}</td>
+                <td>{{item.SmallBlind}}</td>
+                <td>{{item.MaxPlayers}}</td>
+                <td>{{item.Players.length}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

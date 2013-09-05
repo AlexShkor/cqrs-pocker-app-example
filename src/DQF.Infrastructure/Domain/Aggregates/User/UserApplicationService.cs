@@ -25,7 +25,8 @@ namespace PAQK.Domain.Aggregates.User
                 c.UserName,
                 _crypto.GetPasswordHash(c.Password,salt),
                 salt,
-                c.Email));
+                c.Email,
+                c.FacebookId));
         }
 
         public void Handle(ChangePassword c)

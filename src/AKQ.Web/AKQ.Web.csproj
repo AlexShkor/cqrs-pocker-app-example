@@ -228,7 +228,7 @@
     <Compile Include="App_Start\AttributeRoutingConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\ModelBinders\JsonModelBinder.cs" />
-    <Compile Include="Controllers\TableController.cs" />
+    <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyResolver.cs" />
@@ -277,6 +277,15 @@
     <Content Include="Assets\app\css\img\grey.png" />
     <Content Include="Assets\app\css\login.css" />
     <Content Include="Assets\app\css\m-buttons.css" />
+    <TypeScriptCompile Include="Assets\app\js\tables.ts" />
+    <Content Include="Assets\app\js\tables.js">
+      <DependentUpon>tables.ts</DependentUpon>
+    </Content>
+    <Content Include="Assets\app\js\tables.min.js">
+      <DependentUpon>tables.ts</DependentUpon>
+    </Content>
+    <Content Include="Views\Tables\Tables.cshtml" />
+    <Content Include="Views\Shared\_ClassicLayout.cshtml" />
     <TypeScriptCompile Include="Assets\app\js\home.ts" />
     <Content Include="Assets\app\js\home.js">
       <DependentUpon>home.ts</DependentUpon>
@@ -786,7 +795,6 @@
     <Content Include="Views\Admin\Logins.cshtml" />
     <Content Include="Views\Shared\Templates\Empty.cshtml" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
-    <Content Include="Views\Table\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\app\templates\" />

@@ -10,5 +10,7 @@ namespace PAQK.Domain.Aggregates.User.Events
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
         public DateTime CreationDate { get; set; }
+        public long Cash { get; set; }
+        public string FacebookId { get; set; }
     }
 }

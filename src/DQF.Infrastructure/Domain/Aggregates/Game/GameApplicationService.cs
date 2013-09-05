@@ -25,7 +25,7 @@ namespace PAQK.Domain.Aggregates.Game
 
         public void Handle(JoinTable c)
         {
-            _repository.Perform(c.Id,table => table.JoinTable(c.UserId, c.Position,c.Cash));
+            _repository.Perform(c.Id,table => table.JoinTable(c.UserId,c.Cash));
         }
 
         #region Bidding

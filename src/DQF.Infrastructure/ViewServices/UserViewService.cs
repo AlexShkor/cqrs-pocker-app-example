@@ -50,14 +50,14 @@ namespace PAQK.ViewServices
             throw new System.NotImplementedException();
         }
 
-        public object GetByFacebookId(string id)
+        public object GetByFacebookId(string facebookId)
         {
-            throw new System.NotImplementedException();
+            return Items.FindOneAs<UserView>(Query<UserView>.EQ(x => x.FacebookId, facebookId));
         }
 
         public UserView GetUserName(string userName)
         {
-            throw new System.NotImplementedException();
+            return Items.FindOne(Query<UserView>.EQ(x => x.UserName, userName));
         }
     }
 

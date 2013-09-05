@@ -36,10 +36,12 @@ namespace PAQK.Handlers.ViewHandlers
             {
                 Id = e.Id,
                 UserName = e.UserName,
+                FacebookId = e.FacebookId,
                 Email = e.Email.ToLowerInvariant(),
                 PasswordHash = e.PasswordHash,
                 PasswordSalt = e.PasswordSalt,
-                CreationDate = e.CreationDate
+                CreationDate = e.CreationDate,
+                Cash = e.Cash
             };
             _users.Save(user);
         }

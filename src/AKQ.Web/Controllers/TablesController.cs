@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AttributeRouting;
+using AttributeRouting.Web.Mvc;
 using PAQK.ViewServices;
 
 namespace AKQ.Web.Controllers
 {
-    public class TableController : BaseController
+    [RoutePrefix("tables")]
+    public class TablesController : BaseController
     {
         private readonly TableViewService _tables;
 
-        public TableController(TableViewService tables)
+        public TablesController(TableViewService tables)
         {
             _tables = tables;
         }
 
+
+        [GET("")]
         public ActionResult Index()
         {
-            return View();
+            return PartialView("Tables");
         }
 
 
+        [POST("load")]
         public ActionResult GetAll()
         {
             var model = _tables.GetAll();

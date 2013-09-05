@@ -2,7 +2,7 @@
 @using AKQ.Web.App_Start
 
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>AKQbridge | @ViewBag.Title</title>
@@ -10,13 +10,6 @@
         <link rel="SHORTCUT ICON" href="~/Assets/app/css/img/favicon.ico" />
         @Styles.Render("~/content/css")
         @Scripts.Render("~/scripts/jquery-2.0.3.min.js")
-        @Scripts.Render("~/scripts/angular.js")
-        <script src="/assets/app/js/app.js" type="text/javascript"></script>
-        <script src="/assets/app/js/home.js" type="text/javascript"></script>
-        <script src="/assets/app/js/tables.js" type="text/javascript"></script>
-
-        @Scripts.Render("~/scripts/jquery.signalR-1.1.3.min.js")
-        @Scripts.Render("~/signalr/hubs")
     </head>
 <body class="landing-layout">
     <div id="globalLoader" 
