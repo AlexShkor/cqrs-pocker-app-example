@@ -1,8 +1,8 @@
 // Local variables
 var myhub = $.connection.usersHub;
 
-myhub.goToTable = function (e) {
-    alert(e.tableId);
+myhub.client.goToTable = function (e) {
+    alert(e.TableId);
 };
 
 $.connection.hub.start().done(function () {

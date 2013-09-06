@@ -17,7 +17,7 @@ namespace PAQK.Hubs
         {
             if (Context.User.Identity.IsAuthenticated)
             {
-                Groups.Add(Context.ConnectionId, ((AkqIdentity)Context.User.Identity).Name);
+                Groups.Add(Context.ConnectionId, ((AkqIdentity)Context.User.Identity).Id);
             }
         }
     }

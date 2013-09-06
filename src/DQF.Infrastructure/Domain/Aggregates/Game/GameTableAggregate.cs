@@ -41,8 +41,8 @@ namespace PAQK.Domain.Aggregates.Game
             Apply(new GameCreated()
             {
                 Id = State.TableId,
+                GameId = id,
                 Players = State.JoinedPlayers.Values.ToList(),
-                DealerUserId = State.GetNextDealer(),
                 Cards = pack.GetAllCards()
             });
             DealCards(id);
@@ -51,7 +51,7 @@ namespace PAQK.Domain.Aggregates.Game
 
         private void SetDealerAndBlind()
         {
-            var dealer = State.GetNextPlayer(State.Dealer);
+            var dealer = State.GetNextDealer();
             var smallBlind = State.GetNextPlayer(dealer);
             var bigBlind = State.GetNextPlayer(smallBlind);
             Apply(new DealerAssigned

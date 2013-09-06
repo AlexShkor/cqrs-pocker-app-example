@@ -31,25 +31,11 @@ namespace PAQK.Domain.Aggregates.Game
 
         public int CurrentPlayer { get; set; }
 
-        public int Dealer { get; private set; }
+        public int? Dealer { get; private set; }
 
         public long CurrentBid { get; private set; }
 
         public BiddingInfo CurrentBidding { get; private set; }
-
-        public int GetNextPlayer(int position)
-        {
-            for (int i = 1; i < 10; i++)
-            {
-                var index = (position + i)%10;
-                if (Players.ContainsKey(position))
-                {
-                    return index;
-                }
-
-            }
-            return position;
-        }
 
         public Pack Pack { get; set; }
 
@@ -62,7 +48,7 @@ namespace PAQK.Domain.Aggregates.Game
                 TableId = e.Id;
                 SmallBlind = e.SmallBlind;
                 BuyIn = e.BuyIn;
-                Dealer = 0;
+                Dealer = null;
                 JoinedPlayers = new Dictionary<string, TablePlayer>();
                 Players = new Dictionary<int, GamePlayer>();
             }); 
@@ -117,9 +103,27 @@ namespace PAQK.Domain.Aggregates.Game
             }
         }
 
-        public string GetNextDealer()
+        public int GetNextPlayer(int position)
         {
-            throw new System.NotImplementedException();
+            for (int i = 1; i < 10; i++)
+            {
+                var index = (position + i) % 10;
+                if (Players.ContainsKey(index))
+                {
+                    return index;
+                }
+
+            }
+            return position;
+        }
+
+        public int GetNextDealer()
+        {
+            if (Dealer.HasValue)
+            {
+                return GetNextPlayer(Dealer.Value);
+            }
+            return Players.Select(x => x.Value.Position).First();
         }
 
         public bool IsTableFull()

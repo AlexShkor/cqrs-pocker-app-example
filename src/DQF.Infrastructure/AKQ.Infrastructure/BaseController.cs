@@ -28,7 +28,7 @@ namespace PAQK
         {
             get
             {
-                return Request.IsAuthenticated ? ((AkqIdentity)User.Identity).Email : null;
+                return Request.IsAuthenticated ? ((AkqIdentity)User.Identity).Id : null;
             }
         }
 
@@ -47,19 +47,6 @@ namespace PAQK
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var action = (string)RouteData.Values["action"];
-            var controller = (string)RouteData.Values["controller"];
-            ViewBag.Title = action.Equals("index",StringComparison.InvariantCultureIgnoreCase) ? controller : action;
-            if (User != null)
-            {
-                ViewBag.UserEmail = UserId;
-
-            }
-            else
-            {
-                ViewBag.UserEmail = "Guest";
-                ViewBag.UserCreated = Session.LCID;
-            }
             base.OnActionExecuting(filterContext);
         }
 

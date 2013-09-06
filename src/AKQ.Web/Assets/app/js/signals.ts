@@ -3,6 +3,7 @@
 interface UsersHub extends HubConnection {
     goToTable: Function;
     server: any;
+    client: any;
     connect();
 }
 
@@ -13,8 +14,8 @@ interface SignalR{
 // Local variables
 var myhub = $.connection.usersHub;
 
-myhub.goToTable = (e) => {
-    alert(e.tableId);
+myhub.client.goToTable = (e) => {
+    alert(e.TableId);
 };
 
 $.connection.hub.start().done(() => { myhub.server.connect(); });
