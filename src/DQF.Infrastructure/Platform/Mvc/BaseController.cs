@@ -1,90 +1,62 @@
-﻿using System.Web.Mvc;
-using PAQK.Common.Account;
-using PAQK.Platform.Extensions;
-using PAQK.ViewServices;
+﻿using System;
+using System.Web.Mvc;
+using MongoDB.Bson;
+using PAQK.Authentication;
+using PAQK.Platform.Domain;
+using PAQK.Platform.Domain.Interfaces;
 using StructureMap.Attributes;
 
-namespace PAQK.Platform.Mvc
+namespace PAQK
 {
-    public abstract class BaseController : Controller
+    public abstract class BaseController : AsyncController
     {
-        protected new UserIdentity User { get { return Session[AppConstants.UserIdentitySessionKey] as UserIdentity; } }
+        private const string DefaultUsername = "Guest";
 
-        [SetterProperty]
-        public SiteSettings Settings { get; set; }
-
-        [SetterProperty]
-        public UsersViewService UserViewService { get; set; }
-
-        public virtual T Bind<T>() where T : class, new()
+        public static class SessionKeys
         {
-            var model = new T();
-            UpdateModel(model);
-            return model;
+            public const string UserId = "_UserId";
+            public const string UserName = "_UserName";
+            public const string FbCsrfToken = "fb_csrf_token";
+            public const string FbAccessToken = "fb_access_token";
+            public const string FbExpiresIn = "fb_expires_in";
         }
 
-        protected override void OnAuthorization(AuthorizationContext filterContext)
-        {
-            // restore UserIdentitySessionKey for our custom Auth attribute
-            RestoreAuthFromCookies();
+        [SetterProperty]
+        public ICommandBus CommandBus { get; set; }
 
-            base.OnAuthorization(filterContext);
+        protected string UserId
+        {
+            get
+            {
+                return Request.IsAuthenticated ? ((AkqIdentity)User.Identity).Id : null;
+            }
+        }
+
+        protected string UserName
+        {
+            get
+            {
+                return Request.IsAuthenticated ? User.Identity.Name : null;
+            }
+        }
+
+        protected string GenerateId()
+        {
+            return ObjectId.GenerateNewId().ToString();
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            SaveSessionDataToViewBag();
-            base.OnActionExecuting(filterContext); 
+            base.OnActionExecuting(filterContext);
         }
 
-        private void SaveSessionDataToViewBag()
+        protected void Send(params ICommand[] commands)
         {
-            if (User != null)
+            foreach (var command in commands)
             {
-                ViewBag.UserName = User.UserName ?? User.Email;
-                ViewBag.UserId = User.UserId;
+                command.Metadata.UserId = UserId;
             }
-
-            if (Settings != null)
-            {
-                ViewBag.Environment = Settings.AppEnvironment;
-            }
-        }
-
-        private void RestoreAuthFromCookies()
-        {
-            // this is need to authorize user from .auth cookie  when session ends (when rebuild project for example)
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && (User == null || !User.UserId.HasValue()))
-            {
-                var user = UserViewService.GetByEmail(System.Web.HttpContext.Current.User.Identity.Name);
-                if (user != null)
-                {
-                  
-                    Session[AppConstants.UserIdentitySessionKey] = new UserIdentity(user);
-
-                }
-            }
-        }
-
-        public RedirectResult RedirectToRefferer()
-        {
-            return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.LocalPath : "/");
-        }
-
-
-        protected string GetRouteValue(string paramName)
-        {
-            return RouteData.Values[paramName].ToString();
-        }
-
-        protected ActionResult PermissionsErrorResult()
-        {
-            return RedirectToAction("PermissionsError", "Account");
-        }
-
-        public new JsonResult Json(object data)
-        {
-            return Json(data, JsonRequestBehavior.AllowGet);
+            CommandBus.Send(commands);
         }
     }
 }

@@ -100,19 +100,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AKQ.Infrastructure\Authentication\AkqIdentity.cs" />
-    <Compile Include="AKQ.Infrastructure\Authentication\AkqPrincipal.cs" />
-    <Compile Include="AKQ.Infrastructure\Authentication\AuthenticationService.cs" />
-    <Compile Include="AKQ.Infrastructure\Authentication\FacebookAuthorize.cs" />
-    <Compile Include="AKQ.Infrastructure\BaseController.cs" />
-    <Compile Include="AKQ.Infrastructure\PokerSets\PockerSet.cs" />
-    <Compile Include="AKQ.Infrastructure\Hubs\UsersHub.cs" />
-    <Compile Include="AKQ.Infrastructure\Infrastructure\IdGenerator.cs" />
-    <Compile Include="AKQ.Infrastructure\Infrastructure\LowerCamelCaseContractResolver.cs" />
-    <Compile Include="AKQ.Infrastructure\Utils\CommonExtensions.cs" />
-    <Compile Include="AKQ.Infrastructure\Utils\IEnumerableExtensions.cs" />
-    <Compile Include="AKQ.Infrastructure\Utils\StringExtensions.cs" />
-    <Compile Include="AKQ.Infrastructure\ViewModel\CardViewModel.cs" />
+    <Compile Include="Authentication\AkqIdentity.cs" />
+    <Compile Include="Authentication\AkqPrincipal.cs" />
+    <Compile Include="Authentication\AuthenticationService.cs" />
+    <Compile Include="Authentication\FacebookAuthorize.cs" />
+    <Compile Include="Platform\Mvc\BaseController.cs" />
+    <Compile Include="Domain\ApplicationServices\PockerSet.cs" />
+    <Compile Include="Hubs\UsersHub.cs" />
+    <Compile Include="Platform\Mongo\IdGenerator.cs" />
+    <Compile Include="Platform\Mvc\LowerCamelCaseContractResolver.cs" />
+    <Compile Include="Platform\Utils\CommonExtensions.cs" />
+    <Compile Include="Platform\Utils\IEnumerableExtensions.cs" />
+    <Compile Include="Platform\Utils\StringExtensions.cs" />
+    <Compile Include="ViewModel\CardViewModel.cs" />
     <Compile Include="AppConstants.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Databases\MongoAdminDatabase.cs" />
@@ -213,7 +213,6 @@
     <Compile Include="Platform\Extensions\EnumerableExt.cs" />
     <Compile Include="Platform\Extensions\GenericExt.cs" />
     <Compile Include="Platform\Mvc\AuthAttribute.cs" />
-    <Compile Include="Platform\Mvc\BaseController.cs" />
     <Compile Include="Common\Account\AuthenticationService.cs" />
     <Compile Include="Platform\Mvc\HtmlHelperExt.cs" />
     <Compile Include="Platform\Utilities\SendGridUtil.cs" />

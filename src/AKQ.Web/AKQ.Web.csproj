@@ -279,6 +279,12 @@
     <Content Include="Assets\app\css\img\grey.png" />
     <Content Include="Assets\app\css\login.css" />
     <Content Include="Assets\app\css\m-buttons.css" />
+    <Content Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
+    <Content Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
+    <Content Include="Scripts\typings\angularjs\angular-resource.d.ts" />
+    <Content Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
+    <Content Include="Scripts\typings\angularjs\angular-scenario.d.ts" />
+    <Content Include="Scripts\typings\angularjs\angular.d.ts" />
     <Content Include="Views\Game\Game.cshtml" />
     <TypeScriptCompile Include="App\tables.ts" />
     <TypeScriptCompile Include="App\signals.ts" />
