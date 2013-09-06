@@ -3,6 +3,7 @@ using AttributeRouting;
 using PAQK;
 using PAQK.Domain.Aggregates.Game.Commands;
 using AttributeRouting.Web.Mvc;
+using PAQK.ViewModel;
 using PAQK.ViewServices;
 
 namespace AKQ.Web.Controllers
@@ -29,7 +30,8 @@ namespace AKQ.Web.Controllers
         public ActionResult Load(string tableId)
         {
             var table = _tables.GetById(tableId);
-            return Json(table);
+            var model = new GameViewModel(table, UserId);
+            return Json(model);
         }
 
         [POST("join")]

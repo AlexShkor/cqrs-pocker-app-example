@@ -10,20 +10,18 @@ namespace PAQK.ViewModel
         public string Suit { get; set; }
         public string Symbol { get; set; }
         public string Color { get; set; }
-        public bool IsSelectable { get; set; }
 
         public CardViewModel()
         {
             
         }
 
-        public CardViewModel(Card card, bool enabled)
+        public CardViewModel(Card card)
         {
             Suit = card.Suit.ToShortName();
             Value = card.Value;
             Symbol = card.Suit.ToSymbol();
             Color = card.Suit.GetColor();
-            IsSelectable = enabled;
         }
     }
 }

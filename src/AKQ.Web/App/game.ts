@@ -14,7 +14,24 @@ interface IGameModel {
     Name: string;
     BuyIn: string;
     SmallBlind: string;
-    MaxPlayers: string;
+    MyCards: Card[];
+    Deck: Card[];
+    Players: Player[];
+}
+
+interface Card{
+    Suit: string;
+    Value: string;
+    Symbol: string;
+    Color: string;
+}
+
+interface Player {
+    Position: number;
+    Cash: number;
+    Bid: number;
+    UserId: string;
+    Name: string;
 }
 
 
