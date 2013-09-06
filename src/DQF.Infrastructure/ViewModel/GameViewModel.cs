@@ -12,9 +12,8 @@ namespace PAQK.ViewModel
             Name = view.Name;
             BuyIn = view.BuyIn;
             SmallBlind = view.SmallBlind;
-            MyCards = view.Players.Find(x => x.UserId == userId).Cards.Select(x => new CardViewModel(x)).ToList();
             Deck = view.Deck.Select(x => new CardViewModel(x)).ToList();
-            Players = view.Players.OrderBy(x=> x.Position).Select(x => new PlayerViewModel(x)).ToList();
+            Players = view.Players.OrderBy(x=> x.Position).Select(x => new PlayerViewModel(x, userId)).ToList();
         }
 
         public string Id { get; set; }
@@ -27,8 +26,6 @@ namespace PAQK.ViewModel
 
         public List<CardViewModel> Deck { get; set; } 
 
-        public List<CardViewModel> MyCards { get; set; } 
-
         public List<PlayerViewModel> Players { get; set; } 
     }
 
@@ -39,14 +36,27 @@ namespace PAQK.ViewModel
         public long Bid { get; set; }
         public string UserId { get; set; }
         public string Name { get; set; }
+        public bool IsMe { get; set; } 
+        public bool CurrentTurn { get; set; } 
+        public List<CardViewModel> Cards { get; set; }
 
-        public PlayerViewModel(PlayerDocument doc)
+        public PlayerViewModel(PlayerDocument doc, string myUserId)
         {
             Position = doc.Position;
             Cash = doc.Cash;
             Bid = doc.Bid;
             UserId = doc.UserId;
             Name = doc.Name;
+            IsMe = UserId == myUserId;
+            CurrentTurn = doc.CurrentTurn;
+            if (IsMe)
+            {
+                Cards = doc.Cards.Select(x => new CardViewModel(x)).ToList();
+            }
+            else
+            {
+                Cards = new List<CardViewModel>();
+            }
         }
     }
 }

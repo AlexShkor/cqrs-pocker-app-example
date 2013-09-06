@@ -22,7 +22,7 @@ namespace AKQ.Web.Controllers
         [GET("")]
         public ActionResult Index(string tableId)
         {
-            return View("Game");
+            return PartialView("Game");
         }
 
 

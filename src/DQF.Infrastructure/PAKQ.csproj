@@ -104,6 +104,8 @@
     <Compile Include="Authentication\AkqPrincipal.cs" />
     <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Authentication\FacebookAuthorize.cs" />
+    <Compile Include="Domain\Aggregates\Game\Events\BidMade.cs" />
+    <Compile Include="Domain\Aggregates\Game\Events\NextPlayerTurned.cs" />
     <Compile Include="Platform\Mvc\BaseController.cs" />
     <Compile Include="Domain\ApplicationServices\PockerSet.cs" />
     <Compile Include="Hubs\UsersHub.cs" />

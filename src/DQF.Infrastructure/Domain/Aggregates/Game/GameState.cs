@@ -156,7 +156,8 @@ namespace PAQK.Domain.Aggregates.Game
                 {
                     Position = position,
                     Bid = bid,
-                    UserId = player.UserId
+                    UserId = player.UserId,
+                    NewCashValue = user.Cash - bid + player.Bid
                 };
             }
             throw new InvalidOperationException("Not enought cash for user {0} ");
@@ -178,5 +179,6 @@ namespace PAQK.Domain.Aggregates.Game
         public string UserId { get; set; }
         public int Position { get; set; }
         public long Bid { get; set; }
+        public long NewCashValue { get; set; }
     }
 }

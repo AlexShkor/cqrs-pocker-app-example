@@ -6,8 +6,8 @@ var GameController = (function () {
         this.$routeParams = $routeParams;
         this.$http = $http;
         this.$hubs = $hubs;
-        $http.post("/game/load/", $routeParams.tableId).success(function (data) {
-            alert(data.Name);
+        $http.post("/game/load/", { tableId: $routeParams.tableId }).success(function (data) {
+            $scope.game = data;
         });
     }
     return GameController;

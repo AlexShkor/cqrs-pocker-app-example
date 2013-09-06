@@ -13,6 +13,7 @@ namespace PAQK.Views
         public long Bid { get; set; }
         public string UserId { get; set; }
         public string Name { get; set; }
+        public bool CurrentTurn { get; set; }
 
         public PlayerDocument()
         {

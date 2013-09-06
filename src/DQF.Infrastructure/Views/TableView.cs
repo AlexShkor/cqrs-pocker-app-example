@@ -34,5 +34,17 @@ namespace PAQK.Views
             var player = Players.Find(x => x.UserId == userId);
             player.Cards.Add(card);
         }
+
+        public void SetBid(string userId, long bid, long newCashValue)
+        {
+            var player = GetPlayer(userId);
+            player.Bid = bid;
+            player.Cash = newCashValue;
+        }
+
+        private PlayerDocument GetPlayer(string userId)
+        {
+            return Players.Find(x => x.UserId == userId);
+        }
     }
 }

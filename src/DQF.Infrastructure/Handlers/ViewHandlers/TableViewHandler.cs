@@ -56,18 +56,18 @@ namespace PAQK.Handlers.ViewHandlers
 
         public void Handle(GameCreated e)
         {
-            _tables.Update(e.Id, table => table.Players = e.Players.Select(x =>
-            {
-                var user = _db.Users.GetById(x.UserId);
-                return new PlayerDocument()
-                {
-                    UserId = x.UserId,
-                    Position = x.Position,
-                    Cash = x.Cash,
-                    Name = user.UserName
-                };
+            //_tables.Update(e.Id, table => table.Players = e.Players.Select(x =>
+            //{
+            //    var user = _db.Users.GetById(x.UserId);
+            //    return new PlayerDocument()
+            //    {
+            //        UserId = x.UserId,
+            //        Position = x.Position,
+            //        Cash = x.Cash,
+            //        Name = user.UserName
+            //    };
 
-            }).ToList());
+            //}).ToList());
         }
 
         public void Handle(PlayerJoined e)
@@ -80,6 +80,15 @@ namespace PAQK.Handlers.ViewHandlers
                 Cash = e.Cash,
                 Name = user.UserName
             }));
+        }
+
+        public void Handle(BlindBidsMade e)
+        {
+            _tables.Update(e.Id, table =>
+            {
+                table.SetBid(e.SmallBlind.UserId, e.SmallBlind.Bid, e.SmallBlind.NewCashValue);
+                table.SetBid(e.BigBlind.UserId, e.BigBlind.Bid, e.BigBlind.NewCashValue);
+            });
         }
 
 

@@ -7,6 +7,7 @@ interface IGameRouteParams extends ng.IRouteParamsService {
 }
 
 interface IGameScope extends ng.IScope {
+    game: IGameModel;
 }
 
 interface IGameModel {
@@ -14,7 +15,6 @@ interface IGameModel {
     Name: string;
     BuyIn: string;
     SmallBlind: string;
-    MyCards: Card[];
     Deck: Card[];
     Players: Player[];
 }
@@ -36,9 +36,12 @@ interface Player {
 
 
 class GameController {
-    constructor(private $scope: IGameScope, private $routeParams: IGameRouteParams ,private $http: ng.IHttpService, private $hubs: Hubs) {
-        $http.post("/game/load/", $routeParams.tableId).success((data: IGameModel) => {
-            alert(data.Name);
+
+
+
+    constructor(private $scope: IGameScope, private $routeParams:any ,private $http: ng.IHttpService, private $hubs: Hubs) {
+        $http.post("/game/load/", { tableId: $routeParams.tableId }).success((data: IGameModel) => {
+            $scope.game = data;
         });
     }
 }

@@ -13,6 +13,9 @@ var TablesController = (function () {
             table.Name = "Joining...";
             $http.post("/game/join", { tableId: table.Id });
         };
+        $scope.view = function (table) {
+            $location.path("/game/view/" + table.Id);
+        };
         $hubs.Users.goToTable(function (e) {
             $location.path("/game/view/" + e.TableId);
         });

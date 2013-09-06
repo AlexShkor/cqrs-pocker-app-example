@@ -21,6 +21,9 @@ class TablesController {
             table.Name = "Joining...";
             $http.post("/game/join", { tableId: table.Id });
         };
+        $scope.view = (table: ITable) => {
+            $location.path("/game/view/" + table.Id);
+        };
         $hubs.Users.goToTable((e) => {
             $location.path("/game/view/" + e.TableId);
         });

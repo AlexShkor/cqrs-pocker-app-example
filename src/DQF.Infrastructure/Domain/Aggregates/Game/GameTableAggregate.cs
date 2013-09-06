@@ -69,6 +69,12 @@ namespace PAQK.Domain.Aggregates.Game
                 SmallBlind = State.GetBidInfo(smallBlind, State.SmallBlind),
                 BigBlind = State.GetBidInfo(smallBlind, State.BigBlind),
             });
+            Apply(new NextPlayerTurned
+            {
+                Id = State.TableId,
+                GameId = State.GameId,
+                Player = State.GetPlayerInfo(State.GetNextPlayer(bigBlind))
+            });
         }
 
         public void FinishGame(string id)
