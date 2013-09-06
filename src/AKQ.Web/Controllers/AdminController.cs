@@ -30,7 +30,7 @@ namespace AKQ.Web.Controllers
                     {
                         Id = _idGenerator.Generate(),
                         BuyIn = 1000 + (i*100),
-                        SmallBlind = 5 + ((i/5)*10),
+                        SmallBlind = 5 + (((i+1)/5)*10),
                         Name = "Table #" + (i + 1)
                     };
                     Send(cmd);
@@ -38,6 +38,27 @@ namespace AKQ.Web.Controllers
                 return Content("success!");
             }
             return Content("already created");
-        } 
+        }
+
+        public ActionResult RegenerateTables()
+        {
+            var all = _tables.GetAll().ToList();
+            foreach (var tableView in all)
+            {
+                Send(new ArchiveTable {Id = tableView.Id});
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                var cmd = new CreateTable
+                {
+                    Id = _idGenerator.Generate(),
+                    BuyIn = 1000 + (i*100),
+                    SmallBlind = 5 + (((i +1)/5)*10),
+                    Name = "Table #" + (i + 1)
+                };
+                Send(cmd);
+            }
+            return Content("success!");
+        }
     }
 }

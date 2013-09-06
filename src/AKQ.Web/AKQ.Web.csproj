@@ -259,6 +259,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <TypeScriptCompile Include="App\game.ts" />
+    <Content Include="App\game.js">
+      <DependentUpon>game.ts</DependentUpon>
+    </Content>
+    <Content Include="App\game.min.js">
+      <DependentUpon>game.ts</DependentUpon>
+    </Content>
     <Content Include="Assets\app\css\admin.css" />
     <Content Include="Assets\app\css\animate-custom.css" />
     <Content Include="Assets\app\css\auctionrobot.css" />
@@ -272,37 +279,38 @@
     <Content Include="Assets\app\css\img\grey.png" />
     <Content Include="Assets\app\css\login.css" />
     <Content Include="Assets\app\css\m-buttons.css" />
-    <TypeScriptCompile Include="Assets\app\js\tables.ts" />
-    <TypeScriptCompile Include="Assets\app\js\signals.ts" />
-    <Content Include="Assets\app\js\signals.js">
+    <Content Include="Views\Game\Game.cshtml" />
+    <TypeScriptCompile Include="App\tables.ts" />
+    <TypeScriptCompile Include="App\signals.ts" />
+    <Content Include="App\signals.js">
       <DependentUpon>signals.ts</DependentUpon>
     </Content>
-    <Content Include="Assets\app\js\signals.min.js">
+    <Content Include="App\signals.min.js">
       <DependentUpon>signals.ts</DependentUpon>
     </Content>
-    <Content Include="Assets\app\js\tables.js">
+    <Content Include="App\tables.js">
       <DependentUpon>tables.ts</DependentUpon>
     </Content>
-    <Content Include="Assets\app\js\tables.min.js">
+    <Content Include="App\tables.min.js">
       <DependentUpon>tables.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\typings\signalr\signalr.d.ts" />
     <Content Include="Views\Tables\Tables.cshtml" />
     <Content Include="Views\Shared\_ClassicLayout.cshtml" />
-    <TypeScriptCompile Include="Assets\app\js\home.ts" />
-    <Content Include="Assets\app\js\home.js">
+    <TypeScriptCompile Include="App\home.ts" />
+    <Content Include="App\home.js">
       <DependentUpon>home.ts</DependentUpon>
     </Content>
-    <Content Include="Assets\app\js\home.min.js">
+    <Content Include="App\home.min.js">
       <DependentUpon>home.ts</DependentUpon>
     </Content>
     <Content Include="Views\Home\ViewTemplateActionResult.cshtml" />
     <Content Include="Views\Home\Page404.cshtml" />
-    <TypeScriptCompile Include="Assets\app\js\app.ts" />
-    <Content Include="Assets\app\js\app.js">
+    <TypeScriptCompile Include="App\app.ts" />
+    <Content Include="App\app.js">
       <DependentUpon>app.ts</DependentUpon>
     </Content>
-    <Content Include="Assets\app\js\app.min.js">
+    <Content Include="App\app.min.js">
       <DependentUpon>app.ts</DependentUpon>
     </Content>
     <Content Include="Assets\vendor\amplify.js" />
@@ -430,7 +438,7 @@
     <Content Include="Assets\vendor\sammy-0.7.4.min.js" />
     <Content Include="Assets\vendor\sammy-latest.min.js" />
     <Content Include="Assets\vendor\sammy.js" />
-    <Content Include="Assets\app\js\app.min.js.map">
+    <Content Include="App\app.min.js.map">
       <DependentUpon>app.js</DependentUpon>
     </Content>
     <None Include="Assets\vendor\jquery-2.0.2.intellisense.js" />
@@ -800,8 +808,8 @@
     <Content Include="Scripts\jquery-2.0.3.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\app\js\" />
     <Folder Include="Assets\app\templates\" />
-    <Folder Include="Views\Game\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

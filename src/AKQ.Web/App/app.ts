@@ -1,4 +1,5 @@
-/// <reference path="../../../Scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="signals.ts" />
+/// <reference path="../Scripts/typings/angularjs/angular.d.ts" />
 
 
 var app = angular.module("myApp", []);
@@ -10,5 +11,9 @@ app.config(($routeProvider) => {
         .when('/404', <ng.IRoute>{ templateUrl: 'pages/404' })
         .when('', <ng.IRoute>{ templateUrl: 'home/view' , controller: 'HomeController'})
         .when('/tables', <ng.IRoute>{ templateUrl: 'tables' , controller: 'TablesController'})
-        .otherwise(<ng.IRoute>{ redirectTo: '/404' });
+      //  .otherwise(<ng.IRoute>{ redirectTo: '/404' });
+});
+var hubsInstance =  new Hubs();
+app.factory("$hubs", () => {
+    return hubsInstance;
 });

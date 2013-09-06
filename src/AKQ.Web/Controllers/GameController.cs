@@ -3,27 +3,33 @@ using AttributeRouting;
 using PAQK;
 using PAQK.Domain.Aggregates.Game.Commands;
 using AttributeRouting.Web.Mvc;
+using PAQK.ViewServices;
 
 namespace AKQ.Web.Controllers
 {
     [RoutePrefix("game")]
+    [Authorize]
     public class GameController : BaseController
     {
-        [GET("view/{gameId}")]
-        public ActionResult Index(string gameId)
+        private readonly TableViewService _tables;
+
+        public GameController(TableViewService tables)
         {
-            ViewBag.Title = "Game";
-            ViewBag.UserName = UserName;
-            return View("Templates/Game", (object)gameId);
+            _tables = tables;
+        }
+
+        [GET("")]
+        public ActionResult Index(string tableId)
+        {
+            return View("Game");
         }
 
 
-        [POST("view/{gameId}")]
-        public ActionResult Load(string gameId)
+        [POST("view/{tableId}")]
+        public ActionResult Load(string tableId)
         {
-            ViewBag.Title = "Game";
-            ViewBag.UserName = UserName;
-            return View("Templates/Game", (object)gameId);
+            var table = _tables.GetById(tableId);
+            return Json(table);
         }
 
         [POST("join")]

@@ -159,5 +159,13 @@ namespace PAQK.Domain.Aggregates.Game
                 UserId = userId
             });
         }
+
+        public void Archive()
+        {
+            Apply(new TableArchived
+            {
+                Id = State.TableId
+            });
+        }
     }
 }

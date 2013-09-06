@@ -1,4 +1,5 @@
-/// <reference path="../../../Scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="signals.ts" />
+/// <reference path="../Scripts/typings/angularjs/angular.d.ts" />
 
 interface ITablesScope extends ng.IScope {
     items: ITable[];
@@ -11,7 +12,7 @@ interface ITable{
 }
 
 class TablesController {
-    constructor(private $scope: ITablesScope, private $http: ng.IHttpService) {
+    constructor(private $scope: ITablesScope, private $http: ng.IHttpService, private $hubs: Hubs,private $location: ng.ILocationService) {
 
         $http.post("/tables/load/", null).success((data) => {
             $scope.items = data;
@@ -20,5 +21,8 @@ class TablesController {
             table.Name = "Joining...";
             $http.post("/game/join", { tableId: table.Id });
         };
+        $hubs.Users.goToTable((e) => {
+            $location.path("/game/view/" + e.TableId);
+        });
     }
 }

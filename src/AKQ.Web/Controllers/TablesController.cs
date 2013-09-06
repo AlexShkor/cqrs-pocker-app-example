@@ -10,6 +10,7 @@ using PAQK.ViewServices;
 
 namespace AKQ.Web.Controllers
 {
+    [Authorize]
     [RoutePrefix("tables")]
     public class TablesController : BaseController
     {
@@ -26,7 +27,6 @@ namespace AKQ.Web.Controllers
         {
             return PartialView("Tables");
         }
-
 
         [POST("load")]
         public ActionResult GetAll()

@@ -1,4 +1,4 @@
-/// <reference path="../../../Scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="../Scripts/typings/angularjs/angular.d.ts" />
 
 
 interface IHomeScope extends ng.IScope {

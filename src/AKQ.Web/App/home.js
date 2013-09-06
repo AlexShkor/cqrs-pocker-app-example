@@ -1,4 +1,4 @@
-/// <reference path="../../../Scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="../Scripts/typings/angularjs/angular.d.ts" />
 var HomeController = (function () {
     function HomeController($scope) {
         var _this = this;

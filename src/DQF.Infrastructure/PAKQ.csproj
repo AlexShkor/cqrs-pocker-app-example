@@ -117,6 +117,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Databases\MongoAdminDatabase.cs" />
     <Compile Include="Documents\Administration\LogItem.cs" />
+    <Compile Include="Domain\Aggregates\Game\Commands\ArchiveTable.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\BlindBidsMade.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CallBid.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\ForcePlayer.cs" />

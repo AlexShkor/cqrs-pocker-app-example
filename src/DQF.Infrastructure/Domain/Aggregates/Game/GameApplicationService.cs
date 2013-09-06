@@ -18,6 +18,11 @@ namespace PAQK.Domain.Aggregates.Game
             _repository.Perform(c.Id,game => game.CreateTable(c.Id, c.Name, c.BuyIn, c.SmallBlind));
         }
 
+        public void Handle(ArchiveTable c)
+        {
+            _repository.Perform(c.Id,game => game.Archive());
+        }
+
         public void Handle(CreateGame c)
         {
             _repository.Perform(c.Id,game => game.CreateGame(c.GameId));

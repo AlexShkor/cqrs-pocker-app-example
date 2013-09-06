@@ -1,8 +1,11 @@
-/// <reference path="../../../Scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="signals.ts" />
+/// <reference path="../Scripts/typings/angularjs/angular.d.ts" />
 var TablesController = (function () {
-    function TablesController($scope, $http) {
+    function TablesController($scope, $http, $hubs, $location) {
         this.$scope = $scope;
         this.$http = $http;
+        this.$hubs = $hubs;
+        this.$location = $location;
         $http.post("/tables/load/", null).success(function (data) {
             $scope.items = data;
         });
@@ -10,6 +13,9 @@ var TablesController = (function () {
             table.Name = "Joining...";
             $http.post("/game/join", { tableId: table.Id });
         };
+        $hubs.Users.goToTable(function (e) {
+            $location.path("/game/view/" + e.TableId);
+        });
     }
     return TablesController;
 })();
