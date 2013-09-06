@@ -136,6 +136,7 @@
     <Compile Include="Domain\Aggregates\User\Commands\ResetPassword.cs" />
     <Compile Include="Handlers\SingleUseEventHandlers\SignalR\TableHubEventHandler.cs" />
     <Compile Include="ViewModel\GameViewModel.cs" />
+    <Compile Include="ViewModel\PlayerViewModel.cs" />
     <Compile Include="Views\TableView.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CheckBid.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CreateTable.cs" />
