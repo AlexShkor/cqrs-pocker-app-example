@@ -8,6 +8,7 @@ interface IGameRouteParams extends ng.IRouteParamsService {
 
 interface IGameScope extends ng.IScope {
     game: IGameModel;
+    call: Function;
 }
 
 interface IGameModel {
@@ -40,5 +41,8 @@ class GameController {
         $http.post("/game/load/", { tableId: $routeParams.tableId }).success((data: IGameModel) => {
             $scope.game = data;
         });
+        $scope.call = function (player) {
+            $http.post("/game/call", { tableId: $scope.game.Id });
+        };
     }
 }

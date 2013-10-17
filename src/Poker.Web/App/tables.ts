@@ -4,6 +4,7 @@
 interface ITablesScope extends ng.IScope {
     items: ITable[];
     join: Function;
+    view: Function;
 }
 
 interface ITable{
