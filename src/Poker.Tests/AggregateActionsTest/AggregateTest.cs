@@ -31,10 +31,15 @@ namespace Poker.Tests.AggregateActionsTest
         [Test]
         public virtual void Test()
         {
-            Validate();
+            ValidateState(_aggregate);
+            ValidateEvents();
         }
 
-        public void Validate(params string[] names)
+        public virtual void ValidateState(T a)
+        {
+        }
+
+        public void ValidateEvents(params string[] names)
         {
             var expected = Expected().ToList();
             Assert.AreEqual(expected.Count, _aggregate.Changes.Count);

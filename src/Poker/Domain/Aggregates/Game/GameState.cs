@@ -141,11 +141,6 @@ namespace Poker.Domain.Aggregates.Game
             return JoinedPlayers.Count >= MaxPlayers;
         }
 
-        public bool IsPositionTaken(int position)
-        {
-            return JoinedPlayers.Values.Any(x => x.Position == position);
-        }
-
         public bool HasUser(string userId)
         {
             return JoinedPlayers.ContainsKey(userId);

@@ -107,7 +107,7 @@ namespace Poker.Tests.AggregateActionsTest.JoinPlayer
         [Test]
         public override void Test()
         {
-            Validate("GameId","Cards");
+            ValidateEvents("GameId","Cards");
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Poker.Domain.Aggregates.Game
             });
         }
 
-        public void CreateGame(string id)
+        private void CreateGame(string id)
         {
             if (State.GameId.HasValue())
             {
@@ -112,10 +112,6 @@ namespace Poker.Domain.Aggregates.Game
                 throw new InvalidOperationException("Table is full.");
             }
             var position = GameTableState.Positions.Except(State.JoinedPlayers.Select(x => x.Value.Position)).First();
-            if (State.IsPositionTaken(position))
-            {
-                throw new InvalidOperationException("Position is already taken.");
-            }
             if (!State.HasUser(userId))
             {
                 Apply(new PlayerJoined

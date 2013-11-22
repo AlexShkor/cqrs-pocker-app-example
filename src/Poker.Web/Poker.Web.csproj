@@ -287,7 +287,6 @@
     <Content Include="Scripts\typings\angularjs\angular-scenario.d.ts" />
     <Content Include="Scripts\typings\angularjs\angular.d.ts" />
     <Content Include="Views\Game\Game.cshtml" />
-    <TypeScriptCompile Include="App\sdfsdf.ts" />
     <TypeScriptCompile Include="App\tables.ts" />
     <TypeScriptCompile Include="App\signals.ts" />
     <Content Include="App\signals.js">
