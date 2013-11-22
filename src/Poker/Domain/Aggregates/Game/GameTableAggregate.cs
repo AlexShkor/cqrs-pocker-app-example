@@ -15,6 +15,10 @@ namespace Poker.Domain.Aggregates.Game
 
         public void CreateTable(string id, string name, long buyIn, long smallBlind)
         {
+            if (State.TableId.HasValue())
+            {
+                throw new InvalidOperationException("Table is already created.");
+            }
             Apply(new TableCreated()
             {
                 Id = id,
@@ -40,7 +44,7 @@ namespace Poker.Domain.Aggregates.Game
             {
                 Id = State.TableId,
                 GameId = id,
-                Players = State.JoinedPlayers.Values.ToList(),
+                Players = State.CopyPlayers(),
                 Cards = pack.GetAllCards()
             });
             DealCards(id);

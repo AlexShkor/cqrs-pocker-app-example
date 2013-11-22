@@ -22,3 +22,4 @@ var TablesController = (function () {
     }
     return TablesController;
 })();
+//# sourceMappingURL=tables.js.map

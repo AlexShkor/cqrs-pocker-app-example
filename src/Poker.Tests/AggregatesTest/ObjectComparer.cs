@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using MoreLinq;
 
 namespace Poker.Tests.AggregatesTest
 {
@@ -62,11 +63,6 @@ namespace Poker.Tests.AggregatesTest
                     // if it implements IEnumerable, then scan any items
                     else if (typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
                     {
-                        IEnumerable<object> collectionItems1;
-                        IEnumerable<object> collectionItems2;
-                        int collectionItemsCount1;
-                        int collectionItemsCount2;
-
                         // null check
                         if (valueA == null && valueB != null || valueA != null && valueB == null)
                         {
@@ -75,45 +71,36 @@ namespace Poker.Tests.AggregatesTest
                         }
                         else if (valueA != null && valueB != null)
                         {
-                            collectionItems1 = ((IEnumerable)valueA).Cast<object>();
-                            collectionItems2 = ((IEnumerable)valueB).Cast<object>();
-                            collectionItemsCount1 = collectionItems1.Count();
-                            collectionItemsCount2 = collectionItems2.Count();
+                            var valueAcollection = ((IEnumerable)valueA).Cast<object>();
+                            var valueBcollection = ((IEnumerable)valueB).Cast<object>();
 
-                            // check the counts to ensure they match
-                            if (collectionItemsCount1 != collectionItemsCount2)
-                            {
-                                Console.WriteLine("Collection counts for property '{0}.{1}' do not match.", objectType.FullName, propertyInfo.Name);
-                                result = false;
-                            }
                             // and if they do, compare each item... this assumes both collections have the same order
-                            else
+                            valueAcollection.ZipLongest(valueBcollection, (first, second) =>
                             {
-                                for (int i = 0; i < collectionItemsCount1; i++)
+                                var collectionItemType = first.GetType();
+
+                                if (CanDirectlyCompare(collectionItemType))
                                 {
-                                    object collectionItem1;
-                                    object collectionItem2;
-                                    Type collectionItemType;
-
-                                    collectionItem1 = collectionItems1.ElementAt(i);
-                                    collectionItem2 = collectionItems2.ElementAt(i);
-                                    collectionItemType = collectionItem1.GetType();
-
-                                    if (CanDirectlyCompare(collectionItemType))
+                                    if (!AreValuesEqual(first, second))
                                     {
-                                        if (!AreValuesEqual(collectionItem1, collectionItem2))
-                                        {
-                                            Console.WriteLine("Item {0} in property collection '{1}.{2}' does not match.", i, objectType.FullName, propertyInfo.Name);
-                                            result = false;
-                                        }
-                                    }
-                                    else if (!AreObjectsEqual(collectionItem1, collectionItem2, ignoreList))
-                                    {
-                                        Console.WriteLine("Item {0} in property collection '{1}.{2}' does not match.", i, objectType.FullName, propertyInfo.Name);
+                                        Console.WriteLine("Item {0} in property collection '{1}.{2}' does not match.", 0, objectType.FullName, propertyInfo.Name);
                                         result = false;
                                     }
                                 }
-                            }
+                                else if (!AreObjectsEqual(first, second, ignoreList))
+                                {
+                                    Console.WriteLine("Item {0} in property collection '{1}.{2}' does not match.", 0, objectType.FullName, propertyInfo.Name);
+                                    result = false;
+                                }
+                                return true;
+                            });
+
+                            //// check the counts to ensure they match
+                            //if (collectionItemsCount1 != collectionItemsCount2)
+                            //{
+                            //    Console.WriteLine("Collection counts for property '{0}.{1}' do not match.", objectType.FullName, propertyInfo.Name);
+                            //    result = false;
+                            //}
                         }
                     }
                     else if (propertyInfo.PropertyType.IsClass)

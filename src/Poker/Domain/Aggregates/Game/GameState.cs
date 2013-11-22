@@ -53,6 +53,8 @@ namespace Poker.Domain.Aggregates.Game
             On((GameFinished e) =>
             {
                 GameId = null;
+                MaxBid = 0;
+                CurrentBidding = null;
             });
             On((GameCreated e) =>
             {
@@ -171,6 +173,16 @@ namespace Poker.Domain.Aggregates.Game
                 };
             }
             throw new InvalidOperationException("Not enought cash for user {0} ");
+        }
+
+        public List<TablePlayer> CopyPlayers()
+        {
+            return JoinedPlayers.Values.Select(x => new TablePlayer
+            {
+                UserId = x.UserId,
+                Position = x.Position,
+                Cash = x.Cash
+            }).ToList();
         }
     }
 

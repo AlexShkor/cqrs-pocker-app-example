@@ -10,3 +10,4 @@ var hubsInstance = new Hubs();
 app.factory("$hubs", function () {
     return hubsInstance;
 });
+//# sourceMappingURL=app.js.map
