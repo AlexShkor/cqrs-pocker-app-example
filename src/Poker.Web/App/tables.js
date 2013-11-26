@@ -1,5 +1,3 @@
-/// <reference path="signals.ts" />
-/// <reference path="../Scripts/typings/angularjs/angular.d.ts" />
 var TablesController = (function () {
     function TablesController($scope, $http, $hubs, $location) {
         this.$scope = $scope;
@@ -22,4 +20,3 @@ var TablesController = (function () {
     }
     return TablesController;
 })();
-//# sourceMappingURL=tables.js.map

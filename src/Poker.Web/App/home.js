@@ -1,4 +1,4 @@
-/// <reference path="../Scripts/typings/angularjs/angular.d.ts" />
+
 var HomeController = (function () {
     function HomeController($scope) {
         var _this = this;
@@ -12,4 +12,3 @@ var HomeController = (function () {
     }
     return HomeController;
 })();
-//# sourceMappingURL=home.js.map

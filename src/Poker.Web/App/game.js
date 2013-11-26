@@ -1,5 +1,4 @@
-/// <reference path="signals.ts" />
-/// <reference path="../Scripts/typings/angularjs/angular.d.ts" />
+
 var GameController = (function () {
     function GameController($scope, $routeParams, $http, $hubs) {
         this.$scope = $scope;
@@ -27,4 +26,3 @@ var GameController = (function () {
     }
     return GameController;
 })();
-//# sourceMappingURL=game.js.map

@@ -23,4 +23,3 @@ var Hubs = (function () {
     }
     return Hubs;
 })();
-//# sourceMappingURL=signals.js.map

@@ -260,13 +260,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <TypeScriptCompile Include="App\game.ts" />
-    <Content Include="App\game.js">
-      <DependentUpon>game.ts</DependentUpon>
-    </Content>
-    <Content Include="App\game.min.js">
-      <DependentUpon>game.ts</DependentUpon>
-    </Content>
+    <Content Include="App\app.js" />
+    <Content Include="App\game.js" />
+    <Content Include="App\home.js" />
+    <Content Include="App\signals.js" />
+    <Content Include="App\tables.js" />
     <Content Include="Assets\app\css\admin.css" />
     <Content Include="Assets\app\css\animate-custom.css" />
     <Content Include="Assets\app\css\auctionrobot.css" />
@@ -287,37 +285,9 @@
     <Content Include="Scripts\typings\angularjs\angular-scenario.d.ts" />
     <Content Include="Scripts\typings\angularjs\angular.d.ts" />
     <Content Include="Views\Game\Game.cshtml" />
-    <TypeScriptCompile Include="App\tables.ts" />
-    <TypeScriptCompile Include="App\signals.ts" />
-    <Content Include="App\signals.js">
-      <DependentUpon>signals.ts</DependentUpon>
-    </Content>
-    <Content Include="App\signals.min.js">
-      <DependentUpon>signals.ts</DependentUpon>
-    </Content>
-    <Content Include="App\tables.js">
-      <DependentUpon>tables.ts</DependentUpon>
-    </Content>
-    <Content Include="App\tables.min.js">
-      <DependentUpon>tables.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\typings\signalr\signalr.d.ts" />
     <Content Include="Views\Tables\Tables.cshtml" />
     <Content Include="Views\Shared\_ClassicLayout.cshtml" />
-    <TypeScriptCompile Include="App\home.ts" />
-    <Content Include="App\home.js">
-      <DependentUpon>home.ts</DependentUpon>
-    </Content>
-    <Content Include="App\home.min.js">
-      <DependentUpon>home.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="App\app.ts" />
-    <Content Include="App\app.js">
-      <DependentUpon>app.ts</DependentUpon>
-    </Content>
-    <Content Include="App\app.min.js">
-      <DependentUpon>app.ts</DependentUpon>
-    </Content>
     <Content Include="Assets\vendor\amplify.js" />
     <Content Include="Assets\vendor\amplify.min.js" />
     <Content Include="Assets\vendor\bootstrap-popover.js" />
@@ -443,9 +413,6 @@
     <Content Include="Assets\vendor\sammy-0.7.4.min.js" />
     <Content Include="Assets\vendor\sammy-latest.min.js" />
     <Content Include="Assets\vendor\sammy.js" />
-    <Content Include="App\app.min.js.map">
-      <DependentUpon>app.js</DependentUpon>
-    </Content>
     <None Include="Assets\vendor\jquery-2.0.2.intellisense.js" />
     <Content Include="Assets\vendor\jquery-2.0.2.js" />
     <Content Include="Assets\vendor\jquery-2.0.2.min.js" />
