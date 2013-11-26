@@ -59,6 +59,31 @@ namespace Poker.Web.Controllers
             return Json(cmd);
         }
 
+        [POST("check")]
+        public ActionResult Check(string tableId)
+        {
+            var cmd = new CheckBid
+            {
+                Id = tableId,
+                UserId = UserId
+            };
+            Send(cmd);
+            return Json(cmd);
+        }
+
+        [POST("raise")]
+        public ActionResult Raise(string tableId, long amount)
+        {
+            var cmd = new RaiseBid
+            {
+                Id = tableId,
+                UserId = UserId,
+                Amount = amount
+            };
+            Send(cmd);
+            return Json(cmd);
+        }
+
         [POST("force")]
         public ActionResult Force(string tableId)
         {

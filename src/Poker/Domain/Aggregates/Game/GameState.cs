@@ -35,6 +35,8 @@ namespace Poker.Domain.Aggregates.Game
 
         public Pack Pack { get; set; }
 
+        public List<Card> Deck { get; set; }
+
         public long MaxBid { get; set; }
 
         public readonly int MaxPlayers = 10;
@@ -61,6 +63,7 @@ namespace Poker.Domain.Aggregates.Game
             {
                 GameId = e.GameId;
                 Pack = new Pack(e.Cards);
+                Deck = new List<Card>();
                 SitPlayers(e.Players);
                 CurrentBidding = new BiddingInfo();
             });
@@ -94,6 +97,14 @@ namespace Poker.Domain.Aggregates.Game
             On((PlayerFoldBid e) =>
             {
                 Players[e.Position].Fold = true;
+            });
+            On((DeckDealed e) =>
+            {
+                foreach (var card in e.Cards)
+                {
+                    Pack.Remove(card);
+                    Deck.Add(card);
+                }
             });
         }
 

@@ -60,6 +60,7 @@
     <Compile Include="AggregateActionsTest\Call\NotYourTurn.cs" />
     <Compile Include="AggregateActionsTest\Call\IfCall3Players.cs" />
     <Compile Include="AggregateActionsTest\Call\PlayerCanCall.cs" />
+    <Compile Include="AggregateActionsTest\Check\DeckDealing.cs" />
     <Compile Include="AggregateActionsTest\Check\NotYourTurn.cs" />
     <Compile Include="AggregateActionsTest\Check\PlayerCanCheck.cs" />
     <Compile Include="AggregateActionsTest\CreateTableTest\CreateTableSuccesfulTest.cs" />

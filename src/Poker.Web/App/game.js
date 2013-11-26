@@ -12,6 +12,18 @@ var GameController = (function () {
         $scope.call = function (player) {
             $http.post("/game/call", { tableId: $scope.game.Id });
         };
+        $scope.check = function (player) {
+            $http.post("/game/check", { tableId: $scope.game.Id });
+        };
+        $scope.raise = function (player) {
+            if (player.RaiseValue > 0) {
+                $http.post("/game/raise", { tableId: $scope.game.Id, amount: player.RaiseValue });
+                player.RaiseValue = null;
+            }
+        };
+        $scope.fold = function (player) {
+            $http.post("/game/fold", { tableId: $scope.game.Id });
+        };
     }
     return GameController;
 })();

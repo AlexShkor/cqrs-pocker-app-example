@@ -55,5 +55,10 @@ namespace Poker.Tests.AggregateActionsTest
                 Assert.IsTrue(ObjectComparer.AreObjectsEqual(expected[i], _aggregate.Changes[i], ignore));
             }
         }
+
+        protected IEnumerable<TEvent> GetChanges<TEvent>() where TEvent : class
+        {
+            return _aggregate.Changes.Select(x => x as TEvent).Where(x => x != null);
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace Poker.ViewModel
         public int Position { get; set; }
         public long Cash { get; set; }
         public long Bid { get; set; }
+        public long RaiseValue { get; set; }
         public string UserId { get; set; }
         public string Name { get; set; }
         public bool IsMe { get; set; } 

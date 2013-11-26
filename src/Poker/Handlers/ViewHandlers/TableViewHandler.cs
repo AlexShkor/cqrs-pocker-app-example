@@ -1,4 +1,5 @@
 ﻿using Poker.Databases;
+using Poker.Domain.Aggregates.Game;
 using Poker.Domain.Aggregates.Game.Events;
 using Poker.Platform.Dispatching;
 using Poker.Platform.Dispatching.Attributes;
@@ -108,5 +109,9 @@ namespace Poker.Handlers.ViewHandlers
             });
         }
 
+        public void Handle(DeckDealed e)
+        {
+            _tables.Update(e.Id, table => table.Deck.AddRange(e.Cards));
+        }
     }
 }

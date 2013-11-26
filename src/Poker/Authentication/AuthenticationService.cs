@@ -22,7 +22,7 @@ namespace Poker.Authentication
         public UserView ValidateUser(string email, string password)
         {
             var user = _users.GetByEmail(email);
-            if (user.PasswordHash == _crypto.GetPasswordHash(password, user.PasswordSalt))
+            if (user != null && user.PasswordHash == _crypto.GetPasswordHash(password, user.PasswordSalt))
             {
                 return user;
             }

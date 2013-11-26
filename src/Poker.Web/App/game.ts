@@ -9,6 +9,9 @@ interface IGameRouteParams extends ng.IRouteParamsService {
 interface IGameScope extends ng.IScope {
     game: IGameModel;
     call: Function;
+    check: Function;
+    raise: Function;
+    fold: Function;
 }
 
 interface IGameModel {
@@ -43,6 +46,18 @@ class GameController {
         });
         $scope.call = function (player) {
             $http.post("/game/call", { tableId: $scope.game.Id });
+        };
+        $scope.check = function (player) {
+            $http.post("/game/check", { tableId: $scope.game.Id });
+        };
+        $scope.raise = function (player) {
+            if (player.RaiseValue > 0) {
+                $http.post("/game/raise", { tableId: $scope.game.Id, amount: player.RaiseValue });
+                player.RaiseValue = null;
+            }
+        };
+        $scope.fold = function (player) {
+            $http.post("/game/fold", { tableId: $scope.game.Id });
         };
     }
 }

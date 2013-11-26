@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI.WebControls.WebParts;
 using MongoDB.Bson;
 using Poker.Domain.Aggregates.Game.Data;
 using Poker.Domain.Aggregates.Game.Events;
 using Poker.Domain.Data;
 using Poker.Platform.Domain;
+using Poker.Platform.Domain.Interfaces;
+using Poker.Platform.Domain.Messages;
 using Poker.Platform.Extensions;
 
 namespace Poker.Domain.Aggregates.Game
@@ -87,12 +90,34 @@ namespace Poker.Domain.Aggregates.Game
                     Bank = State.CurrentBidding.GetBank()
                 });
             }
-            else if (CheckBiddingFinished())
-            {
-
-            }
             else
             {
+                if (CheckBiddingFinished())
+                {
+                    if (State.Deck.Count == 5)
+                    {
+                        throw new NotImplementedException();
+                    }
+                    else
+                    {
+                        var cards = new List<Card>
+                        {
+                            State.Pack.TakeRandom()
+                        };
+                        if (!State.Deck.Any())
+                        {
+                            cards.Add(State.Pack.TakeRandom());
+                            cards.Add(State.Pack.TakeRandom());
+                        }
+                        Apply(new DeckDealed
+                        {
+                            Id = State.TableId,
+                            GameId = State.GameId,
+                            Cards = cards
+                        });
+                        currentPosition = State.Dealer.Value;
+                    }
+                }
                 Apply(new NextPlayerTurned
                 {
                     Id = State.TableId,
@@ -238,14 +263,6 @@ namespace Poker.Domain.Aggregates.Game
             NextTurn(user.Position);
         }
 
-        private void GameMayBeFinishedByBidding()
-        {
-            if (State.Players.Values.Count(x => x.Fold) == State.Players.Count - 1)
-            {
-                
-            }
-        }
-
         private void IsCurrentPlayer(string userId)
         {
             if (State.GetPlayerInfo(State.CurrentPlayer).UserId != userId)
@@ -261,5 +278,11 @@ namespace Poker.Domain.Aggregates.Game
                 Id = State.TableId
             });
         }
+    }
+
+    public class DeckDealed : Event
+    {
+        public string GameId { get; set; }
+        public List<Card> Cards { get; set; }
     }
 }
