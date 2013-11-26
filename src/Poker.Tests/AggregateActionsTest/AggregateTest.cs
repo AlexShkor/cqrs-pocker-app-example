@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Poker.Platform.Domain;
@@ -42,7 +43,12 @@ namespace Poker.Tests.AggregateActionsTest
         public void ValidateEvents(params string[] names)
         {
             var expected = Expected().ToList();
-            Assert.AreEqual(expected.Count, _aggregate.Changes.Count);
+            if (expected.Count != _aggregate.Changes.Count)
+            {
+                var message = string.Format("Events:\n{0} \n",
+                    string.Join("\n", _aggregate.Changes.Select(x => x.GetType().Name)));
+                Assert.AreEqual(expected.Count, _aggregate.Changes.Count, message);
+            }
             var ignore = IgnoreList.Create(names);
             for (int i = 0; i < _aggregate.Changes.Count; i++)
             {

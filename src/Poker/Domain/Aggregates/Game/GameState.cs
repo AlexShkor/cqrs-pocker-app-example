@@ -13,9 +13,9 @@ namespace Poker.Domain.Aggregates.Game
 
         public static readonly int[] Positions = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-        public Dictionary<string,TablePlayer> JoinedPlayers { get; private set; }
+        public Dictionary<string,TablePlayer> JoinedPlayers { get; set; }
 
-        public Dictionary<int,GamePlayer> Players { get; private set; }
+        public Dictionary<int,GamePlayer> Players { get; set; }
 
         public string GameId { get; private set; }
 
@@ -29,7 +29,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public int CurrentPlayer { get; set; }
 
-        public int? Dealer { get; private set; }
+        public int? Dealer { get; set; }
 
         public BiddingInfo CurrentBidding { get; private set; }
 
@@ -122,18 +122,22 @@ namespace Poker.Domain.Aggregates.Game
             }
         }
 
-        public int GetNextPlayer(int position)
+        public int GetNextPlayer(int position, Func<GamePlayer,bool> predicate = null)
         {
             for (int i = 1; i < 10; i++)
             {
                 var index = (position + i) % 10;
-                if (Players.ContainsKey(index))
+                if (Players.ContainsKey(index) && (predicate == null || predicate(Players[index])))
                 {
                     return index;
                 }
-
             }
             return position;
+        }
+
+        public int GetNextNotFoldPlayer(int position)
+        {
+            return GetNextPlayer(position, player => !player.Fold);
         }
 
         public int GetNextDealer()
@@ -142,7 +146,7 @@ namespace Poker.Domain.Aggregates.Game
             {
                 return GetNextPlayer(Dealer.Value);
             }
-            return Players.Select(x => x.Value.Position).First();
+            return Players.Select(x => x.Value.Position).OrderBy(x=> x).First();
         }
 
         public bool IsTableFull()
@@ -164,19 +168,20 @@ namespace Poker.Domain.Aggregates.Game
         {
             var player = Players[position];
             var user = JoinedPlayers[player.UserId];
-            if (user.Cash >= bid)
+            if (user.Cash < bid)
             {
-                return new BidInfo
-                {
-                    Position = position,
-                    Bid = player.Bid + bid,
-                    Odds = bid,
-                    AllIn = user.Cash == bid,
-                    UserId = player.UserId,
-                    NewCashValue = user.Cash - bid
-                };
+                throw new InvalidOperationException("Not enought cash for user {0} ");
             }
-            throw new InvalidOperationException("Not enought cash for user {0} ");
+            return new BidInfo
+            {
+                Position = position,
+                Bid = player.Bid + bid,
+                Odds = bid,
+                AllIn = user.Cash == bid,
+                UserId = player.UserId,
+                NewCashValue = user.Cash - bid
+            };
+            
         }
 
         public List<TablePlayer> CopyPlayers()

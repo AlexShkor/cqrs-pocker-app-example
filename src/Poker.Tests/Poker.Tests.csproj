@@ -74,10 +74,15 @@
     <Compile Include="AggregateActionsTest\JoinPlayer\JoinSecondPlayerSuccessful.cs" />
     <Compile Include="AggregateActionsTest\CreateTableTest\PreventDoubleCreation.cs" />
     <Compile Include="AggregateActionsTest\JoinPlayer\TableIsFullTest.cs" />
+    <Compile Include="AggregateActionsTest\Raise\CanRaise.cs" />
     <Compile Include="AggregateActionsTest\Raise\NotYourTurn.cs" />
     <Compile Include="AggregateStateTests\DealerAssignedTest.cs" />
     <Compile Include="AggregateStateTests\GameCreatedStateTests.cs" />
     <Compile Include="AggregateStateTests\GameFinishedTest.cs" />
+    <Compile Include="AggregateStateTests\Methods\GetBidInfoTest.cs" />
+    <Compile Include="AggregateStateTests\Methods\GetNextDealerTest.cs" />
+    <Compile Include="AggregateStateTests\Methods\GetNextPlayerTest.cs" />
+    <Compile Include="AggregateStateTests\Methods\IsAllExceptOneAreFold.cs" />
     <Compile Include="AggregateStateTests\PlayerFoldBidTest.cs" />
     <Compile Include="AggregateStateTests\TableCreatedStateTest.cs" />
     <Compile Include="AggregatesTest\ObjectComparer.cs" />

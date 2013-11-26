@@ -97,7 +97,7 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    Player = State.GetPlayerInfo(State.GetNextPlayer(currentPosition))
+                    Player = State.GetPlayerInfo(State.GetNextNotFoldPlayer(currentPosition))
                 });
             }
         }
