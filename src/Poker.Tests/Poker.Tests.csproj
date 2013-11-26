@@ -57,16 +57,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateActionsTest\AggregateTest.cs" />
+    <Compile Include="AggregateActionsTest\Call\NotYourTurn.cs" />
+    <Compile Include="AggregateActionsTest\Call\IfCall3Players.cs" />
+    <Compile Include="AggregateActionsTest\Call\PlayerCanCall.cs" />
+    <Compile Include="AggregateActionsTest\Check\NotYourTurn.cs" />
+    <Compile Include="AggregateActionsTest\Check\PlayerCanCheck.cs" />
     <Compile Include="AggregateActionsTest\CreateTableTest\CreateTableSuccesfulTest.cs" />
+    <Compile Include="AggregateActionsTest\Fold\FinishBiddingNoRaises3Players.cs" />
+    <Compile Include="AggregateActionsTest\Fold\FinishesBidding2Players.cs" />
+    <Compile Include="AggregateActionsTest\Fold\NoRaises2Players.cs" />
+    <Compile Include="AggregateActionsTest\Fold\NotYourTurn.cs" />
+    <Compile Include="AggregateActionsTest\GameTableTest.cs" />
     <Compile Include="AggregateActionsTest\JoinPlayer\AlreadyhasuserWithSameIdTest.cs" />
     <Compile Include="AggregateActionsTest\JoinPlayer\DontCreateGameIfItIsStartedTest.cs" />
     <Compile Include="AggregateActionsTest\JoinPlayer\JoinPlayerSuccessful.cs" />
     <Compile Include="AggregateActionsTest\JoinPlayer\JoinSecondPlayerSuccessful.cs" />
     <Compile Include="AggregateActionsTest\CreateTableTest\PreventDoubleCreation.cs" />
     <Compile Include="AggregateActionsTest\JoinPlayer\TableIsFullTest.cs" />
+    <Compile Include="AggregateActionsTest\Raise\NotYourTurn.cs" />
+    <Compile Include="AggregateStateTests\DealerAssignedTest.cs" />
     <Compile Include="AggregateStateTests\GameCreatedStateTests.cs" />
+    <Compile Include="AggregateStateTests\GameFinishedTest.cs" />
+    <Compile Include="AggregateStateTests\PlayerFoldBidTest.cs" />
     <Compile Include="AggregateStateTests\TableCreatedStateTest.cs" />
     <Compile Include="AggregatesTest\ObjectComparer.cs" />
+    <Compile Include="Extenssions\GameTableExt.cs" />
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />
     <Compile Include="PokerSetTests\PockerSetsPresentingTests.cs" />
@@ -86,7 +101,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="GameCasesTests\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

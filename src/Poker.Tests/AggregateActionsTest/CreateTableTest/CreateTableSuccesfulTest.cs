@@ -5,7 +5,7 @@ using Poker.Platform.Domain.Interfaces;
 
 namespace Poker.Tests.AggregateActionsTest.CreateTableTest
 {
-    public class CreateTableSuccesfulTest : AggregateTest<GameTableAggregate, GameTableState>
+    public class CreateTableSuccesfulTest : GameTableTest
     {
         public override void Given(GameTableAggregate a)
         {

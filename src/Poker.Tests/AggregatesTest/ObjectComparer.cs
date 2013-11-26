@@ -56,7 +56,7 @@ namespace Poker.Tests.AggregatesTest
                     {
                         if (!AreValuesEqual(valueA, valueB))
                         {
-                            Console.WriteLine("Mismatch with property '{0}.{1}' found.", objectType.FullName, propertyInfo.Name);
+                            Console.WriteLine("Mismatch with property '{0}.{1}' found. Expected: {2}, was {3}", objectType.FullName, propertyInfo.Name, valueA, valueB);
                             result = false;
                         }
                     }
@@ -66,7 +66,7 @@ namespace Poker.Tests.AggregatesTest
                         // null check
                         if (valueA == null && valueB != null || valueA != null && valueB == null)
                         {
-                            Console.WriteLine("Mismatch with property '{0}.{1}' found.", objectType.FullName, propertyInfo.Name);
+                            Console.WriteLine("Mismatch with property '{0}.{1}' found. Expected: {2}, was {3}", objectType.FullName, propertyInfo.Name, valueA, valueB);
                             result = false;
                         }
                         else if (valueA != null && valueB != null)
@@ -107,7 +107,7 @@ namespace Poker.Tests.AggregatesTest
                     {
                         if (!AreObjectsEqual(propertyInfo.GetValue(objectA, null), propertyInfo.GetValue(objectB, null), ignoreList))
                         {
-                            Console.WriteLine("Mismatch with property '{0}.{1}' found.", objectType.FullName, propertyInfo.Name);
+                            Console.WriteLine("Mismatch with property '{0}.{1}' found. Expected: {2}, was {3}", objectType.FullName, propertyInfo.Name, valueA, valueB);
                             result = false;
                         }
                     }

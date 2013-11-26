@@ -55,6 +55,7 @@ namespace Poker.Domain.Aggregates.Game
                 GameId = null;
                 MaxBid = 0;
                 CurrentBidding = null;
+                JoinedPlayers[e.Winner.UserId].Cash += e.Bank;
             });
             On((GameCreated e) =>
             {
@@ -62,6 +63,10 @@ namespace Poker.Domain.Aggregates.Game
                 Pack = new Pack(e.Cards);
                 SitPlayers(e.Players);
                 CurrentBidding = new BiddingInfo();
+            });
+            On((DealerAssigned e) =>
+            {
+                Dealer = e.Dealer.Position;
             });
             On((PlayerJoined e) => JoinedPlayers.Add(e.UserId, new TablePlayer()
             {
@@ -86,6 +91,10 @@ namespace Poker.Domain.Aggregates.Game
             {
                 CurrentPlayer = e.Player.Position;
             });
+            On((PlayerFoldBid e) =>
+            {
+                Players[e.Position].Fold = true;
+            });
         }
 
         private void AddBid(BidInfo bid)
@@ -100,7 +109,7 @@ namespace Poker.Domain.Aggregates.Game
             }
         }
 
-        private void SitPlayers(List<TablePlayer> players)
+        private void SitPlayers(IEnumerable<TablePlayer> players)
         {
             Players.Clear();
             foreach (var player in players.OrderBy(x=> x.Position))
@@ -179,6 +188,16 @@ namespace Poker.Domain.Aggregates.Game
                 Cash = x.Cash
             }).ToList();
         }
+
+        public int GetBigBlindPlayer()
+        {
+            return GetNextPlayer(GetNextPlayer(Dealer.Value));
+        }
+
+        public bool IsAllExceptOneAreFold()
+        {
+            return Players.Values.Count(x => x.Fold) == Players.Count - 1;
+        }
     }
 
     public class BiddingInfo
@@ -188,6 +207,11 @@ namespace Poker.Domain.Aggregates.Game
         public BiddingInfo()
         {
             Bids = new List<BidInfo>();
+        }
+
+        public long GetBank()
+        {
+            return Bids.Sum(x => x.Bid);
         }
     }
 

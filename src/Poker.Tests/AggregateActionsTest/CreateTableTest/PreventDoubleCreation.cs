@@ -6,7 +6,7 @@ using Poker.Platform.Domain.Interfaces;
 
 namespace Poker.Tests.AggregateActionsTest.CreateTableTest
 {
-    public class PreventDoubleCreation : AggregateTest<GameTableAggregate, GameTableState>
+    public class PreventDoubleCreation : GameTableTest
     {
         public override void Given(GameTableAggregate a)
         {

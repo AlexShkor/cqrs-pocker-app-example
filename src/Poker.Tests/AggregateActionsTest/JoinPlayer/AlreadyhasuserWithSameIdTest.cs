@@ -4,7 +4,7 @@ using Poker.Platform.Domain.Interfaces;
 
 namespace Poker.Tests.AggregateActionsTest.JoinPlayer
 {
-    public class  AlreadyhasuserWithSameIdTest : AggregateTest<GameTableAggregate, GameTableState>
+    public class AlreadyhasuserWithSameIdTest : GameTableTest
     {
         public override void Given(GameTableAggregate a)
         {

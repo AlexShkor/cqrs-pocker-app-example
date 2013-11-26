@@ -29,7 +29,7 @@ namespace Poker.Domain.Aggregates.Game
             });
         }
 
-        private void CreateGame(string id)
+        public void CreateGame(string id)
         {
             if (State.GameId.HasValue())
             {
@@ -76,9 +76,20 @@ namespace Poker.Domain.Aggregates.Game
 
         private void NextTurn(int currentPosition)
         {
-            if (CheckBiddingFinished())
+            if (State.IsAllExceptOneAreFold())
             {
-                
+                var winner = State.Players.Values.Single(x => !x.Fold);
+                Apply(new GameFinished
+                {
+                    Id = State.TableId,
+                    GameId = State.GameId,
+                    Winner = new PlayerInfo(winner),
+                    Bank = State.CurrentBidding.GetBank()
+                });
+            }
+            else if (CheckBiddingFinished())
+            {
+
             }
             else
             {
@@ -94,7 +105,7 @@ namespace Poker.Domain.Aggregates.Game
         private bool CheckBiddingFinished()
         {
             //need to check did big blind said last bid
-            return State.Players.Values.All(x => x.Fold || x.Bid == State.MaxBid || x.AllIn);
+            return State.Players.Values.All(x => x.Fold || x.Bid == State.MaxBid || x.AllIn) && State.CurrentPlayer == State.GetBigBlindPlayer();
         }
 
         public void FinishGame(string id)
@@ -160,6 +171,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public void Check(string userId)
         {
+            IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
             if (!player.Fold  && (player.Bid == State.MaxBid || player.AllIn))
@@ -177,6 +189,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public void Call(string userId)
         {
+            IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
             var bid = State.MaxBid - player.Bid;
@@ -195,6 +208,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public void Raise(string userId, long amount)
         {
+            IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
             if (!player.Fold)
@@ -212,6 +226,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public void Fold(string userId)
         {
+            IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
             Apply(new PlayerFoldBid
             {
@@ -220,6 +235,23 @@ namespace Poker.Domain.Aggregates.Game
                 UserId = userId,
                 Position = user.Position
             });
+            NextTurn(user.Position);
+        }
+
+        private void GameMayBeFinishedByBidding()
+        {
+            if (State.Players.Values.Count(x => x.Fold) == State.Players.Count - 1)
+            {
+                
+            }
+        }
+
+        private void IsCurrentPlayer(string userId)
+        {
+            if (State.GetPlayerInfo(State.CurrentPlayer).UserId != userId)
+            {
+                throw new InvalidOperationException("It is not your turn!");
+            }
         }
 
         public void Archive()
