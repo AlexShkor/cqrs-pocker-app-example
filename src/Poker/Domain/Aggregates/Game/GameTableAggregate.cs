@@ -5,6 +5,7 @@ using System.Web.UI.WebControls.WebParts;
 using MongoDB.Bson;
 using Poker.Domain.Aggregates.Game.Data;
 using Poker.Domain.Aggregates.Game.Events;
+using Poker.Domain.ApplicationServices;
 using Poker.Domain.Data;
 using Poker.Platform.Domain;
 using Poker.Platform.Domain.Interfaces;
@@ -96,7 +97,20 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     if (State.Deck.Count == 5)
                     {
-                        throw new NotImplementedException();
+                        var detector = new WinnerDetector();
+                        foreach (var player in State.Players.Values)
+                        {
+                            detector.AddPlayer(player.UserId,player.Cards);
+                        }
+                        var winner = detector.GetWinners().Single();
+                        Apply(new GameFinished
+                        {
+                            Id = State.TableId,
+                            Winner = State.GetPlayerInfo(State.JoinedPlayers[winner.UserId].Position),
+                            Bank = State.CurrentBidding.GetBank(),
+                            GameId = State.GameId
+                        });
+                        CreateGame(GenerateGameId());
                     }
                     else
                     {
