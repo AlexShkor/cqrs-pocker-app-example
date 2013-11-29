@@ -100,7 +100,9 @@ namespace Poker.Domain.Aggregates.Game
                         var detector = new WinnerDetector();
                         foreach (var player in State.Players.Values)
                         {
-                            detector.AddPlayer(player.UserId,player.Cards);
+                            var cards = new List<Card>(player.Cards);
+                            cards.AddRange(State.Deck);
+                            detector.AddPlayer(player.UserId, cards);
                         }
                         var winner = detector.GetWinners().Single();
                         Apply(new GameFinished
@@ -111,6 +113,7 @@ namespace Poker.Domain.Aggregates.Game
                             GameId = State.GameId
                         });
                         CreateGame(GenerateGameId());
+                        return;
                     }
                     else
                     {

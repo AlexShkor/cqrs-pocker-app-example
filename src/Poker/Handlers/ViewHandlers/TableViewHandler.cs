@@ -1,6 +1,8 @@
-﻿using Poker.Databases;
+﻿using System.Collections.Generic;
+using Poker.Databases;
 using Poker.Domain.Aggregates.Game;
 using Poker.Domain.Aggregates.Game.Events;
+using Poker.Domain.Data;
 using Poker.Platform.Dispatching;
 using Poker.Platform.Dispatching.Attributes;
 using Poker.Platform.Dispatching.Interfaces;
@@ -47,6 +49,18 @@ namespace Poker.Handlers.ViewHandlers
         public void Handle(TableArchived e)
         {
             _tables.Delete(e.Id);
+        }
+
+        public void Handle(GameFinished e)
+        {
+            _tables.Update(e.Id, view =>
+            {
+                view.Deck = new List<Card>();
+                foreach (var player in view.Players)
+                {
+                    player.Cards = new List<Card>();
+                }
+            });
         }
 
         public void Handle(GameCreated e)

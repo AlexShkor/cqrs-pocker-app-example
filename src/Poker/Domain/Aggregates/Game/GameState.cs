@@ -82,6 +82,7 @@ namespace Poker.Domain.Aggregates.Game
                 foreach (var playerCard in e.Cards)
                 {
                     Pack.Remove(playerCard.Card);
+                    Players[playerCard.Position].Cards.Add(playerCard.Card);
                 }
             });
             On((BlindBidsMade e) =>
