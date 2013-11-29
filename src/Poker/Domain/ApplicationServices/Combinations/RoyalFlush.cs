@@ -32,7 +32,9 @@ namespace Poker.Domain.ApplicationServices.Combinations
                 Rank.Jack,
                 Rank.Ten
             };
-            return Cards.Where(x=> royal.Contains(x.Rank)).GroupBy(x=> x.Suit).Count() == 1;
+            var straightFlash = new StraightFlush();
+            straightFlash.SetCards(Cards.ToList());
+            return Cards.Count(x => royal.Contains(x.Rank)) == 5 && straightFlash.IsPresent();
         }
 
         protected override int CompareWithSame(IPokerSet other)

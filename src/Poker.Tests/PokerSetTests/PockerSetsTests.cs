@@ -5,7 +5,7 @@ using Poker.Domain.Data;
 
 namespace Poker.Tests.PokerSetTests
 {
-    public class PockerSetsPresentingTests
+    public class PockerSetsTests
     {
         [Test]
         public void one_pair_yes()
@@ -29,6 +29,22 @@ namespace Poker.Tests.PokerSetTests
             {
                 new Card(Suit.Clubs, Rank.Eight),
                 new Card(Suit.Hearts, Rank.Five)
+            };
+            set.SetCards(cards);
+            var result = set.IsPresent();
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void one_pair_no2()
+        {
+            var set = new OnePair();
+            var cards = new List<Card>
+            {
+                new Card(Suit.Clubs, Rank.Eight),
+                new Card(Suit.Diamonds, Rank.Eight),
+                new Card(Suit.Hearts, Rank.Eight),
+                new Card(Suit.Spades, Rank.Seven)
             };
             set.SetCards(cards);
             var result = set.IsPresent();
@@ -77,6 +93,23 @@ namespace Poker.Tests.PokerSetTests
                 new Card(Suit.Diamonds, Rank.Eight),
                 new Card(Suit.Hearts, Rank.Eight),
                 new Card(Suit.Spades, Rank.Eight)
+            };
+            set.SetCards(cards);
+            var result = set.IsPresent();
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void two_pair_no3()
+        {
+            var set = new TwoPairs();
+            var cards = new List<Card>
+            {
+                new Card(Suit.Clubs, Rank.Eight),
+                new Card(Suit.Diamonds, Rank.Eight),
+                new Card(Suit.Hearts, Rank.Eight),
+                new Card(Suit.Spades, Rank.Seven),
+                new Card(Suit.Diamonds, Rank.Seven)
             };
             set.SetCards(cards);
             var result = set.IsPresent();
@@ -205,6 +238,22 @@ namespace Poker.Tests.PokerSetTests
         }
 
         [Test]
+        public void flush_no2()
+        {
+            var set = new Flush();
+            var cards = new List<Card>
+            {
+                new Card(Suit.Clubs, Rank.Eight),
+                new Card(Suit.Diamonds, Rank.Eight),
+                new Card(Suit.Hearts, Rank.Eight),
+                new Card(Suit.Spades, Rank.Seven)
+            };
+            set.SetCards(cards);
+            var result = set.IsPresent();
+            Assert.IsFalse(result);
+        }
+
+        [Test]
         public void fullhouse_yes()
         {
             var set = new FullHouse();
@@ -317,7 +366,7 @@ namespace Poker.Tests.PokerSetTests
         [Test]
         public void royalflush_yes()
         {
-            var set = new StraightFlush();
+            var set = new RoyalFlush();
             var cards = new List<Card>
             {
                 new Card(Suit.Spades, Rank.King),
@@ -336,7 +385,7 @@ namespace Poker.Tests.PokerSetTests
         [Test]
         public void royalflush_yes2()
         {
-            var set = new StraightFlush();
+            var set = new RoyalFlush();
             var cards = new List<Card>
             {
                 new Card(Suit.Spades, Rank.King),
@@ -355,7 +404,7 @@ namespace Poker.Tests.PokerSetTests
         [Test]
         public void royalflush_no1()
         {
-            var set = new StraightFlush();
+            var set = new RoyalFlush();
             var cards = new List<Card>
             {
                 new Card(Suit.Spades, Rank.King),
@@ -374,7 +423,7 @@ namespace Poker.Tests.PokerSetTests
         [Test]
         public void royalflush_no2()
         {
-            var set = new Quads();
+            var set = new RoyalFlush();
             var cards = new List<Card>
             {
                 new Card(Suit.Clubs, Rank.Ace),
@@ -383,6 +432,23 @@ namespace Poker.Tests.PokerSetTests
                 new Card(Suit.Hearts, Rank.King),
                 new Card(Suit.Spades, Rank.Ten),
                 new Card(Suit.Spades, Rank.King)
+            };
+            set.SetCards(cards);
+            var result = set.IsPresent();
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void royalflush_no3()
+        {
+            var set = new RoyalFlush();
+            var cards = new List<Card>
+            {
+                new Card(Suit.Clubs, Rank.Ace),
+                new Card(Suit.Clubs, Rank.Seven),
+                new Card(Suit.Clubs, Rank.King),
+                new Card(Suit.Clubs, Rank.Ten),
+                new Card(Suit.Clubs, Rank.Seven)
             };
             set.SetCards(cards);
             var result = set.IsPresent();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices.Combinations
@@ -23,22 +24,7 @@ namespace Poker.Domain.ApplicationServices.Combinations
 
         public override bool IsPresent()
         {
-            var pairs = new List<Rank>();
-            for (int i = 0; i < Cards.Count; i++)
-            {
-                for (int j = i + 1; j < Cards.Count; j++)
-                {
-                    if (Cards[i].Rank == Cards[j].Rank && !pairs.Contains(Cards[i].Rank))
-                    {
-                        pairs.Add(Cards[i].Rank);
-                        if (pairs.Count == 2)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
+            return Cards.GroupBy(x => x.Rank).Count(x => x.Count() == 2) == 2;
         }
 
         protected override int CompareWithSame(IPokerSet other)

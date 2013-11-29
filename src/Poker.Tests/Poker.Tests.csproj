@@ -37,7 +37,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\AKQ.Web\Bin\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="MoreLinq">
+    <Reference Include="MoreLinq, Version=1.0.16006.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\morelinq.1.0.16006\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
@@ -90,7 +91,8 @@
     <Compile Include="Extenssions\GameTableExt.cs" />
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />
-    <Compile Include="PokerSetTests\PockerSetsPresentingTests.cs" />
+    <Compile Include="PokerSetTests\WinnerDetectorTest.cs" />
+    <Compile Include="PokerSetTests\PockerSetsTests.cs" />
     <Compile Include="RankTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
