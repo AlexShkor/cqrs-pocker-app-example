@@ -27,6 +27,7 @@ namespace Poker.Web.App_Start
                 .Include("~/assets/app/css/common.css")
                 .Include("~/assets/app/css/auctionrobot.css")
                 .Include("~/assets/app/css/game.css")
+                .Include("~/assets/app/css/poker.css")
                 .Include("~/assets/app/css/m-buttons.css")
                 .Include("~/assets/app/css/landing.css")
                 .Include("~/Assets/vendor/font-awesome/css/font-awesome.css");

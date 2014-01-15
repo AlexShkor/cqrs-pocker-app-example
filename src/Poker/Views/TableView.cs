@@ -22,6 +22,8 @@ namespace Poker.Views
 
         public List<PlayerDocument> Players { get; set; }
 
+        public string CurrentPlayerId { get; set; }
+
         public TableView()
         {
             Deck = new List<Card>();

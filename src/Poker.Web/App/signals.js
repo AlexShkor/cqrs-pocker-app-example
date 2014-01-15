@@ -1,25 +1,23 @@
-var UsersCallback = (function () {
-    function UsersCallback($client) {
-        var _this = this;
-        this.$client = $client;
-        this.goToTableCallbacks = $.Callbacks();
-        $client.goToTable = function (args) {
-            _this.goToTableCallbacks.fire(args);
-        };
-    }
-    UsersCallback.prototype.goToTable = function (callback) {
-        this.goToTableCallbacks.add(callback);
-    };
-    return UsersCallback;
-})();
+'use strict';
 
-var Hubs = (function () {
-    function Hubs() {
-        var usersHub = $.connection.usersHub;
-        this.Users = new UsersCallback(usersHub.client);
-        $.connection.hub.start().done(function () {
-            usersHub.server.connect();
-        });
-    }
-    return Hubs;
-})();
+angular.module("hubs.service", ['event-agregator'])
+    .service('signalsService', ['eventAggregatorService', function (eventAggregatorService) {
+
+        var proxy = null;
+
+        var initialize = function () {
+            var connection = $.hubConnection();
+            connection.logging = true;
+            this.proxy = connection.createHubProxy('usersHub');
+            connection.start().done(function () {
+            });;
+
+            this.proxy.on('goToTable', function (data) {
+                eventAggregatorService.publish('goToTable', data);
+            });
+        };
+
+        return {
+            initialize: initialize
+        };
+    }]);

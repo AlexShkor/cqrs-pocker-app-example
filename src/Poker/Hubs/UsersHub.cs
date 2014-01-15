@@ -20,5 +20,10 @@ namespace Poker.Hubs
                 Groups.Add(Context.ConnectionId, ((AkqIdentity)Context.User.Identity).Id);
             }
         }
+
+        public void ConnectToGame(string id)
+        {
+            Groups.Add(Context.ConnectionId, id);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Poker.Views;
 
 namespace Poker.ViewModel
@@ -12,6 +13,8 @@ namespace Poker.ViewModel
             Name = view.Name;
             BuyIn = view.BuyIn;
             SmallBlind = view.SmallBlind;
+            MyId = userId;
+            CurrentPlayerId = view.CurrentPlayerId;
             Deck = view.Deck.Select(x => new CardViewModel(x)).ToList();
             Players = view.Players.OrderBy(x=> x.Position).Select(x => new PlayerViewModel(x, userId)).ToList();
         }
@@ -19,6 +22,10 @@ namespace Poker.ViewModel
         public string Id { get; set; }
 
         public string Name { get; set; }
+
+        public string CurrentPlayerId { get; set; }
+
+        public string MyId { get; set; }
 
         public long BuyIn { get; set; }
 

@@ -120,6 +120,7 @@ namespace Poker.Handlers.ViewHandlers
                 {
                     playerDocument.CurrentTurn = playerDocument.UserId == e.Player.UserId;
                 }
+                table.CurrentPlayerId = e.Player.UserId;
             });
         }
 

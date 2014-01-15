@@ -13,8 +13,8 @@
     <div class="clearfix"></div>
     <br/>
     <div class="row-fluid">
-        <div class="well span3" ng-repeat="player in game.Players">
-            <h4>{{player.Name}} #{{player.Position}} <span class="label label-warning" ng-show="player.CurrentTurn">Your turn</span></h4>
+        <div class="well span2" ng-repeat="player in game.Players">
+            <h4 ng-class="{highlight: player.CurrentTurn}">{{player.Name}} #{{player.Position}} </h4>
             <div>Cash: {{player.Cash}}</div>
             <div>Bid: {{player.Bid}}</div>
             <div>
@@ -23,14 +23,20 @@
                     <div class="card-symbol" ng-bind-html-unsafe="card.Symbol"></div>
                 </div>
             </div>
-            <div class=" clearfix"></div>
-            <div>
-                <button ng-click="check(player)" class="btn btn-success btn-block">Check</button>
-                <button ng-click="fold(player)" class="btn btn-danger btn-block">Fold</button>
-                <button ng-click="call(player)" class="btn btn-warning btn-block">Call</button>
-                <button ng-click="raise(player)" class="btn btn-warning btn-block">Raise</button>
-                <input type="text" ng-model="player.RaiseValue"/>
-            </div>
         </div>
+    </div>
+    <br/>
+    <div>
+        <div>
+            <button ng-click="check()" class="btn btn-success btn-block">Check</button>
+            <button ng-click="fold()" class="btn btn-danger btn-block">Fold</button>
+            <button ng-click="call()" class="btn btn-warning btn-block">Call</button>
+            <button ng-click="raise()" class="btn btn-warning btn-block">Raise</button>
+            <input type="number" class="span2" ng-model="RaiseValue" />
+        </div>
+        
+        <br />
+<br />
+        <span class="label label-warning" ng-show="game.CurrentPlayerId == game.MyId">Your turn</span>
     </div>
 </div>

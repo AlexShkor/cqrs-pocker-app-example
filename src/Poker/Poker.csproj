@@ -121,6 +121,8 @@
     <Compile Include="Domain\ApplicationServices\Combinations\StraightFlush.cs" />
     <Compile Include="Domain\ApplicationServices\Combinations\TwoPairs.cs" />
     <Compile Include="Domain\ApplicationServices\WinnerDetector.cs" />
+    <Compile Include="Handlers\SingleUseEventHandlers\SignalR\GameHubEventHandler.cs" />
+    <Compile Include="Hubs\GameHub.cs" />
     <Compile Include="Platform\Mvc\BaseController.cs" />
     <Compile Include="Domain\ApplicationServices\PokerScores.cs" />
     <Compile Include="Hubs\UsersHub.cs" />

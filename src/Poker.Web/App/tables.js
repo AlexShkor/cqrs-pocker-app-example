@@ -1,8 +1,8 @@
 var TablesController = (function () {
-    function TablesController($scope, $http, $hubs, $location) {
+    function TablesController($scope, $http, eventAggregatorService, $location) {
         this.$scope = $scope;
         this.$http = $http;
-        this.$hubs = $hubs;
+        this.eventAggregatorService = eventAggregatorService;
         this.$location = $location;
         $http.post("/tables/load/", null).success(function (data) {
             $scope.items = data;
@@ -14,7 +14,7 @@ var TablesController = (function () {
         $scope.view = function (table) {
             $location.path("/game/view/" + table.Id);
         };
-        $hubs.Users.goToTable(function (e) {
+        eventAggregatorService.subscribe("goToTable", function (e) {
             $location.path("/game/view/" + e.TableId);
         });
     }

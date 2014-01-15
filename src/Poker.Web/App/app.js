@@ -1,16 +1,21 @@
-var app = angular.module("myApp", []);
+var app = angular.module("myApp", ["ui.router", "hubs.service", "event-agregator"]);
+app.value('$', $);
+app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+    
+    $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('/');
 
-app.config(function ($routeProvider) {
-    $routeProvider
-        .when('/page1', { templateUrl: 'pages/page1.html' })
-        .when('/page2', { templateUrl: 'pages/page2.html' })
-        .when('/404', { templateUrl: 'pages/404' })
-        .when('', { templateUrl: 'home/view', controller: 'HomeController' })
-        .when('/tables', { templateUrl: 'tables', controller: 'TablesController' })
-        .when('/game/view/:tableId', { templateUrl: 'game', controller: 'GameController' })
-        .otherwise({ redirectTo: '/404' });
+
+    $stateProvider
+        .state('/page1', { templateUrl: 'pages/page1.html' })
+        .state('/page2', { templateUrl: 'pages/page2.html' })
+        .state('/404', { templateUrl: 'pages/404' })
+        .state('/tables', { templateUrl: 'tables', controller: 'TablesController' })
+        .state('/game/view/:tableId', { templateUrl: 'game', controller: 'GameController' });
 });
-var hubsInstance = new Hubs();
-app.factory("$hubs", function () {
-    return hubsInstance;
-});
+
+app.controller('AppCtrl', ['$scope', '$rootScope',  "signalsService", "eventAggregatorService", function ($scope, $rootScope,  signalsService, eventAggregatorService) {
+    $scope.init = function (user) {
+        signalsService.initialize();
+    };
+}]);
