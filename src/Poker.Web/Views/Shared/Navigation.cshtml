@@ -6,15 +6,15 @@
                 <ul class="nav">
                     @if (Request.IsAuthenticated)
                     {
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#/tables">Tables</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/tables">Tables</a></li>
                     }
                 </ul>
                 <ul class="nav  pull-right">
                     @if (Request.IsAuthenticated)
                     {
                         <text>
-                        <li><a href="#/profile"><strong class="light">@User.Identity.Name</strong> </a></li>
+                        <li><a href="/profile"><strong class="light">@User.Identity.Name</strong> </a></li>
                         <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
                         </text>
                     }

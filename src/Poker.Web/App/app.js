@@ -1,4 +1,10 @@
-var app = angular.module("myApp", ["ui.router", "hubs.service", "event-agregator"]);
+var app = angular.module("poker",
+    ["ui.router",
+     "hubs.service",
+     "event-agregator",
+     "poker.home",
+     "poker.tables",
+     "poker.game"]);
 app.value('$', $);
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     
@@ -7,11 +13,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
 
     $stateProvider
-        .state('/page1', { templateUrl: 'pages/page1.html' })
-        .state('/page2', { templateUrl: 'pages/page2.html' })
-        .state('/404', { templateUrl: 'pages/404' })
-        .state('/tables', { templateUrl: 'tables', controller: 'TablesController' })
-        .state('/game/view/:tableId', { templateUrl: 'game', controller: 'GameController' });
+        .state('home', { url: '/', templateUrl: '/app/home.html', controller: 'HomeController' })
+        .state('tables', {url: '/tables', templateUrl: '/tables', controller: 'TablesController' })
+        .state("game", { url: '/game/view/:tableId', templateUrl: '/game', controller: 'GameController' });
 });
 
 app.controller('AppCtrl', ['$scope', '$rootScope',  "signalsService", "eventAggregatorService", function ($scope, $rootScope,  signalsService, eventAggregatorService) {
