@@ -18,7 +18,6 @@ namespace Poker.Web
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            ContainerConfig.Configure();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

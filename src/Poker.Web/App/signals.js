@@ -6,14 +6,19 @@ angular.module("hubs.service", ['event-agregator'])
         var proxy = null;
 
         var initialize = function () {
+
+            $.connection.hub.url = "/signalr";
+      
             var connection = $.hubConnection();
             connection.logging = true;
             this.proxy = connection.createHubProxy('usersHub');
-            connection.start().done(function () {
-            });;
-
             this.proxy.on('goToTable', function (data) {
                 eventAggregatorService.publish('goToTable', data);
+            });
+            
+
+            $.connection.hub.start().done(function() {
+                
             });
         };
 

@@ -17,6 +17,7 @@
 
 using System.Web.Routing;
 using Microsoft.AspNet.SignalR;
+using Owin;
 using Poker.Platform.StructureMap;
 using StructureMap;
 
@@ -24,12 +25,12 @@ namespace Poker.Web.App_Start
 {
     public static class ContainerConfig
     {
-        public static void Configure()
+        public static void Configure(IAppBuilder app)
         {
             IContainer container = ObjectFactory.Container;
             new Bootstrapper().Configure(container);
             GlobalHost.DependencyResolver = new SignalrStructureMapResolver(container);
-            RouteTable.Routes.MapHubs(new HubConfiguration() { Resolver = GlobalHost.DependencyResolver });
+            app.MapSignalR("/signalr", new HubConfiguration() { Resolver = GlobalHost.DependencyResolver });
         }
     }
 }
