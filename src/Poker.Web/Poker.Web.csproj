@@ -248,7 +248,6 @@
     <Compile Include="App_Start\DependencyResolution\StructureMapDependencyResolver.cs" />
     <Compile Include="App_Start\DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ActionParams\Feedback\AddFeedbackParam.cs" />
     <Compile Include="Controllers\ActionResults\JsonNetResult.cs" />
     <Compile Include="Controllers\ActionResults\LowerCamelCaseContractResolver.cs" />
     <Compile Include="Controllers\AdminController.cs" />
