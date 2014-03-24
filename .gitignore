@@ -31,7 +31,6 @@ _ReSharper*/
 AppData/
 *.log.*
 [Ll]ogs/
-[Dd]ata/
 [Pp]ackages/
 /UpgradeLog.XML
 /_UpgradeReport_Files/UpgradeReport.css
