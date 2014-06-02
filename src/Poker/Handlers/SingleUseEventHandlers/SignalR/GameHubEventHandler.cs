@@ -1,14 +1,17 @@
 ﻿using Poker.Domain.Aggregates.Game.Events;
 using Poker.Hubs;
+using Poker.Platform.Dispatching;
+using Poker.Platform.Dispatching.Attributes;
 using Poker.Platform.Dispatching.Interfaces;
 
 namespace Poker.Handlers.SingleUseEventHandlers.SignalR
 {
+    [Priority(PriorityStages.ViewHandling_After)]
     public class GameHubEventHandler : IMessageHandler
     {
         public void Handle(NextPlayerTurned e)
         {
-            GameHub.CurrentContext.Clients.Group(e.Id).playerTurnChanged(new
+            UsersHub.CurrentContext.Clients.Group(e.Id).playerTurnChanged(new
             {
                 TableId = e.Id,
                 CurrentPlayerId = e.Player.UserId

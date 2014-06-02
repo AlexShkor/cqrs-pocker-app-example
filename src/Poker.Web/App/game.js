@@ -1,9 +1,11 @@
 
-angular.module('poker.game', []).controller("GameController", function ($scope, $stateParams, $http, $sce, eventAggregatorService) {
+angular.module('poker.game', []).controller("GameController", function ($scope, $stateParams, $http, $sce, eventAggregatorService, signalsService) {
     this.$scope = $scope;
     this.$stateParams = $stateParams;
     this.$http = $http;
     this.eventAggregatorService = eventAggregatorService;
+
+    signalsService.invoke("connectToTable", $stateParams.tableId);
 
     $scope.RaiseValue = 0;
 
@@ -28,6 +30,9 @@ angular.module('poker.game', []).controller("GameController", function ($scope, 
         $http.post("/game/fold", { tableId: $scope.game.Id });
     };
 
+    eventAggregatorService.subscribe("playerTurnChanged", function (e, data) {
+        console.log("Next turn");
+    });
 
     function trustSuitsAsHtml(game) {
 
@@ -44,17 +49,5 @@ angular.module('poker.game', []).controller("GameController", function ($scope, 
             card.Symbol = $sce.trustAsHtml(card.Symbol);
         }
     }
-
-    
-    //var hub = $.connection.gameHub;
-    //hub.client.playerTurnChanged = function(e) {
-    //    alert(JSON.stringify(e));
-    //};
-
-    //$.connection.hub.stop();
-    //$.connection.hub.start().done(function () {
-
-    //    hub.server.connect({ id: $routeParams.tableId });
-    //});
 
 });

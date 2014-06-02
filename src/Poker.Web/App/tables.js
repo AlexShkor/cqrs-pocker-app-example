@@ -14,7 +14,7 @@ angular.module('poker.tables',[]).controller("TablesController", function($scope
     $scope.view = function(table) {
         $location.path("/game/view/" + table.Id);
     };
-    eventAggregatorService.subscribe("goToTable", function(e) {
-        $location.path("/game/view/" + e.TableId);
+    eventAggregatorService.subscribe("goToTable", function(e, data) {
+        $location.path("/game/view/" + data.TableId);
     });
 });

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Poker.Authentication;
 
@@ -13,17 +14,43 @@ namespace Poker.Hubs
             }
         }
 
-        public void Connect()
+        public void ConnectToTable(string tableId)
         {
-            if (Context.User.Identity.IsAuthenticated)
-            {
-                Groups.Add(Context.ConnectionId, ((AkqIdentity)Context.User.Identity).Id);
-            }
+            Groups.Add(Context.ConnectionId, tableId);
         }
 
-        public void ConnectToGame(string id)
+        public override Task OnConnected()
         {
-            Groups.Add(Context.ConnectionId, id);
+            return Task.Factory.StartNew(() =>
+            {
+                var userId = GetUserId();
+                if (userId != null)
+                    Groups.Add(Context.ConnectionId, userId);
+            });
+        }
+
+        public override Task OnDisconnected()
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                var userId = GetUserId();
+                if (userId != null)
+                    Groups.Remove(Context.ConnectionId, userId);
+            });
+        }
+
+
+        private string GetUserId()
+        {
+            if (Context.User == null)
+                return null;
+
+            var identity = Context.User.Identity;
+            if (identity.IsAuthenticated == false)
+            {
+                return null;
+            }
+            return ((AkqIdentity)identity).Id;
         }
     }
 }

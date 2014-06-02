@@ -11,18 +11,28 @@ angular.module("hubs.service", ['event-agregator'])
       
             var connection = $.hubConnection();
             connection.logging = true;
-            this.proxy = connection.createHubProxy('usersHub');
-            this.proxy.on('goToTable', function (data) {
+            proxy = connection.createHubProxy('usersHub');
+
+            connection.start().done(function () {
+                console.log("SignalR Started");
+            })
+            .fail(function() {
+                console.log("SignalR faild");
+            });
+            proxy.on('goToTable', function (data) {
                 eventAggregatorService.publish('goToTable', data);
             });
-            
-
-            $.connection.hub.start().done(function() {
-                
+            proxy.on('playerTurnChanged', function (data) {
+                eventAggregatorService.publish('playerTurnChanged', data);
             });
         };
 
+        var invoke = function(method, data) {
+            proxy.invoke(method, data);
+        }
+
         return {
-            initialize: initialize
+            initialize: initialize,
+            invoke: invoke
         };
     }]);
