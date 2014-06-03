@@ -63,22 +63,6 @@ namespace Poker.Handlers.ViewHandlers
             });
         }
 
-        public void Handle(GameCreated e)
-        {
-            //_tables.Update(e.Id, table => table.Players = e.Players.Select(x =>
-            //{
-            //    var user = _db.Users.GetById(x.UserId);
-            //    return new PlayerDocument()
-            //    {
-            //        UserId = x.UserId,
-            //        Position = x.Position,
-            //        Cash = x.Cash,
-            //        Name = user.UserName
-            //    };
-
-            //}).ToList());
-        }
-
         public void Handle(PlayerJoined e)
         {
             var user = _db.Users.GetById(e.UserId);
@@ -99,6 +83,7 @@ namespace Poker.Handlers.ViewHandlers
                 table.SetBid(e.BigBlind.UserId, e.BigBlind.Bid, e.BigBlind.NewCashValue);
             });
         }
+
 
         public void Handle(BidMade e)
         {

@@ -1,0 +1,22 @@
+﻿<div class="container">
+    <div class="animate form">
+        <form name="form" class="well" ng-submit="create(newTable)">
+            <h2>Create table</h2>
+            <p>
+                <label>Table name</label>
+                <input ng-model="newTable.name" required name="tableName" type="text" placeholder="Table name" />
+            </p>
+            <p>
+                <label>Buy in</label>
+                <input ng-model="newTable.buyIn" required type="number" min="100"/>
+            </p>
+            <p>
+                <label>Small blind</label>
+                <input ng-model="newTable.smallBlind" required type="number" min="5"/>
+            </p>
+            <p class="button">
+                <input type="submit" class=" btn btn-large" value="Create"/>
+            </p>
+        </form> 
+    </div>
+</div>

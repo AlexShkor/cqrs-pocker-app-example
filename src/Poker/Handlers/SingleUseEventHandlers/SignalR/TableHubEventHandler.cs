@@ -16,5 +16,10 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
                 TableId = e.Id
             });
         }
+
+        public void Handle(TableCreated e)
+        {
+            UsersHub.CurrentContext.Clients.Group(e.Metadata.UserId).goToTablesView();
+        }
     }
 }

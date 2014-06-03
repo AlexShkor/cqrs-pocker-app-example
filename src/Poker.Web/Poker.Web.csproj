@@ -730,6 +730,7 @@
     <Content Include="Views\Shared\Templates\Empty.cshtml" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Tables\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\app\js\" />

@@ -12,6 +12,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');
     
     $stateProvider
+        .state('new_table', {url:'/tables/create', templateUrl: '/tables/create', controller: 'CreateTableController'})
         .state('home', { url: '/', templateUrl: '/app/home.html', controller: 'HomeController' })
         .state('tables', {url: '/tables', templateUrl: '/tables', controller: 'TablesController' })
         .state("game", { url: '/game/view/:tableId', templateUrl: '/game', controller: 'GameController' });

@@ -1,7 +1,6 @@
 ﻿<div class="container">
     <h2>Game {{game.Name}}</h2>
 
-
     <div>
         <div class="span6">
             <div ng-repeat="card in game.Deck" class="card" ng-style="{color: card.Color}">
@@ -28,11 +27,11 @@
     <br />
     <div>
         <div>
-            <button ng-click="check()" class="btn btn-success btn-block">Check</button>
-            <button ng-click="fold()" class="btn btn-danger btn-block">Fold</button>
-            <button ng-click="call()" class="btn btn-warning btn-block">Call</button>
-            <button ng-click="raise()" class="btn btn-warning btn-block">Raise</button>
-            <input type="number" class="span2" ng-model="RaiseValue" />
+            <button ng-click="check()" data-ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-success btn-block">Check</button>
+            <button ng-click="fold()" data-ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-danger btn-block">Fold</button>
+            <button ng-click="call()" data-ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-warning btn-block">Call</button>
+            <button ng-click="raise()" data-ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-warning btn-block">Raise</button>
+            <input type="number" class="span2" ng-model="RaiseValue" data-ng-disabled="game.CurrentPlayerId != game.MyId" />
         </div>
 
         <br />
