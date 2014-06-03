@@ -78,6 +78,7 @@
     <Compile Include="AggregateActionsTest\CreateTableTest\PreventDoubleCreation.cs" />
     <Compile Include="AggregateActionsTest\JoinPlayer\TableIsFullTest.cs" />
     <Compile Include="AggregateActionsTest\Raise\CanRaise.cs" />
+    <Compile Include="AggregateActionsTest\Raise\CanRaise2.cs" />
     <Compile Include="AggregateActionsTest\Raise\NotYourTurn.cs" />
     <Compile Include="AggregateStateTests\DealerAssignedTest.cs" />
     <Compile Include="AggregateStateTests\GameCreatedStateTests.cs" />
