@@ -1,17 +1,17 @@
 ﻿<div class="container">
     <h2>Game {{game.Name}}</h2>
-    
-    
+
+
     <div>
         <div class="span6">
             <div ng-repeat="card in game.Deck" class="card" ng-style="{color: card.Color}">
                 <div class="card-value">{{card.Value}}</div>
-                <div class="card-symbol" ng-bind-html-unsafe="card.Symbol"></div>
+                <div class="card-symbol" ng-bind-html="card.Symbol"></div>
             </div>
         </div>
     </div>
     <div class="clearfix"></div>
-    <br/>
+    <br />
     <div class="row-fluid">
         <div class="well span2" ng-repeat="player in game.Players">
             <h4 ng-class="{highlight: player.CurrentTurn}">{{player.Name}} #{{player.Position}} </h4>
@@ -20,12 +20,12 @@
             <div>
                 <div ng-repeat="card in player.Cards" class="card" ng-style="{color: card.Color}">
                     <div class="card-value">{{card.Value}}</div>
-                    <div class="card-symbol" ng-bind-html-unsafe="card.Symbol"></div>
+                    <div class="card-symbol" ng-bind-html="card.Symbol"></div>
                 </div>
             </div>
         </div>
     </div>
-    <br/>
+    <br />
     <div>
         <div>
             <button ng-click="check()" class="btn btn-success btn-block">Check</button>
@@ -34,9 +34,9 @@
             <button ng-click="raise()" class="btn btn-warning btn-block">Raise</button>
             <input type="number" class="span2" ng-model="RaiseValue" />
         </div>
-        
+
         <br />
-<br />
+        <br />
         <span class="label label-warning" ng-show="game.CurrentPlayerId == game.MyId">Your turn</span>
     </div>
 </div>

@@ -46,10 +46,11 @@ namespace Poker.Domain.Data
                 return result;
             });
 
-            Clubs = addMapping(1,"C", "Clubs,", "&clubs;", "black");
-            Diamonds = addMapping(2,"D", "Diamonds", "&diams;", "red");
-            Hearts = addMapping(3,"H", "Hearts", "&hearts;", "red");
-            Spades = addMapping(4,"S", "Spades", "&spades;", "black");
+            Clubs = addMapping(1, "C", "Clubs,", "&clubs;", "black");
+            Diamonds = addMapping(2, "D", "Diamonds", "&diams;", "red");
+            Hearts = addMapping(3, "H", "Hearts", "&hearts;", "red");
+            Spades = addMapping(4, "S", "Spades", "&spades;", "black");
+
         }
 
         public string ShortName
