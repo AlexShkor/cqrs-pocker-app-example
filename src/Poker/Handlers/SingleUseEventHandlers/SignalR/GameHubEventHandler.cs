@@ -17,5 +17,14 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
                 CurrentPlayerId = e.Player.UserId,
             });
         }
+
+        public void Handle(BidMade e)
+        {
+            UsersHub.CurrentContext.Clients.Group(e.Id).bidMade(new
+            {
+                TableId = e.Id,
+                Bid = e.Bid
+            });
+        }
     }
 }
