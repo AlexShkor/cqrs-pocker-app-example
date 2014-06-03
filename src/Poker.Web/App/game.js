@@ -31,6 +31,19 @@ angular.module('poker.game', []).controller("GameController", function ($scope, 
     };
 
     eventAggregatorService.subscribe("playerTurnChanged", function (e, data) {
+
+        for (var i = 0; i < $scope.game.Players.length; i++) {
+            var player = $scope.game.Players[i];
+
+            if (player.UserId == data.CurrentPlayerId)
+                player.CurrentTurn = true;
+            else
+                player.CurrentTurn = false;
+        }
+        
+        $scope.game.CurrentPlayerId = data.CurrentPlayerId;
+        $scope.$apply();
+        
         console.log("Next turn");
     });
 
