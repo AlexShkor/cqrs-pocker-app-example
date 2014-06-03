@@ -14,7 +14,7 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
             UsersHub.CurrentContext.Clients.Group(e.Id).playerTurnChanged(new
             {
                 TableId = e.Id,
-                CurrentPlayerId = e.Player.UserId
+                CurrentPlayerId = e.Player.UserId,
             });
         }
     }
