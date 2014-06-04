@@ -1,5 +1,7 @@
 
-angular.module('poker.game', []).controller("GameController", function ($scope, $stateParams, $http, $sce, eventAggregatorService, signalsService) {
+var gameApp = angular.module('poker.game', []);
+
+gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce, eventAggregatorService, signalsService) {
     this.$scope = $scope;
     this.$stateParams = $stateParams;
     this.$http = $http;
@@ -26,9 +28,11 @@ angular.module('poker.game', []).controller("GameController", function ($scope, 
             $scope.RaiseValue = null;
         }
     };
+
     $scope.fold = function () {
         $http.post("/game/fold", { tableId: $scope.game.Id });
     };
+
 
     eventAggregatorService.subscribe("playerTurnChanged", function (e, data) {
 
@@ -40,12 +44,29 @@ angular.module('poker.game', []).controller("GameController", function ($scope, 
             else
                 player.CurrentTurn = false;
         }
-        
+
         $scope.game.CurrentPlayerId = data.CurrentPlayerId;
         $scope.$apply();
-        
+
         console.log("Next turn");
     });
+
+    eventAggregatorService.subscribe("bidMade", function (e, data) {
+
+        for (var i = 0; i < $scope.game.Players.length; i++) {
+            var player = $scope.game.Players[i];
+
+            if (player.UserId == data.UserId) {
+                player.Cash = data.NewCashValue;
+                player.Bid = data.Bid;
+            }
+        }
+
+        $scope.game.MaxBid = data.MaxBid;
+        $scope.$apply();
+
+    });
+
 
     function trustSuitsAsHtml(game) {
 
@@ -64,3 +85,4 @@ angular.module('poker.game', []).controller("GameController", function ($scope, 
     }
 
 });
+

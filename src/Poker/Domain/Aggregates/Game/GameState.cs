@@ -114,7 +114,7 @@ namespace Poker.Domain.Aggregates.Game
             CurrentBidding.Bids.Add(bid);
             Players[bid.Position].Bid = bid.Bid;
             Players[bid.Position].AllIn = bid.AllIn;
-            JoinedPlayers[bid.UserId].Cash -= bid.Bid;
+            JoinedPlayers[bid.UserId].Cash -= bid.Odds;
             if (bid.Bid > MaxBid)
             {
                 MaxBid = bid.Bid;

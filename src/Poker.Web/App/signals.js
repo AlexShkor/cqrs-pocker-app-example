@@ -8,7 +8,7 @@ angular.module("hubs.service", ['event-agregator'])
         var initialize = function () {
 
             $.connection.hub.url = "/signalr";
-      
+
             var connection = $.hubConnection();
             connection.logging = true;
             proxy = connection.createHubProxy('usersHub');
@@ -16,7 +16,7 @@ angular.module("hubs.service", ['event-agregator'])
             connection.start().done(function () {
                 console.log("SignalR Started");
             })
-            .fail(function() {
+            .fail(function () {
                 console.log("SignalR faild");
             });
             proxy.on('goToTable', function (data) {
@@ -25,14 +25,15 @@ angular.module("hubs.service", ['event-agregator'])
             proxy.on('playerTurnChanged', function (data) {
                 eventAggregatorService.publish('playerTurnChanged', data);
             });
-            proxy.on('goToTablesView', function (data) {
-                eventAggregatorService.publish('goToTablesView', data);
+            proxy.on('bidMade', function (data) {
+                eventAggregatorService.publish('bidMade', data);
             });
+
         };
 
         var invoke = function(method, data) {
             proxy.invoke(method, data);
-        }
+        };
 
         return {
             initialize: initialize,
