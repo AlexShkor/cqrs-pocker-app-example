@@ -216,7 +216,7 @@ namespace Poker.Domain.Aggregates.Game
             IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
-            if (!player.Fold  && (player.Bid == State.MaxBid || player.AllIn))
+            if (!player.Fold && (player.Bid == State.MaxBid || player.AllIn))
             {
                 Apply(new PlayerCheckedBid
                 {
@@ -242,7 +242,7 @@ namespace Poker.Domain.Aggregates.Game
                     Id = State.TableId,
                     GameId = State.GameId,
                     BidType = BidTypeEnum.Call,
-                    Bid = State.GetBidInfo(player.Position,bid)
+                    Bid = State.GetBidInfo(player.Position, bid)
                 });
                 NextTurn(player.Position);
             }
@@ -253,6 +253,10 @@ namespace Poker.Domain.Aggregates.Game
             IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
+
+            if (State.MaxBid >= player.Bid + amount)
+                throw new InvalidOperationException("Rate must be higher than max bid while raising");
+
             if (!player.Fold)
             {
                 Apply(new BidMade

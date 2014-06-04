@@ -16,7 +16,8 @@ namespace Poker.ViewModel
             MyId = userId;
             CurrentPlayerId = view.CurrentPlayerId;
             Deck = view.Deck.Select(x => new CardViewModel(x)).ToList();
-            Players = view.Players.OrderBy(x=> x.Position).Select(x => new PlayerViewModel(x, userId)).ToList();
+            Players = view.Players.OrderBy(x => x.Position).Select(x => new PlayerViewModel(x, userId)).ToList();
+            MaxBid = view.Players.Select(x => x.Bid).Max();
         }
 
         public string Id { get; set; }
@@ -31,8 +32,10 @@ namespace Poker.ViewModel
 
         public long SmallBlind { get; set; }
 
-        public List<CardViewModel> Deck { get; set; } 
+        public List<CardViewModel> Deck { get; set; }
 
-        public List<PlayerViewModel> Players { get; set; } 
+        public List<PlayerViewModel> Players { get; set; }
+
+        public long MaxBid { get; set; }
     }
 }

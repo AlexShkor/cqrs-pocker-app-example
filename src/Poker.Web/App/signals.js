@@ -26,17 +26,14 @@ angular.module("hubs.service", ['event-agregator'])
                 eventAggregatorService.publish('playerTurnChanged', data);
             });
             proxy.on('bidMade', function (data) {
-
-               
-
+                eventAggregatorService.publish('bidMade', data);
             });
-
 
         };
 
-        var invoke = function (method, data) {
+        var invoke = function(method, data) {
             proxy.invoke(method, data);
-        }
+        };
 
         return {
             initialize: initialize,

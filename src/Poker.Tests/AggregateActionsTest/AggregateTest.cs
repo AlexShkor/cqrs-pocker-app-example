@@ -13,7 +13,6 @@ namespace Poker.Tests.AggregateActionsTest
     {
         private T _aggregate;
 
-
         [SetUp]
         public void Prepare()
         {
@@ -38,6 +37,11 @@ namespace Poker.Tests.AggregateActionsTest
 
         public virtual void ValidateState(T a)
         {
+        }
+
+        public void ValidateState()
+        {
+            ValidateState(_aggregate);
         }
 
         public void ValidateEvents(params string[] names)
