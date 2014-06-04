@@ -10,11 +10,15 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     signalsService.invoke("connectToTable", $stateParams.tableId);
 
     $scope.RaiseValue = 0;
+    
+    var load = function() {
+        $http.post("/game/load/", { tableId: $stateParams.tableId }).success(function (data) {
+            $scope.game = data;
+            trustSuitsAsHtml($scope.game);
+        });
+    }
 
-    $http.post("/game/load/", { tableId: $stateParams.tableId }).success(function (data) {
-        $scope.game = data;
-        trustSuitsAsHtml($scope.game);
-    });
+    load();
 
     $scope.call = function () {
         $http.post("/game/call", { tableId: $scope.game.Id });
@@ -31,6 +35,10 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
     $scope.fold = function () {
         $http.post("/game/fold", { tableId: $scope.game.Id });
+    };
+
+    $scope.refresh = function () {
+        load();
     };
 
 
