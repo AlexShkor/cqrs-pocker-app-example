@@ -271,6 +271,7 @@
     <Content Include="App\home.js" />
     <Content Include="App\signals.js" />
     <Content Include="App\tables.js" />
+    <Content Include="App\Tests\tablesTests.js" />
     <Content Include="Assets\app\css\admin.css" />
     <Content Include="Assets\app\css\animate-custom.css" />
     <Content Include="Assets\app\css\auctionrobot.css" />
@@ -285,6 +286,7 @@
     <Content Include="Assets\app\css\img\grey.png" />
     <Content Include="Assets\app\css\login.css" />
     <Content Include="Assets\app\css\m-buttons.css" />
+    <Content Include="css\jasmine.css" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
@@ -550,6 +552,8 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\jasmine-html.js" />
+    <Content Include="Scripts\jasmine.js" />
     <Content Include="Scripts\jquery.signalR-2.0.3.js" />
     <Content Include="Scripts\jquery.signalR-2.0.3.min.js" />
     <Content Include="Views\Game\Game.cshtml" />
