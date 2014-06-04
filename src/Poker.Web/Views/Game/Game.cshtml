@@ -1,6 +1,7 @@
 ﻿<div class="container">
     <h2>Game {{game.Name}}</h2>
-
+    
+    <button ng-click="refresh()" class="btn pull-right">Refresh</button>
     <div>
         <div class="span6">
             <div ng-repeat="card in game.Deck" class="card" ng-style="{color: card.Color}">
