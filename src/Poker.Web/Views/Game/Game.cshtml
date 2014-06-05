@@ -1,6 +1,7 @@
-﻿<div class="container">
+﻿@using Poker.Web.App_Start
+<div class="container">
     <h2>Game {{game.Name}}</h2>
-    
+
     <button ng-click="refresh()" class="btn pull-right">Refresh</button>
     <div>
         <div class="span6">
@@ -29,27 +30,25 @@
 
     <div>
 
-        <div class="pull-left">
+        <div>
             <button ng-click="check()" ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-success btn-block">Check</button>
             <button ng-click="fold()" ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-danger btn-block">Fold</button>
             <button ng-click="call()" ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-warning btn-block">Call</button>
             <button ng-click="raise()" ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-warning btn-block">Raise</button>
-
-            @*<input type="number" class="span2" ng-model="RaiseValue" min="{{game.MaxBid}}" data-ng-disabled="game.CurrentPlayerId != game.MyId" />*@
+            <span class="label label-warning offset1" ng-show="game.CurrentPlayerId == game.MyId">Your turn</span>
         </div>
-
-        <div class="pull-left offset1">
-            <span class="glyphicon glyphicon-chevron-up" style="display: block"></span>
-            <span class="vote-count-post ">3</span>
-            <span class="glyphicon glyphicon-chevron-down" style="display: block"></span>
-        </div>
-
 
     </div>
 
     <br />
-    <br />
-    <div style="padding-top: 30px;">
-        <span class="label label-warning" ng-show="game.CurrentPlayerId == game.MyId">Your turn</span>
-    </div>
+    
+    <pre>{{ currentUserRate(rate) }}</pre>
+
+    <span class="pull-left">{{minRateDisplay}}</span> <span class="pull-right">{{maxRateDisplay}}</span>
+    <rzslider rz-slider-floor="0"
+              rz-slider-ceil="rateMax"
+              rz-slider-model="rate"
+              rz-slider-translate="currentUserRate"></rzslider>
+
+
 </div>
