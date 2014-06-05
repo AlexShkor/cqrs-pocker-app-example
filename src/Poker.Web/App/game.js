@@ -12,7 +12,10 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     $scope.RaiseValue = 0;
     $scope.Logs = [];
 
-    var load = function () {
+    $scope.messages = [];
+    $scope.newMessage = "";
+
+    var load = function() {
         $http.post("/game/load/", { tableId: $stateParams.tableId }).success(function (data) {
             $scope.game = data;
             $scope.RaiseValue = data.MaxBid;
@@ -106,7 +109,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
                 currentPlayerName = player.Name;
             } else {
                 player.CurrentTurn = false;
-            }
+        }
         }
 
         $scope.game.CurrentPlayerId = data.CurrentPlayerId;
@@ -148,10 +151,10 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     function getPlayer(id) {
         for (var i = 0; i < $scope.game.Players.length; i++) {
             var player = $scope.game.Players[i];
-            if (player.UserId == id)
-                return player;
+                if (player.UserId == id)
+                    return player;
+            }
         }
-    }
 
     function initUserRates() {
 

@@ -40,6 +40,9 @@ angular.module("hubs.service", ['event-agregator'])
             proxy.on('gameCreated', function (data) {
                 eventAggregatorService.publish('gameCreated', data);
             });
+            proxy.on('chatMessage', function (data) {
+                eventAggregatorService.publish('chatMessage', data);
+            });
 
         };
 

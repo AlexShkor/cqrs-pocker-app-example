@@ -233,6 +233,7 @@
     <Compile Include="App_Start\AttributeRoutingConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\ModelBinders\JsonModelBinder.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
