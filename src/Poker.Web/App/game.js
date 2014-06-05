@@ -10,7 +10,10 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     signalsService.invoke("connectToTable", $stateParams.tableId);
 
     $scope.RaiseValue = 0;
-    
+
+    $scope.messages = [];
+    $scope.newMessage = "";
+
     var load = function() {
         $http.post("/game/load/", { tableId: $stateParams.tableId }).success(function (data) {
             $scope.game = data;
@@ -41,6 +44,19 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         load();
     };
 
+    $scope.sendMessage = function () {
+        if ($scope.newMessage) {
+            $.post("/chat/send", { message: $scope.newMessage }, function(parameters) {
+            });
+            $scope.newMessage = "";
+        }
+    }
+
+    eventAggregatorService.subscribe("chatMessage", function (e, data) {
+        $scope.$apply(function() {
+            $scope.messages.push(data);
+        });
+    });
 
     eventAggregatorService.subscribe("playerTurnChanged", function (e, data) {
 

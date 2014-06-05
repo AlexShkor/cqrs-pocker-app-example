@@ -28,6 +28,9 @@ angular.module("hubs.service", ['event-agregator'])
             proxy.on('bidMade', function (data) {
                 eventAggregatorService.publish('bidMade', data);
             });
+            proxy.on('chatMessage', function (data) {
+                eventAggregatorService.publish('chatMessage', data);
+            });
 
         };
 

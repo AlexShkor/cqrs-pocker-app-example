@@ -1,6 +1,6 @@
 ﻿<div class="container">
     <h2>Game {{game.Name}}</h2>
-    
+
     <button ng-click="refresh()" class="btn pull-right">Refresh</button>
     <div>
         <div class="span6">
@@ -38,5 +38,14 @@
         <br />
         <br />
         <span class="label label-warning" ng-show="game.CurrentPlayerId == game.MyId">Your turn</span>
+    </div>
+
+    <div class="well">
+        <div class="span10"><input type="text" class="span9" required ng-model="newMessage" /><button class="btn " ng-click="sendMessage()">Send</button></div>
+        <div class="clearfix"></div>
+        <hr />
+        <ul style="max-height: 400px; overflow-y: auto;">
+            <li ng-repeat="message in messages">[{{message.Time}}] {{message.Name}}: {{message.Content}}</li>
+        </ul>
     </div>
 </div>
