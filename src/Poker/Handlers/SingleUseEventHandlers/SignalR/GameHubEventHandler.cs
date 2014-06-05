@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Poker.Databases;
+using Poker.Domain.Aggregates.Game;
 using Poker.Domain.Aggregates.Game.Events;
 using Poker.Hubs;
 using Poker.Platform.Dispatching;
 using Poker.Platform.Dispatching.Attributes;
 using Poker.Platform.Dispatching.Interfaces;
+using Poker.ViewModel;
 
 namespace Poker.Handlers.SingleUseEventHandlers.SignalR
 {
@@ -31,14 +34,59 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
         {
             var table = _db.Tables.GetById(e.Id);
             var maxBid = table.Players.Select(x => x.Bid).Max();
+
             UsersHub.CurrentContext.Clients.Group(e.Id).bidMade(new
             {
-                TableId = e.Id,
                 UserId = e.Bid.UserId,
                 NewCashValue = e.Bid.NewCashValue,
                 Bid = e.Bid.Bid,
                 MaxBid = maxBid
             });
+        }
+
+        public void Handle(CardsDealed e)
+        {
+            var cards = e.Cards.Select(x => new
+             {
+                 Card = new CardViewModel(x.Card),
+                 UserId = x.UserId
+             });
+
+            UsersHub.CurrentContext.Clients.Group(e.Id).cardsDealed(new
+            {
+                Cards = cards
+            });
+        }
+
+        public void Handle(DeckDealed e)
+        {
+            var deck = e.Cards.Select(x => new CardViewModel(x)).ToList();
+
+            UsersHub.CurrentContext.Clients.Group(e.Id).deckDealed(new
+            {
+                Deck = deck
+            });
+        }
+
+
+        public void Handle(GameCreated e)
+        {
+            var table = _db.Tables.GetById(e.Id);
+
+            UsersHub.CurrentContext.Clients.Group(e.Id).gameCreated(new
+            {
+                e = e
+            });
+
+        }
+
+        public void Handle(GameFinished e)
+        {
+            UsersHub.CurrentContext.Clients.Group(e.Id).gameFinished(new
+            {
+                Winner = e.Winner
+            });
+
         }
     }
 }

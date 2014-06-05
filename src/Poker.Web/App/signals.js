@@ -28,10 +28,22 @@ angular.module("hubs.service", ['event-agregator'])
             proxy.on('bidMade', function (data) {
                 eventAggregatorService.publish('bidMade', data);
             });
+            proxy.on('cardsDealed', function (data) {
+                eventAggregatorService.publish('cardsDealed', data);
+            });
+            proxy.on('deckDealed', function (data) {
+                eventAggregatorService.publish('deckDealed', data);
+            });
+            proxy.on('gameFinished', function (data) {
+                eventAggregatorService.publish('gameFinished', data);
+            });
+            proxy.on('gameCreated', function (data) {
+                eventAggregatorService.publish('gameCreated', data);
+            });
 
         };
 
-        var invoke = function(method, data) {
+        var invoke = function (method, data) {
             proxy.invoke(method, data);
         };
 

@@ -287,7 +287,6 @@
     <Content Include="Assets\app\css\login.css" />
     <Content Include="Assets\app\css\m-buttons.css" />
     <Content Include="Assets\vendor\angular-spiner\css\rzslider.css" />
-    <Content Include="Assets\vendor\angular-spiner\js\rzslider.js" />
     <Content Include="Assets\vendor\angular-spiner\js\rzslider.min.js" />
     <Content Include="css\jasmine.css" />
     <Content Include="Scripts\angular-animate.js" />
