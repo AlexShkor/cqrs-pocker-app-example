@@ -12,8 +12,6 @@ namespace Poker.Web.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             //BundleTable.EnableOptimizations = true;
-         
-
 
             var style = new StyleBundle("~/content/landing")
                .Include("~/assets/vendor/bootstrap/css/bootstrap.css")
@@ -30,7 +28,8 @@ namespace Poker.Web.App_Start
                 .Include("~/assets/app/css/poker.css")
                 .Include("~/assets/app/css/m-buttons.css")
                 .Include("~/assets/app/css/landing.css")
-                .Include("~/Assets/vendor/font-awesome/css/font-awesome.css");
+                .Include("~/Assets/vendor/font-awesome/css/font-awesome.css")
+                .Include("~/Assets/vendor/angular-spiner/css/rzslider.css");
 
             bundles.Add(style);
 
@@ -49,8 +48,8 @@ namespace Poker.Web.App_Start
 
             style = new StyleBundle("~/content/login")
                 .Include("~/assets/app/css/login.css");
-               //.Include("~/assets/app/css/demo.css")
-               //.Include("~/assets/app/css/animate-custom.css");
+            //.Include("~/assets/app/css/demo.css")
+            //.Include("~/assets/app/css/animate-custom.css");
 
             bundles.Add(style);
 
