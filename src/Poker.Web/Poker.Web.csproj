@@ -268,7 +268,6 @@
     <Content Include="App\app.js" />
     <Content Include="App\eventAggregatorService.js" />
     <Content Include="App\game.js" />
-    <Content Include="App\home.html" />
     <Content Include="App\home.js" />
     <Content Include="App\signals.js" />
     <Content Include="App\tables.js" />
