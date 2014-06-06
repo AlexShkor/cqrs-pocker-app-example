@@ -30,13 +30,10 @@ namespace Poker.Domain.ApplicationServices.Combinations
         protected override int CompareWithSame(IPokerHand other)
         {
             var result = HandCards.First().Rank.CompareTo(other.HandCards.First().Rank);
-
             if (result == 0)
             {
-                // compare kickers
-                throw new NotImplementedException("Comparing kickers is not implemented");
+                return CompareKickers(other);
             }
-
             return result;
         }
     }
