@@ -9,7 +9,11 @@ angular.module('poker.tables',[]).controller("TablesController", function($scope
     });
     $scope.join = function(table) {
         table.Name = "Joining...";
-        $http.post("/game/join", { tableId: table.Id });
+        $http.post("/game/join", { tableId: table.Id }, function(response) {
+            if (response.Joined) {
+                $scope.view(table);
+            }
+        });
     };
     $scope.view = function(table) {
         $location.path("/game/view/" + table.Id);

@@ -192,7 +192,8 @@ namespace Poker.Domain.Aggregates.Game
                 Odds = bid,
                 AllIn = user.Cash == bid,
                 UserId = player.UserId,
-                NewCashValue = user.Cash - bid
+                NewCashValue = user.Cash - bid,
+                BiddingStage = CurrentBidding.Stage
             };
             
         }
@@ -225,6 +226,11 @@ namespace Poker.Domain.Aggregates.Game
         public BiddingStage CurrentStage
         {
             get { return BiddingStages.Last(); }
+        }
+
+        public int Stage
+        {
+            get { return BiddingStages.Count - 1; }
         }
 
         public BiddingInfo()
@@ -268,9 +274,18 @@ namespace Poker.Domain.Aggregates.Game
     {
         public string UserId { get; set; }
         public int Position { get; set; }
+        public int BiddingStage { get; set; }
         public long Bid { get; set; }
         public long NewCashValue { get; set; }
         public long Odds { get; set; }
         public bool AllIn { get; set; }
+    }
+
+    public enum BiddingStagesEnum
+    {
+        PreFlop = 0,
+        Flop = 1,
+        Turn = 2,
+        River = 3
     }
 }
