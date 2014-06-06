@@ -32,9 +32,7 @@ namespace Poker.Domain.ApplicationServices
             Cards = new ReadOnlyCollection<Card>(cards);
         }
 
-
-
-
+        
         public abstract string Name { get; }
 
         public abstract int Score { get; }
