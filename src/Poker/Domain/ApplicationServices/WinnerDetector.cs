@@ -8,7 +8,7 @@ namespace Poker.Domain.ApplicationServices
 {
     public class WinnerDetector
     {
-        private readonly SortedList<int, PokerHandPrototype> _prototypes = new SortedList<int, PokerHandPrototype>();  
+        private readonly SortedList<int, PokerHandPrototype> _prototypes = new SortedList<int, PokerHandPrototype>();
 
         private readonly Dictionary<string, IPokerHand> _users = new Dictionary<string, IPokerHand>();
 
@@ -26,11 +26,11 @@ namespace Poker.Domain.ApplicationServices
             AddProrotype<RoyalFlush>();
         }
 
-        private void AddProrotype<T>() where T : IPokerHand,new()
+        private void AddProrotype<T>() where T : IPokerHand, new()
         {
             Func<IPokerHand> creator = () => new T();
             var instance = creator();
-            _prototypes.Add(instance.Score,new PokerHandPrototype(instance,creator));
+            _prototypes.Add(instance.Score, new PokerHandPrototype(instance, creator));
         }
 
         public class PokerHandPrototype
@@ -67,11 +67,12 @@ namespace Poker.Domain.ApplicationServices
         public IEnumerable<WinnerResult> GetWinners()
         {
             var groups = _users.GroupBy(x => x.Value.Score).ToList();
-            var maxScore = groups.Max(x=> x.Key);
+            var maxScore = groups.Max(x => x.Key);
             var sameCombination = groups.Single(x => x.Key == maxScore).ToList();
             if (sameCombination.Count > 1)
             {
                 var max = sameCombination.Max(x => x.Value);
+
                 foreach (var keyValuePair in sameCombination)
                 {
                     if (keyValuePair.Value.CompareTo(max) == 0)
@@ -84,6 +85,7 @@ namespace Poker.Domain.ApplicationServices
                     }
                 }
             }
+
             else
             {
                 yield return sameCombination.Select(x => new WinnerResult()

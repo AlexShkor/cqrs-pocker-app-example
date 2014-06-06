@@ -7,14 +7,14 @@ namespace Poker.Domain.ApplicationServices.Combinations
 {
     public class OnePair : BasePokerHand
     {
-        public override string Name 
+        public override string Name
         {
             get { return PokerNames.OnePair; }
         }
 
         public override int Score
         {
-            get { return (int) PokerScores.OnePair; }
+            get { return (int)PokerScores.OnePair; }
         }
 
         public override bool IsPresent()
@@ -30,11 +30,13 @@ namespace Poker.Domain.ApplicationServices.Combinations
         protected override int CompareWithSame(IPokerHand other)
         {
             var result = HandCards.First().Rank.CompareTo(other.HandCards.First().Rank);
+
             if (result == 0)
             {
-                //compare kickers
-                throw new NotImplementedException();
+                // compare kickers
+                throw new NotImplementedException("Comparing kickers is not implemented");
             }
+
             return result;
         }
     }
