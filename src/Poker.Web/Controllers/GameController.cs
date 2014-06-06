@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Web.Mvc;
 using AttributeRouting;
 using AttributeRouting.Web.Mvc;
@@ -37,6 +38,11 @@ namespace Poker.Web.Controllers
         [POST("join")]
         public ActionResult Join(string tableId)
         {
+            var table = _tables.GetById(tableId);
+            if (table.Players.Any(x => x.UserId == UserId))
+            {
+                return Json(new {Joined = true});
+            }
             var cmd = new JoinTable
             {
                 Id = tableId,

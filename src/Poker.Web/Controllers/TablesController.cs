@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AttributeRouting;
@@ -33,7 +34,7 @@ namespace Poker.Web.Controllers
         [POST("load")]
         public ActionResult GetAll()
         {
-            var model = _tables.GetAll();
+            var model = _tables.GetAll().OrderBy(x=> x.Players.Count);
             return Json(model);
         }
 

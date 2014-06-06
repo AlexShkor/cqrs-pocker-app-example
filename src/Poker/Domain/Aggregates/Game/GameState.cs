@@ -106,12 +106,13 @@ namespace Poker.Domain.Aggregates.Game
                     Pack.Remove(card);
                     Deck.Add(card);
                 }
+                CurrentBidding.NextStage();
             });
         }
 
         private void AddBid(BidInfo bid)
         {
-            CurrentBidding.Bids.Add(bid);
+            CurrentBidding.AddBid(bid);
             Players[bid.Position].Bid = bid.Bid;
             Players[bid.Position].AllIn = bid.AllIn;
             JoinedPlayers[bid.UserId].Cash -= bid.Odds;
@@ -191,7 +192,8 @@ namespace Poker.Domain.Aggregates.Game
                 Odds = bid,
                 AllIn = user.Cash == bid,
                 UserId = player.UserId,
-                NewCashValue = user.Cash - bid
+                NewCashValue = user.Cash - bid,
+                BiddingStage = CurrentBidding.Stage
             };
             
         }
@@ -219,16 +221,52 @@ namespace Poker.Domain.Aggregates.Game
 
     public class BiddingInfo
     {
-        public List<BidInfo> Bids { get; set; }
+        public List<BiddingStage> BiddingStages { get; private set; }
+
+        public BiddingStage CurrentStage
+        {
+            get { return BiddingStages.Last(); }
+        }
+
+        public int Stage
+        {
+            get { return BiddingStages.Count - 1; }
+        }
 
         public BiddingInfo()
+        {
+            BiddingStages = new List<BiddingStage>();
+            NextStage();
+        }
+
+        public void AddBid(BidInfo bid)
+        {
+            CurrentStage.Bids.Add(bid);
+        }
+
+        public long GetBank()
+        {
+            return BiddingStages.Sum(x => x.GetBank());
+        }
+
+        public void NextStage()
+        {
+            BiddingStages.Add(new BiddingStage());
+        }
+    }
+
+    public class BiddingStage
+    {
+        public List<BidInfo> Bids { get; private set; }
+
+        public BiddingStage()
         {
             Bids = new List<BidInfo>();
         }
 
         public long GetBank()
         {
-            return Bids.Sum(x => x.Bid);
+            return Bids.GroupBy(x => x.UserId).Select(x => x.Select(b => b.Bid).Max()).Sum();
         }
     }
 
@@ -236,9 +274,18 @@ namespace Poker.Domain.Aggregates.Game
     {
         public string UserId { get; set; }
         public int Position { get; set; }
+        public int BiddingStage { get; set; }
         public long Bid { get; set; }
         public long NewCashValue { get; set; }
         public long Odds { get; set; }
         public bool AllIn { get; set; }
+    }
+
+    public enum BiddingStagesEnum
+    {
+        PreFlop = 0,
+        Flop = 1,
+        Turn = 2,
+        River = 3
     }
 }

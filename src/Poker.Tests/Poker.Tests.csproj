@@ -91,6 +91,7 @@
     <Compile Include="AggregateStateTests\PlayerFoldBidTest.cs" />
     <Compile Include="AggregateStateTests\TableCreatedStateTest.cs" />
     <Compile Include="AggregatesTest\ObjectComparer.cs" />
+    <Compile Include="BiddingTests\BiddingInfoTest.cs" />
     <Compile Include="Extenssions\GameTableExt.cs" />
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />

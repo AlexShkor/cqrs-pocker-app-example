@@ -57,8 +57,8 @@ namespace Poker.Tests.AggregateActionsTest.Raise
 
         public override void ValidateState(GameTableAggregate a)
         {
-            Assert.AreEqual(5, a.State.CurrentBidding.Bids[0].Odds);
-            Assert.AreEqual(2, a.State.CurrentBidding.Bids[0].Position);
+            Assert.AreEqual(5, a.State.CurrentBidding.CurrentStage.Bids[0].Odds);
+            Assert.AreEqual(2, a.State.CurrentBidding.CurrentStage.Bids[0].Position);
         }
 
         [Test]
