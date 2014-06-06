@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices.Combinations
 {
-    public class OnePair : BasePokerSet
+    public class OnePair : BasePokerHand
     {
         public override string Name 
         {
@@ -18,12 +19,23 @@ namespace Poker.Domain.ApplicationServices.Combinations
 
         public override bool IsPresent()
         {
-            return Cards.GroupBy(x => x.Rank).Any(x => x.Count() == 2);
+            var group = Cards.GroupBy(x => x.Rank).FirstOrDefault(x => x.Count() == 2);
+            if (group != null)
+            {
+                HandCards.AddRange(group);
+            }
+            return group != null;
         }
 
-        protected override int CompareWithSame(IPokerSet other)
+        protected override int CompareWithSame(IPokerHand other)
         {
-            throw new System.NotImplementedException();
+            var result = HandCards.First().Rank.CompareTo(other.HandCards.First().Rank);
+            if (result == 0)
+            {
+                //compare kickers
+                throw new NotImplementedException();
+            }
+            return result;
         }
     }
 }

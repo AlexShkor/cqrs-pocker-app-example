@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace Poker.Domain.ApplicationServices.Combinations
 {
-    public class HighCard : BasePokerSet
+    public class HighCard : BasePokerHand
     {
         public override string Name
         {
@@ -20,7 +20,7 @@ namespace Poker.Domain.ApplicationServices.Combinations
             }
         }
 
-        protected override int CompareWithSame(IPokerSet other)
+        protected override int CompareWithSame(IPokerHand other)
         {
             return Cards.Max(x => x.Rank).CompareTo(other.Cards.Max(x => x.Rank));
         }

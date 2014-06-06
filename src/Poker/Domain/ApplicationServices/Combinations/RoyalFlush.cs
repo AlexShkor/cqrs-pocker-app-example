@@ -4,7 +4,7 @@ using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices.Combinations
 {
-    public class RoyalFlush : BasePokerSet
+    public class RoyalFlush : BasePokerHand
     {
         public override string Name
         {
@@ -37,7 +37,7 @@ namespace Poker.Domain.ApplicationServices.Combinations
             return Cards.Count(x => royal.Contains(x.Rank)) == 5 && straightFlash.IsPresent();
         }
 
-        protected override int CompareWithSame(IPokerSet other)
+        protected override int CompareWithSame(IPokerHand other)
         {
             throw new System.NotImplementedException();
         }

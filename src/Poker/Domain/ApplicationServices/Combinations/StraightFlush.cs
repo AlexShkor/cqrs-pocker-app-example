@@ -4,7 +4,7 @@ using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices.Combinations
 {
-    public class StraightFlush : BasePokerSet
+    public class StraightFlush : BasePokerHand
     {
         public override string Name
         {
@@ -31,7 +31,7 @@ namespace Poker.Domain.ApplicationServices.Combinations
             return straight.IsPresent() && flush.IsPresent();
         }
 
-        protected override int CompareWithSame(IPokerSet other)
+        protected override int CompareWithSame(IPokerHand other)
         {
             throw new System.NotImplementedException();
         }

@@ -4,7 +4,7 @@ using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices.Combinations
 {
-    public class Flush : BasePokerSet
+    public class Flush : BasePokerHand
     {
         public override string Name
         {
@@ -22,7 +22,7 @@ namespace Poker.Domain.ApplicationServices.Combinations
             }
         }
 
-        protected override int CompareWithSame(IPokerSet other)
+        protected override int CompareWithSame(IPokerHand other)
         {
             return 0;
         }

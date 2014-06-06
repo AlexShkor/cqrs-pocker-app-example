@@ -4,7 +4,7 @@ using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices.Combinations
 {
-    public class FullHouse : BasePokerSet
+    public class FullHouse : BasePokerHand
     {
         public override string Name
         {
@@ -31,7 +31,7 @@ namespace Poker.Domain.ApplicationServices.Combinations
             return set.IsPresent() && pairSet.IsPresent();
         }
 
-        protected override int CompareWithSame(IPokerSet other)
+        protected override int CompareWithSame(IPokerHand other)
         {
             throw new System.NotImplementedException();
         }

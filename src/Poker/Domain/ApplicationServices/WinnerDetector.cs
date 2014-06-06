@@ -8,9 +8,9 @@ namespace Poker.Domain.ApplicationServices
 {
     public class WinnerDetector
     {
-        private readonly SortedList<int, PokerSetProtorype> _prototypes = new SortedList<int, PokerSetProtorype>();  
+        private readonly SortedList<int, PokerHandPrototype> _prototypes = new SortedList<int, PokerHandPrototype>();  
 
-        private readonly Dictionary<string, IPokerSet> _users = new Dictionary<string, IPokerSet>();
+        private readonly Dictionary<string, IPokerHand> _users = new Dictionary<string, IPokerHand>();
 
         public WinnerDetector()
         {
@@ -26,19 +26,19 @@ namespace Poker.Domain.ApplicationServices
             AddProrotype<RoyalFlush>();
         }
 
-        private void AddProrotype<T>() where T : IPokerSet,new()
+        private void AddProrotype<T>() where T : IPokerHand,new()
         {
-            Func<IPokerSet> creator = () => new T();
+            Func<IPokerHand> creator = () => new T();
             var instance = creator();
-            _prototypes.Add(instance.Score,new PokerSetProtorype(instance,creator));
+            _prototypes.Add(instance.Score,new PokerHandPrototype(instance,creator));
         }
 
-        public class PokerSetProtorype
+        public class PokerHandPrototype
         {
-            public Func<IPokerSet> Creator { get; set; }
-            public IPokerSet Instance { get; set; }
+            public Func<IPokerHand> Creator { get; set; }
+            public IPokerHand Instance { get; set; }
 
-            public PokerSetProtorype(IPokerSet instance, Func<IPokerSet> creator)
+            public PokerHandPrototype(IPokerHand instance, Func<IPokerHand> creator)
             {
                 Instance = instance;
                 Creator = creator;
@@ -79,7 +79,7 @@ namespace Poker.Domain.ApplicationServices
                         yield return new WinnerResult
                         {
                             UserId = keyValuePair.Key,
-                            PokerSet = keyValuePair.Value
+                            PokerHand = keyValuePair.Value
                         };
                     }
                 }
@@ -89,7 +89,7 @@ namespace Poker.Domain.ApplicationServices
                 yield return sameCombination.Select(x => new WinnerResult()
                 {
                     UserId = x.Key,
-                    PokerSet = x.Value
+                    PokerHand = x.Value
                 }).Single();
             }
         }
@@ -99,6 +99,6 @@ namespace Poker.Domain.ApplicationServices
     {
         public string UserId { get; set; }
 
-        public IPokerSet PokerSet { get; set; }
+        public IPokerHand PokerHand { get; set; }
     }
 }

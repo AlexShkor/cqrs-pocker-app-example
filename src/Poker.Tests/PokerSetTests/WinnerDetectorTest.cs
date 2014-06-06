@@ -56,7 +56,7 @@ namespace Poker.Tests.PokerSetTests
             });
             var winner = detector.GetWinners().Single();
             Assert.AreEqual("me1",winner.UserId);
-            Assert.AreEqual((int)PokerScores.OnePair,winner.PokerSet.Score);
+            Assert.AreEqual((int)PokerScores.OnePair,winner.PokerHand.Score);
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace Poker.Tests.PokerSetTests
             });
             var winner = detector.GetWinners().Single();
             Assert.AreEqual("me1",winner.UserId);
-            Assert.AreEqual((int)PokerScores.TwoPairs,winner.PokerSet.Score);
+            Assert.AreEqual((int)PokerScores.TwoPairs,winner.PokerHand.Score);
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace Poker.Tests.PokerSetTests
             });
             var winner = detector.GetWinners().Single();
             Assert.AreEqual("me2",winner.UserId);
-            Assert.AreEqual((int)PokerScores.Set,winner.PokerSet.Score);
+            Assert.AreEqual((int)PokerScores.Set,winner.PokerHand.Score);
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace Poker.Tests.PokerSetTests
             });
             var winner = detector.GetWinners().Single();
             Assert.AreEqual("me1",winner.UserId);
-            Assert.AreEqual((int)PokerScores.Straight,winner.PokerSet.Score);
+            Assert.AreEqual((int)PokerScores.Straight,winner.PokerHand.Score);
         }
 
         [Test]
@@ -158,7 +158,7 @@ namespace Poker.Tests.PokerSetTests
             });
             var winner = detector.GetWinners().Single();
             Assert.AreEqual("me2",winner.UserId);
-            Assert.AreEqual((int)PokerScores.Flush,winner.PokerSet.Score);
+            Assert.AreEqual((int)PokerScores.Flush,winner.PokerHand.Score);
         }
 
         [Test]
@@ -184,7 +184,7 @@ namespace Poker.Tests.PokerSetTests
             });
             var winner = detector.GetWinners().Single();
             Assert.AreEqual("me1",winner.UserId);
-            Assert.AreEqual((int)PokerScores.FullHouse,winner.PokerSet.Score);
+            Assert.AreEqual((int)PokerScores.FullHouse,winner.PokerHand.Score);
         }
 
         [Test]
@@ -211,7 +211,7 @@ namespace Poker.Tests.PokerSetTests
             });
             var winner = detector.GetWinners().Single();
             Assert.AreEqual("me2",winner.UserId);
-            Assert.AreEqual((int)PokerScores.Quads,winner.PokerSet.Score);
+            Assert.AreEqual((int)PokerScores.Quads,winner.PokerHand.Score);
         }
 
         [Test]
@@ -239,7 +239,7 @@ namespace Poker.Tests.PokerSetTests
             });
             var winner = detector.GetWinners().Single();
             Assert.AreEqual("me1",winner.UserId);
-            Assert.AreEqual((int)PokerScores.StraightFlush,winner.PokerSet.Score);
+            Assert.AreEqual((int)PokerScores.StraightFlush,winner.PokerHand.Score);
         }
 
         [Test]
@@ -268,7 +268,7 @@ namespace Poker.Tests.PokerSetTests
             });
             var winner = detector.GetWinners().Single();
             Assert.AreEqual("me2",winner.UserId);
-            Assert.AreEqual((int)PokerScores.RoyalFlush,winner.PokerSet.Score);
+            Assert.AreEqual((int)PokerScores.RoyalFlush,winner.PokerHand.Score);
         }
 
 
@@ -300,8 +300,39 @@ namespace Poker.Tests.PokerSetTests
                 new Card(Suit.Clubs, Rank.Two)
             });
             var winner = detector.GetWinners().Single();
-            Assert.AreEqual("me2", winner.UserId);
-            Assert.AreEqual((int)PokerScores.RoyalFlush, winner.PokerSet.Score);
+            Assert.AreEqual("me1", winner.UserId);
+            Assert.AreEqual((int)PokerScores.OnePair, winner.PokerHand.Score);
+        } 
+        
+        [Test]
+        public void OnePair_vs_OnePair_Kicker()
+        {
+            var detector = new WinnerDetector();
+            detector.AddPlayer("me1", new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.King),
+                new Card(Suit.Hearts, Rank.King),
+
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Spades, Rank.Nine),
+                new Card(Suit.Spades, Rank.Five),
+                new Card(Suit.Diamonds, Rank.Six),
+                new Card(Suit.Clubs, Rank.Two)
+            });
+            detector.AddPlayer("me2", new List<Card>()
+            {
+                new Card(Suit.Clubs, Rank.King),
+                new Card(Suit.Diamonds, Rank.King),
+
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Spades, Rank.Nine),
+                new Card(Suit.Spades, Rank.Five),
+                new Card(Suit.Diamonds, Rank.Six),
+                new Card(Suit.Clubs, Rank.Two)
+            });
+            var winner = detector.GetWinners().Single();
+            Assert.AreEqual("me1", winner.UserId);
+            Assert.AreEqual((int)PokerScores.OnePair, winner.PokerHand.Score);
         }
 
     }

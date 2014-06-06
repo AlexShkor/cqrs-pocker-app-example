@@ -4,7 +4,7 @@ using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices.Combinations
 {
-    public class TwoPairs : BasePokerSet
+    public class TwoPairs : BasePokerHand
     {
         public override string Name
         {
@@ -27,7 +27,7 @@ namespace Poker.Domain.ApplicationServices.Combinations
             return Cards.GroupBy(x => x.Rank).Count(x => x.Count() == 2) == 2;
         }
 
-        protected override int CompareWithSame(IPokerSet other)
+        protected override int CompareWithSame(IPokerHand other)
         {
             throw new System.NotImplementedException();
         }

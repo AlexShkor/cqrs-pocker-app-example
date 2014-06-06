@@ -5,14 +5,15 @@ using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices
 {
-    public abstract class BasePokerSet: IPokerSet
+    public abstract class BasePokerHand: IPokerHand
     {
-        protected BasePokerSet()
+        protected BasePokerHand()
         {
             Cards = new List<Card>();
+            HandCards = new List<Card>();
         }
 
-        public int CompareTo(IPokerSet other)
+        public int CompareTo(IPokerHand other)
         {
             if (Score == other.Score)
             {
@@ -22,6 +23,8 @@ namespace Poker.Domain.ApplicationServices
         }
 
         public IReadOnlyList<Card> Cards { get; private set; }
+
+        public List<Card> HandCards { get; private set; }
 
         public void SetCards(IList<Card> cards)
         {
@@ -34,6 +37,6 @@ namespace Poker.Domain.ApplicationServices
 
         public abstract bool IsPresent();
 
-        protected abstract int CompareWithSame(IPokerSet other);
+        protected abstract int CompareWithSame(IPokerHand other);
     }
 }

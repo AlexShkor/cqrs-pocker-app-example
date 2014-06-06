@@ -4,9 +4,11 @@ using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices
 {
-    public interface IPokerSet : IComparable<IPokerSet>
+    public interface IPokerHand : IComparable<IPokerHand>
     {
         IReadOnlyList<Card> Cards { get; }
+
+        List<Card> HandCards { get; }
 
         string Name { get; }
 
