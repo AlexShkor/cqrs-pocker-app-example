@@ -19,12 +19,12 @@ namespace Poker.Domain.ApplicationServices.Combinations
 
         public override bool IsPresent()
         {
-            var group = Cards.GroupBy(x => x.Rank).FirstOrDefault(x => x.Count() == 2);
-            if (group != null)
+            var pair = Cards.GroupBy(x => x.Rank).FirstOrDefault(x => x.Count() == 2);
+            if (pair != null)
             {
-                HandCards.AddRange(group);
+                HandCards.AddRange(pair);
             }
-            return group != null;
+            return pair != null;
         }
 
         protected override int CompareWithSame(IPokerHand other)
