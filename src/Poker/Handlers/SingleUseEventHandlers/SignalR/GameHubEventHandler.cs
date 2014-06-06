@@ -77,7 +77,6 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
             {
                 e = e
             });
-
         }
 
         public void Handle(GameFinished e)
