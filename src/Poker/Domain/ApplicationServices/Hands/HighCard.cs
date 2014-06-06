@@ -22,11 +22,12 @@ namespace Poker.Domain.ApplicationServices.Hands
 
         protected override int CompareWithSame(IPokerHand other)
         {
-            return Cards.Max(x => x.Rank).CompareTo(other.Cards.Max(x => x.Rank));
+            return CompareKickers(other);
         }
 
         public override bool IsPresent()
         {
+            HandCards.Add(Cards.OrderByDescending(x=> x.Rank).First());
             return true;
         }
     }
