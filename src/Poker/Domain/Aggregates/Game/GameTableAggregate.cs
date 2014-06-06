@@ -16,7 +16,6 @@ namespace Poker.Domain.Aggregates.Game
 {
     public class GameTableAggregate : Aggregate<GameTableState>
     {
-
         public void CreateTable(string id, string name, long buyIn, long smallBlind)
         {
             if (State.TableId.HasValue())
