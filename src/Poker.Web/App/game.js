@@ -45,6 +45,21 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         }
     };
 
+    $scope.sendMessage = function () {
+        if ($scope.newMessage) {
+            $.post("/chat/send", { message: $scope.newMessage }, function (parameters) {
+            });
+            $scope.newMessage = "";
+        }
+    }
+
+    eventAggregatorService.subscribe("chatMessage", function (e, data) {
+        $scope.$apply(function () {
+            $scope.messages.push(data);
+        });
+    });
+
+
     $scope.fold = function () {
         $http.post("/game/fold", { tableId: $scope.game.Id });
     };

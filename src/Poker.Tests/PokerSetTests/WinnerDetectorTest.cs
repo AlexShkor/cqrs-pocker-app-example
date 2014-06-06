@@ -270,5 +270,39 @@ namespace Poker.Tests.PokerSetTests
             Assert.AreEqual("me2",winner.UserId);
             Assert.AreEqual((int)PokerScores.RoyalFlush,winner.PokerSet.Score);
         }
+
+
+
+        [Test]
+        public void OnePair_vs_OnePair()
+        {
+            var detector = new WinnerDetector();
+            detector.AddPlayer("me1", new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.King),
+                new Card(Suit.Hearts, Rank.King),
+
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Spades, Rank.Nine),
+                new Card(Suit.Spades, Rank.Five),
+                new Card(Suit.Diamonds, Rank.Six),
+                new Card(Suit.Clubs, Rank.Two)
+            });
+            detector.AddPlayer("me2", new List<Card>()
+            {
+                new Card(Suit.Clubs, Rank.Jack),
+                new Card(Suit.Diamonds, Rank.Jack),
+
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Spades, Rank.Nine),
+                new Card(Suit.Spades, Rank.Five),
+                new Card(Suit.Diamonds, Rank.Six),
+                new Card(Suit.Clubs, Rank.Two)
+            });
+            var winner = detector.GetWinners().Single();
+            Assert.AreEqual("me2", winner.UserId);
+            Assert.AreEqual((int)PokerScores.RoyalFlush, winner.PokerSet.Score);
+        }
+
     }
 }
