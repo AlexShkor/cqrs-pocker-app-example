@@ -22,6 +22,9 @@ angular.module("hubs.service", ['event-agregator'])
             proxy.on('goToTable', function (data) {
                 eventAggregatorService.publish('goToTable', data);
             });
+            proxy.on('goToTablesView', function (data) {
+                eventAggregatorService.publish('goToTablesView', data);
+            });
             proxy.on('playerTurnChanged', function (data) {
                 eventAggregatorService.publish('playerTurnChanged', data);
             });
