@@ -1,7 +1,7 @@
 
 var gameApp = angular.module('poker.game', ['rzModule']);
 
-gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce, eventAggregatorService, signalsService) {
+gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce, $timeout, eventAggregatorService, signalsService) {
     this.$scope = $scope;
     this.$stateParams = $stateParams;
     this.$http = $http;
@@ -68,10 +68,13 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         load();
     };
 
+    var gameCreationDelay = 1000; //ms
 
     eventAggregatorService.subscribe("gameCreated", function (e, data) {
-        load();
-        addLog(logs.gameCreated, false);
+        addLog(logs.gameCreated);
+        $timeout(function() {
+            load();
+        }, gameCreationDelay);
     });
 
     eventAggregatorService.subscribe("cardsDealed", function (e, data) {
@@ -85,7 +88,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             }
         }
 
-        addLog(logs.cardsDealed, false);
+        addLog(logs.cardsDealed);
     });
 
     eventAggregatorService.subscribe("deckDealed", function (e, data) {
@@ -96,7 +99,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             card.Symbol = $sce.trustAsHtml(card.Symbol);
         }
 
-        addLog(logs.deckDealed, false);
+        addLog(logs.deckDealed);
     });
 
     eventAggregatorService.subscribe("bidMade", function (e, data) {
@@ -108,7 +111,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         initUserRates();
         $scope.$apply();
 
-        addLog(logs.bidMade.splice(logs.bidMade.indexOf(alias), alias.length, player.Name), false);
+        addLog(logs.bidMade, {name: player.Name});
 
     });
 
@@ -130,7 +133,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         $scope.game.CurrentPlayerId = data.CurrentPlayerId;
         $scope.$apply();
 
-        addLog(logs.playerTurned.splice(logs.playerTurned.indexOf(alias), alias.length, currentPlayerName), false);
+        addLog(logs.playerTurned, { name: currentPlayerName });
 
     });
 
@@ -142,8 +145,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         $scope.ShowWinner = true;
         $scope.$apply();
 
-        addLog(logs.gameFinished.splice(logs.gameFinished.indexOf(alias), alias.length, winner.Name), true);
-
+        addLog(logs.gameFinished, { name: winner.Name });
     });
 
 
@@ -232,23 +234,29 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         }
     }
 
-    var alias = "/name/";
     var logs = {
         gameCreated: "New game is created",
         bidMade: "/name/ made a bid",
         playerTurned: "/name/ turn",
-        gameFinished: "/name/ is winner. Game is finished",
+        gameFinished: { msg: "/name/ is winner. Game is finished", ishighlighted: true },
         cardsDealed: "Cards are dealt",
         deckDealed: "Deck is dealt"
     };
 
     var logsCont = document.getElementById('logs');
-    function addLog(log, ishighlighted) {
+    function addLog(log, replacements) {
         var date = new Date();
-        var msg = date.toLocaleTimeString() + " " + log;
-
-        var logModel = { msg: msg, ishighlighted: ishighlighted };
-        $scope.Logs.push(logModel);
+        if (typeof (log) != "object") {
+            log = { msg: log, ishighlighted: false }
+        }
+        if (replacements) {
+            for (var key in replacements) {
+                var alias = "/" + key + "/";
+                log.msg = log.msg.splice(log.msg.indexOf(alias), alias.length, replacements[key]);
+            }
+        }
+        log.msg = date.toLocaleTimeString() + " " + log.msg;
+        $scope.Logs.push(log);
         logsCont.scrollTop = logsCont.scrollHeight;
     }
 
