@@ -2,7 +2,7 @@
 using System.Linq;
 using Poker.Domain.Data;
 
-namespace Poker.Domain.ApplicationServices.Combinations
+namespace Poker.Domain.ApplicationServices.Hands
 {
     public class RoyalFlush : BasePokerHand
     {

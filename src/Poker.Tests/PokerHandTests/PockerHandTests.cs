@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Poker.Domain.ApplicationServices.Combinations;
+using Poker.Domain.ApplicationServices.Hands;
 using Poker.Domain.Data;
 
 namespace Poker.Tests.PokerSetTests

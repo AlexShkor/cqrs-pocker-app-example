@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace Poker.Domain.ApplicationServices.Combinations
+namespace Poker.Domain.ApplicationServices.Hands
 {
     public class HighCard : BasePokerHand
     {
