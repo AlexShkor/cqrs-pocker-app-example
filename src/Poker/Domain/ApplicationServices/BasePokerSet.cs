@@ -44,7 +44,7 @@ namespace Poker.Domain.ApplicationServices
         {
             var cards = Cards.Except(HandCards).Select(x => x.Rank).OrderByDescending(x => x).ToList();
             var otherCards = other.Cards.Except(other.HandCards).Select(x => x.Rank).OrderByDescending(x => x).ToList();
-            for (int i = 0; i < cards.Count; i++)
+            for (int i = 0; i < cards.Count - HandCards.Count; i++)
             {
                 var kickerResult = cards[i].CompareTo(otherCards[i]);
                 if (kickerResult != 0)
