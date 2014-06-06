@@ -31,6 +31,7 @@ namespace Poker.Tests.AggregateStateTests.Methods
                 AllIn = false,
                 Fold = false
             });
+            _state.CurrentBidding = new BiddingInfo();
         }
 
         [Test]

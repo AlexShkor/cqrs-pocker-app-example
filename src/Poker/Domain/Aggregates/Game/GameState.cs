@@ -31,7 +31,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public int? Dealer { get; set; }
 
-        public BiddingInfo CurrentBidding { get; private set; }
+        public BiddingInfo CurrentBidding { get; set; }
 
         public Pack Pack { get; set; }
 
@@ -246,7 +246,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public long GetBank()
         {
-            return BiddingStages.Sum(x => x.GetBank());
+            return CurrentStage.GetBank();
         }
 
         public void NextStage()
