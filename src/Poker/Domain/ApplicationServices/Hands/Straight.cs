@@ -40,6 +40,10 @@ namespace Poker.Domain.ApplicationServices.Hands
                     countInOrder += 1;
                     HandCards.Add(GetCard(score));
                 }
+                else if (score == previousScore)
+                {
+                    continue;
+                }
                 else
                 {
                     if (countInOrder >= 5)
@@ -188,7 +192,7 @@ namespace Poker.Domain.ApplicationServices.Hands
 
         protected override int CompareWithSame(IPokerHand other)
         {
-            throw new System.NotImplementedException();
+            return CompareHandMaxRank(other);
         }
     }
 }

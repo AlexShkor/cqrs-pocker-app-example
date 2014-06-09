@@ -56,5 +56,10 @@ namespace Poker.Domain.ApplicationServices
             }
             return 0;
         }
+
+        public int CompareHandMaxRank(IPokerHand other)
+        {
+            return HandCards.Max(x => x.Rank).CompareTo(other.HandCards.Max(x => x.Rank));
+        }
     }
 }

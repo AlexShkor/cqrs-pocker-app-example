@@ -22,7 +22,12 @@ namespace Poker.Domain.ApplicationServices.Hands
 
         protected override int CompareWithSame(IPokerHand other)
         {
-            return CompareKickers(other);
+            var result = CompareHandMaxRank(other);
+            if (result == 0)
+            {
+                return CompareKickers(other);
+            }
+            return result;
         }
 
         public override bool IsPresent()

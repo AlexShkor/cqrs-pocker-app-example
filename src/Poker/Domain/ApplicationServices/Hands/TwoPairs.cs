@@ -41,16 +41,15 @@ namespace Poker.Domain.ApplicationServices.Hands
 
         protected override int CompareWithSame(IPokerHand other)
         {
-            var ranks = HandCards.OrderBy(c => c.Rank).GroupBy(c => c.Rank).Select(group => group.First()).Select(c => c.Rank).ToList();
-            var otherRanks = other.HandCards.OrderBy(c => c.Rank).GroupBy(c => c.Rank).Select(group => group.First()).Select(c => c.Rank).ToList();
-
-            var result = ranks.First().CompareTo(otherRanks.First());
-
+            var result = CompareHandMaxRank(other);
             if (result == 0)
             {
-                return CompareKickers(other);
+                result = HandCards.Min(x => x.Rank).CompareTo(other.HandCards.Min(x => x.Rank));
             }
-
+            if (result == 0)
+            {
+                result = CompareKickers(other);
+            }
             return result;
         }
     }

@@ -26,7 +26,7 @@ namespace Poker.Domain.ApplicationServices.Hands
 
         protected override int CompareWithSame(IPokerHand other)
         {
-            var result = HandCards.First().Rank.CompareTo(other.HandCards.First().Rank);
+            var result = CompareHandMaxRank(other);
             if (result == 0)
             {
                 return CompareKickers(other);

@@ -28,13 +28,20 @@ namespace Poker.Domain.ApplicationServices.Hands
             var flush = new Flush();
             flush.SetCards(Cards.ToList());
             var isFlush = flush.IsPresent();
-            HandCards.AddRange(straight.HandCards.Intersect(flush.HandCards));
-            return  isStraight && isFlush && HandCards.Count == 5;
+            if (!isFlush || !isStraight)
+            {
+                return false;
+            }
+            var suit = flush.HandCards.Select(x => x.Suit).First();
+            var ranks = straight.HandCards.Select(x => x.Rank).ToArray();
+            var handCards = straight.Cards.Where(x => ranks.Contains(x.Rank) && x.Suit == suit);
+            HandCards.AddRange(handCards);
+            return HandCards.Count == 5;
         }
 
         protected override int CompareWithSame(IPokerHand other)
         {
-            throw new System.NotImplementedException();
+            return CompareHandMaxRank(other);
         }
     }
 }
