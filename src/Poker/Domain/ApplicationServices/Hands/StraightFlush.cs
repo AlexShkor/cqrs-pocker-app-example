@@ -23,10 +23,13 @@ namespace Poker.Domain.ApplicationServices.Hands
         public override bool IsPresent()
         {
             var straight = new Straight();
-            var flush = new Flush();
             straight.SetCards(Cards.ToList());
+            var isStraight = straight.IsPresent();
+            var flush = new Flush();
             flush.SetCards(Cards.ToList());
-            return straight.IsPresent() && flush.IsPresent();
+            var isFlush = flush.IsPresent();
+            HandCards.AddRange(straight.HandCards.Intersect(flush.HandCards));
+            return  isStraight && isFlush && HandCards.Count == 5;
         }
 
         protected override int CompareWithSame(IPokerHand other)

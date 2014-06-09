@@ -26,10 +26,7 @@ namespace Poker.Domain.ApplicationServices.Hands
 
             if (quads.Count() == 1)
             {
-                foreach (var quad in quads)
-                {
-                    HandCards.AddRange(quad);
-                }
+                HandCards.AddRange(quads.Single());
             }
 
             return quads.Count() == 1;
