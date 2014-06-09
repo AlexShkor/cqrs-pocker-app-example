@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Poker.Domain.Data;
+﻿using System.Linq;
 
-
-namespace Poker.Domain.ApplicationServices.Combinations
+namespace Poker.Domain.ApplicationServices.Hands
 {
     public class Flush : BasePokerHand
     {
@@ -25,17 +22,13 @@ namespace Poker.Domain.ApplicationServices.Combinations
 
         public override bool IsPresent()
         {
-            var flush = Cards.OrderByDescending(c => c.Rank).GroupBy(x => x.Suit).Where(x => x.Count() >= 5);
-
-            if (flush.Count() == 1)
+            var flush = Cards.GroupBy(x => x.Suit).FirstOrDefault(x => x.Count() >= 5);
+            if (flush != null)
             {
-                foreach (var f in flush)
-                {
-                    HandCards.AddRange(f.Take(5));
-                }
+                HandCards.AddRange(flush.Take(5));
+                return true;
             }
-
-            return flush.Count() == 1;
+            return false;
         }
 
         protected override int CompareWithSame(IPokerHand other)

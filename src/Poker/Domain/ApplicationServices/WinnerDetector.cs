@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Poker.Domain.ApplicationServices.Combinations;
+using Poker.Domain.ApplicationServices.Hands;
 using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices
