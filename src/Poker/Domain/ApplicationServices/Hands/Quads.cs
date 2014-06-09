@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Poker.Domain.Data;
+﻿using System.Linq;
 
-namespace Poker.Domain.ApplicationServices.Combinations
+namespace Poker.Domain.ApplicationServices.Hands
 {
     public class Quads : BasePokerHand
     {

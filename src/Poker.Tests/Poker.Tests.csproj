@@ -95,8 +95,8 @@
     <Compile Include="Extenssions\GameTableExt.cs" />
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />
-    <Compile Include="PokerSetTests\WinnerDetectorTest.cs" />
-    <Compile Include="PokerSetTests\PockerSetsTests.cs" />
+    <Compile Include="PokerHandTests\WinnerDetectorTest.cs" />
+    <Compile Include="PokerHandTests\PockerHandTests.cs" />
     <Compile Include="RankTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
