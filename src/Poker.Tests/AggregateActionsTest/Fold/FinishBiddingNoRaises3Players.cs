@@ -4,7 +4,6 @@ using Poker.Domain.Aggregates.Game;
 using Poker.Domain.Aggregates.Game.Data;
 using Poker.Domain.Aggregates.Game.Events;
 using Poker.Platform.Domain.Interfaces;
-using Poker.Tests.Extenssions;
 
 namespace Poker.Tests.AggregateActionsTest.Fold
 {
@@ -34,11 +33,16 @@ namespace Poker.Tests.AggregateActionsTest.Fold
             yield return new GameFinished
             {
                 Id = "123",
-                Bank = 10,
-                Winner = new PlayerInfo
+                Winners = new List<WinnerInfo>
                 {
-                    UserId = "me2",
-                    Position = 2
+                    new WinnerInfo
+                    {
+                        UserId = "me2",
+                        Position = 2,
+                        Amount = 10,
+                        Order = 1,
+                        HandScore = 0
+                    }
                 }
             };
         }

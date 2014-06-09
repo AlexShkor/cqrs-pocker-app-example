@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI.WebControls.WebParts;
 using MongoDB.Bson;
 using Poker.Domain.Aggregates.Game.Data;
 using Poker.Domain.Aggregates.Game.Events;
 using Poker.Domain.ApplicationServices;
 using Poker.Domain.Data;
 using Poker.Platform.Domain;
-using Poker.Platform.Domain.Interfaces;
-using Poker.Platform.Domain.Messages;
 using Poker.Platform.Extensions;
 
 namespace Poker.Domain.Aggregates.Game
@@ -86,8 +83,7 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    Winner = new PlayerInfo(winner),
-                    Bank = State.CurrentBidding.GetBank()
+                    Winners = new List<WinnerInfo> {new WinnerInfo(winner, State.CurrentBidding.GetBank())},
                 });
             }
             else
@@ -103,12 +99,22 @@ namespace Poker.Domain.Aggregates.Game
                             cards.AddRange(State.Deck);
                             detector.AddPlayer(player.UserId, cards);
                         }
-                        var winner = detector.GetWinners().Single();
+                        var bank = State.CurrentBidding.GetBank();
+                        var winners = detector.GetWinners(bank).GroupBy(x => x.PokerHand.Score).OrderByDescending(x => x.Key);
+                        var winnersInfo = new List<WinnerInfo>();
+                        var order = 1;
+                        foreach (var winnersGroup in winners)
+                        {
+                            foreach (var winner in winnersGroup)
+                            {
+                                winnersInfo.Add(new WinnerInfo(winner.UserId, State.JoinedPlayers[winner.UserId].Position, State.GetPrize(winner.UserId), order, winnersGroup.Key));
+                            }
+                            order++;
+                        }
                         Apply(new GameFinished
                         {
                             Id = State.TableId,
-                            Winner = State.GetPlayerInfo(State.JoinedPlayers[winner.UserId].Position),
-                            Bank = State.CurrentBidding.GetBank(),
+                            Winners = winnersInfo,
                             GameId = State.GameId
                         });
                         CreateGame(GenerateGameId());
@@ -210,6 +216,8 @@ namespace Poker.Domain.Aggregates.Game
             });
         }
 
+        #region Bidding
+
         public void Check(string userId)
         {
             IsCurrentPlayer(userId);
@@ -283,6 +291,8 @@ namespace Poker.Domain.Aggregates.Game
             NextTurn(user.Position);
         }
 
+        #endregion
+
         private void IsCurrentPlayer(string userId)
         {
             if (State.GetPlayerInfo(State.CurrentPlayer).UserId != userId)
@@ -298,11 +308,5 @@ namespace Poker.Domain.Aggregates.Game
                 Id = State.TableId
             });
         }
-    }
-
-    public class DeckDealed : Event
-    {
-        public string GameId { get; set; }
-        public List<Card> Cards { get; set; }
     }
 }

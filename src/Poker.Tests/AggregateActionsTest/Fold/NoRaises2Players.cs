@@ -5,7 +5,6 @@ using Poker.Domain.Aggregates.Game;
 using Poker.Domain.Aggregates.Game.Data;
 using Poker.Domain.Aggregates.Game.Events;
 using Poker.Platform.Domain.Interfaces;
-using Poker.Tests.Extenssions;
 
 namespace Poker.Tests.AggregateActionsTest.Fold
 {

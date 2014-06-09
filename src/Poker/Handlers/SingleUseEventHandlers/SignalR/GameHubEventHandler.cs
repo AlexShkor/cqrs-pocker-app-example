@@ -83,7 +83,7 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
         {
             UsersHub.CurrentContext.Clients.Group(e.Id).gameFinished(new
             {
-                Winner = e.Winner
+                Winners = e.Winners
             });
 
         }

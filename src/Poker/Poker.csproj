@@ -115,8 +115,10 @@
     <Compile Include="Authentication\AkqPrincipal.cs" />
     <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Authentication\FacebookAuthorize.cs" />
+    <Compile Include="Domain\Aggregates\Game\Events\DeckDealed.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\BidMade.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\NextPlayerTurned.cs" />
+    <Compile Include="Domain\Aggregates\Game\Data\WinnerInfo.cs" />
     <Compile Include="Domain\ApplicationServices\BasePokerSet.cs" />
     <Compile Include="Domain\ApplicationServices\Hands\Flush.cs" />
     <Compile Include="Domain\ApplicationServices\Hands\FullHouse.cs" />
