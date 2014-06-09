@@ -744,5 +744,72 @@ namespace Poker.Tests.PokerSetTests
             Assert.AreEqual((int)PokerScores.FullHouse, winner.PokerHand.Score);
         }
 
+
+        [Test]
+        public void Quads_vs_Quads()
+        {
+            var detector = new WinnerDetector();
+            detector.AddPlayer("me1", new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Ten),
+                new Card(Suit.Hearts, Rank.Ten),
+
+                new Card(Suit.Diamonds, Rank.Ten),
+                new Card(Suit.Clubs, Rank.Ten),
+                new Card(Suit.Spades, Rank.Nine),
+                new Card(Suit.Hearts, Rank.Nine),
+                new Card(Suit.Clubs, Rank.Two)
+            });
+
+            detector.AddPlayer("me2", new List<Card>()
+            {
+                new Card(Suit.Clubs, Rank.Nine),
+                new Card(Suit.Diamonds, Rank.Nine),
+
+                new Card(Suit.Diamonds, Rank.Ten),
+                new Card(Suit.Clubs, Rank.Ten),
+                new Card(Suit.Spades, Rank.Nine),
+                new Card(Suit.Hearts, Rank.Nine),
+                new Card(Suit.Clubs, Rank.Two)
+            });
+            var winner = detector.GetWinners().Single();
+
+            Assert.AreEqual("me1", winner.UserId);
+            Assert.AreEqual((int)PokerScores.Quads, winner.PokerHand.Score);
+        }
+        
+        [Test]
+        public void Quads_vs_Quads_Kicker()
+        {
+            var detector = new WinnerDetector();
+            detector.AddPlayer("me1", new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Jack),
+                new Card(Suit.Hearts, Rank.Ten),
+
+                new Card(Suit.Hearts, Rank.Queen),
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Queen),
+                new Card(Suit.Diamonds, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Two)
+            });
+
+            detector.AddPlayer("me2", new List<Card>()
+            {
+                new Card(Suit.Clubs, Rank.King),
+                new Card(Suit.Diamonds, Rank.Nine),
+
+                new Card(Suit.Hearts, Rank.Queen),
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Queen),
+                new Card(Suit.Diamonds, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Two)
+            });
+            var winner = detector.GetWinners().Single();
+
+            Assert.AreEqual("me2", winner.UserId);
+            Assert.AreEqual((int)PokerScores.Quads, winner.PokerHand.Score);
+        }
+
     }
 }

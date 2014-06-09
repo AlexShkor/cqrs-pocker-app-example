@@ -22,12 +22,29 @@ namespace Poker.Domain.ApplicationServices.Hands
 
         public override bool IsPresent()
         {
-            return Cards.GroupBy(x => x.Rank).Any(x => x.Count() == 4);
+            var quads = Cards.GroupBy(x => x.Rank).Where(x => x.Count() == 4);
+
+            if (quads.Count() == 1)
+            {
+                foreach (var quad in quads)
+                {
+                    HandCards.AddRange(quad);
+                }
+            }
+
+            return quads.Count() == 1;
         }
 
         protected override int CompareWithSame(IPokerHand other)
         {
-            throw new System.NotImplementedException();
+            var result = HandCards.First().Rank.CompareTo(other.HandCards.First().Rank);
+
+            if (result == 0)
+            {
+                return CompareKickers(other);
+            }
+
+            return result;
         }
     }
 }
