@@ -272,6 +272,7 @@
     <Content Include="App\home.js" />
     <Content Include="App\signals.js" />
     <Content Include="App\tables.js" />
+    <Content Include="App\Tests\gameTest.js" />
     <Content Include="App\Tests\tablesTests.js" />
     <Content Include="Assets\app\css\admin.css" />
     <Content Include="Assets\app\css\animate-custom.css" />

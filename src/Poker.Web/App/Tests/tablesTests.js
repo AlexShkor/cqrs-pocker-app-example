@@ -1,4 +1,5 @@
-﻿/// <reference path="~/Scripts/angular.js"/>
+﻿/// <reference path="~/Scripts/jquery-2.0.3.js"/>
+/// <reference path="~/Scripts/angular.js"/>
 /// <reference path="~/Scripts/angular-mocks.js"/>
 /// <reference path="~/App/eventAggregatorService.js"/>
 /// <reference path="~/App/app.js"/>
@@ -54,5 +55,24 @@ describe('Tables Controller Tests', function () {
 
     it('should have join method', function() {
         expect(angular.isFunction(scope.join)).toBe(true);
+    });
+
+    it('should send join request', function () {
+        var table = {};
+        scope.join(table);
+        http.expect('POST', '/game/join/');
+    });
+
+    it('should set table name on join request', function () {
+        var table = {};
+        scope.join(table);
+        expect(table.Name).toBe("Joining...");
+    });
+
+    it('should go to view table if already joined', function () {
+        var table = {Id: "123"};
+        http.when('POST', '/game/join/').respond({ Joined: true });
+        scope.join(table);
+        expect(location.path()).toBe('/game/view/123');
     });
 });
