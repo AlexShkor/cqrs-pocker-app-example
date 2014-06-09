@@ -95,8 +95,17 @@
     <Compile Include="Extenssions\GameTableExt.cs" />
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />
+    <Compile Include="PokerHandTests\CardExt.cs" />
+    <Compile Include="PokerHandTests\HandDetection\FlushTest.cs" />
+    <Compile Include="PokerHandTests\HandDetection\FullHouseTest.cs" />
+    <Compile Include="PokerHandTests\HandDetection\OnePairTest.cs" />
+    <Compile Include="PokerHandTests\HandDetection\QuadsTest.cs" />
+    <Compile Include="PokerHandTests\HandDetection\RoyalFlushTest.cs" />
+    <Compile Include="PokerHandTests\HandDetection\SetTest.cs" />
+    <Compile Include="PokerHandTests\HandDetection\StraightFlushTest.cs" />
+    <Compile Include="PokerHandTests\HandDetection\StraightTest.cs" />
+    <Compile Include="PokerHandTests\HandDetection\TwoPairTest.cs" />
     <Compile Include="PokerHandTests\WinnerDetectorTest.cs" />
-    <Compile Include="PokerHandTests\PockerHandTests.cs" />
     <Compile Include="RankTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
