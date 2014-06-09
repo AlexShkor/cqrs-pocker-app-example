@@ -23,11 +23,6 @@ namespace Poker.Domain.Aggregates.Game
             _repository.Perform(c.Id,game => game.Archive());
         }
 
-        //public void Handle(CreateGame c)
-        //{
-        //    _repository.Perform(c.Id,game => game.CreateGame(c.GameId));
-        //}
-
         public void Handle(JoinTable c)
         {
             _repository.Perform(c.Id,table => table.JoinTable(c.UserId,c.Cash));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Poker.Domain.Aggregates.Game;
 using Poker.Domain.ApplicationServices.Hands;
 using Poker.Domain.Data;
 
@@ -11,6 +12,7 @@ namespace Poker.Domain.ApplicationServices
         private readonly SortedList<int, PokerHandPrototype> _prototypes = new SortedList<int, PokerHandPrototype>();
 
         private readonly Dictionary<string, IPokerHand> _users = new Dictionary<string, IPokerHand>();
+        private readonly Dictionary<IPokerHand, string> _hands = new Dictionary<IPokerHand, string>();
 
         public WinnerDetector()
         {
@@ -59,30 +61,34 @@ namespace Poker.Domain.ApplicationServices
                 if (prototype.IsPresent())
                 {
                     _users[userId] = prototype;
+                    _hands[prototype] = userId;
                     keyvalue.Value.ReplaceInstance();
                 }
             }
         }
 
-        public IEnumerable<WinnerResult> GetWinners()
+        public IEnumerable<WinnerResult> GetWinners(long bank)
         {
             var groups = _users.GroupBy(x => x.Value.Score).ToList();
             var maxScore = groups.Max(x => x.Key);
             var sameCombination = groups.Single(x => x.Key == maxScore).ToList();
             if (sameCombination.Count > 1)
             {
-                var max = sameCombination.Max(x => x.Value);
-
-                foreach (var keyValuePair in sameCombination)
+                var ordered = GetOrdered(_users.Values);
+                foreach (var hands in ordered)
                 {
-                    if (keyValuePair.Value.CompareTo(max) == 0)
+                    var count = hands.Value.Count;
+                    var prize = bank/count;
+                    foreach (var hand in hands.Value)
                     {
                         yield return new WinnerResult
                         {
-                            UserId = keyValuePair.Key,
-                            PokerHand = keyValuePair.Value
+                            UserId = _hands[hand],
+                            PokerHand = hand,
+                            Prize = prize
                         };
                     }
+                    break;
                 }
             }
 
@@ -91,16 +97,36 @@ namespace Poker.Domain.ApplicationServices
                 yield return sameCombination.Select(x => new WinnerResult()
                 {
                     UserId = x.Key,
-                    PokerHand = x.Value
+                    PokerHand = x.Value,
+                    Prize = bank
                 }).Single();
             }
         }
+
+        public SortedList<int, List<IPokerHand>> GetOrdered(IEnumerable<IPokerHand> hands)
+        {
+            var sortedList = new SortedList<int, List<IPokerHand>>();
+            var nextOrder = 1;
+            var handsOrdered = hands.OrderByDescending(x => x);
+            IPokerHand previous = null;
+            foreach (var hand in handsOrdered)
+            {
+                if (previous == null || previous.CompareTo(hand) != 0)
+                {
+                    sortedList.Add(nextOrder, new List<IPokerHand>());
+                    nextOrder++;
+                }
+                sortedList[nextOrder - 1].Add(hand);
+                previous = hand;
+            }
+            return sortedList;
+        } 
     }
 
     public class WinnerResult
     {
         public string UserId { get; set; }
-
         public IPokerHand PokerHand { get; set; }
+        public long Prize { get; set; }
     }
 }

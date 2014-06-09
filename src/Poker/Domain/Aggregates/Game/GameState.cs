@@ -57,7 +57,10 @@ namespace Poker.Domain.Aggregates.Game
                 GameId = null;
                 MaxBid = 0;
                 CurrentBidding = null;
-                JoinedPlayers[e.Winner.UserId].Cash += e.Bank;
+                foreach (var winner in e.Winners)
+                {
+                    JoinedPlayers[winner.UserId].Cash += winner.Amount;
+                }
             });
             On((GameCreated e) =>
             {
@@ -177,6 +180,11 @@ namespace Poker.Domain.Aggregates.Game
             return new PlayerInfo(Players[position]);
         }
 
+        public PlayerInfo GetWinnerInfo(int position)
+        {
+            return new PlayerInfo(Players[position]);
+        }
+
         public BidInfo GetBidInfo(int position, long bid)
         {
             var player = Players[position];
@@ -216,6 +224,11 @@ namespace Poker.Domain.Aggregates.Game
         public bool IsAllExceptOneAreFold()
         {
             return Players.Values.Count(x => x.Fold) == Players.Count - 1;
+        }
+
+        public long GetPrize(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 

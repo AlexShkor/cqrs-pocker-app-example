@@ -2,7 +2,7 @@
 using Poker.Domain.Aggregates.Game.Data;
 using Poker.Domain.Aggregates.Game.Events;
 
-namespace Poker.Tests.Extenssions
+namespace Poker.Tests
 {
     public static class GameTableExt
     {

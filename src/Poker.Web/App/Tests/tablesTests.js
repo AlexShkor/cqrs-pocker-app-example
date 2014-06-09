@@ -70,7 +70,7 @@ describe('Tables Controller Tests', function () {
     });
 
     it('should go to view table if already joined', function () {
-        var table = {Id: "123"};
+        var table = { Id: "123" };
         http.when('POST', '/game/join/').respond({ Joined: true });
         scope.join(table);
         expect(location.path()).toBe('/game/view/123');
