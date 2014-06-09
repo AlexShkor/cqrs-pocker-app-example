@@ -402,7 +402,7 @@ namespace Poker.Tests.PokerSetTests
         }
 
         [Test]
-        public void TwoPairs_vs_TwoPairs_when_hand_has_different_pairs()
+        public void TwoPairs_vs_TwoPairs_when_hand_has_various_pairs()
         {
             var detector = new WinnerDetector();
             detector.AddPlayer("me1", new List<Card>()
@@ -538,7 +538,7 @@ namespace Poker.Tests.PokerSetTests
 
 
         [Test]
-        public void Set_vs_Set_when_hand_has_different_sets()
+        public void Set_vs_Set_when_hand_has_various_sets()
         {
             var detector = new WinnerDetector();
             detector.AddPlayer("me1", new List<Card>()
@@ -673,6 +673,75 @@ namespace Poker.Tests.PokerSetTests
 
             Assert.AreEqual("me2", winner.UserId);
             Assert.AreEqual((int)PokerScores.Flush, winner.PokerHand.Score);
+        }
+
+
+        [Test]
+        public void FullHouse_vs_FullHouse()
+        {
+            var detector = new WinnerDetector();
+            detector.AddPlayer("me1", new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Jack),
+                new Card(Suit.Hearts, Rank.Jack),
+
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Spades, Rank.King),
+                new Card(Suit.Clubs, Rank.King),
+                new Card(Suit.Diamonds, Rank.Three),
+                new Card(Suit.Clubs, Rank.Jack)
+            });
+
+            detector.AddPlayer("me2", new List<Card>()
+            {
+                new Card(Suit.Clubs, Rank.Queen),
+                new Card(Suit.Diamonds, Rank.Queen),
+
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Spades, Rank.King),
+                new Card(Suit.Clubs, Rank.King),
+                new Card(Suit.Diamonds, Rank.Three),
+                new Card(Suit.Clubs, Rank.Jack)
+            });
+            var winner = detector.GetWinners().Single();
+
+            Assert.AreEqual("me2", winner.UserId);
+            Assert.AreEqual((int)PokerScores.FullHouse, winner.PokerHand.Score);
+        }
+
+
+        [Test]
+        public void FullHouse_vs_FullHouse_2()
+        {
+            var detector = new WinnerDetector();
+            detector.AddPlayer("me1", new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.King),
+                new Card(Suit.Hearts, Rank.King),
+
+                new Card(Suit.Clubs, Rank.Jack),
+                new Card(Suit.Diamonds, Rank.Jack),
+                new Card(Suit.Spades, Rank.Jack),
+                new Card(Suit.Diamonds, Rank.Nine),
+                new Card(Suit.Clubs, Rank.Eight)
+            });
+
+            detector.AddPlayer("me2", new List<Card>()
+            {
+                new Card(Suit.Clubs, Rank.Queen),
+                new Card(Suit.Diamonds, Rank.Queen),
+
+                new Card(Suit.Clubs, Rank.Jack),
+                new Card(Suit.Diamonds, Rank.Jack),
+                new Card(Suit.Spades, Rank.Jack),
+                new Card(Suit.Diamonds, Rank.Nine),
+                new Card(Suit.Clubs, Rank.Eight)
+            });
+
+            var winner = detector.GetWinners().Single();
+
+            Assert.AreEqual("me1", winner.UserId);
+            Assert.AreEqual((int)PokerScores.FullHouse, winner.PokerHand.Score);
         }
 
     }
