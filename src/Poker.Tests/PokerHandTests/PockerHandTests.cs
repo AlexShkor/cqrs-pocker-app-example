@@ -620,6 +620,31 @@ namespace Poker.Tests.PokerSetTests
         }
 
         [Test]
+        public void streight_handCards2()
+        {
+            var set = new Straight();
+            var cards = new List<Card>
+            {
+                new Card(Suit.Clubs, Rank.Six),
+                new Card(Suit.Diamonds, Rank.Two),
+                new Card(Suit.Spades, Rank.Three),
+                new Card(Suit.Hearts, Rank.Five),
+                new Card(Suit.Spades, Rank.Four),
+                new Card(Suit.Spades, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Seven)
+            };
+            set.SetCards(cards);
+            var result = set.IsPresent();
+            Assert.True(result);
+            var handCards = set.HandCards.OrderBy(x => x.Rank.Score).ToList();
+            handCards[0].AssertRank(Rank.Three);
+            handCards[1].AssertRank(Rank.Four);
+            handCards[2].AssertRank(Rank.Five);
+            handCards[3].AssertRank(Rank.Six);
+            handCards[4].AssertRank(Rank.Seven);
+        }
+
+        [Test]
         public void royalflush_yes()
         {
             var set = new RoyalFlush();
