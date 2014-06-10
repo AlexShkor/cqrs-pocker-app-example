@@ -15,7 +15,6 @@ namespace Poker.Domain.Data
 
         public Card(Suit suit, Rank rank)
         {
-            Guard.Against(suit == Suit.NoTrumps, "Cannot create a card without a suit");
             _suit = suit;
             _rank = rank;
         }

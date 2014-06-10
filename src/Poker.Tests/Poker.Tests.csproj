@@ -98,6 +98,8 @@
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />
     <Compile Include="PokerHandTests\CardExt.cs" />
+    <Compile Include="PokerHandTests\CompareWithTheSame\StraightFlushTest.cs" />
+    <Compile Include="PokerHandTests\CompareWithTheSame\StraightTest.cs" />
     <Compile Include="PokerHandTests\HandDetection\FlushTest.cs" />
     <Compile Include="PokerHandTests\HandDetection\FullHouseTest.cs" />
     <Compile Include="PokerHandTests\HandDetection\OnePairTest.cs" />

@@ -20,7 +20,6 @@ namespace Poker.Domain.Data
             return AllSuits;
         } 
 
-        public static readonly Suit NoTrumps;
         public static readonly Suit Hearts;
         public static readonly Suit Diamonds;
         public static readonly Suit Clubs;

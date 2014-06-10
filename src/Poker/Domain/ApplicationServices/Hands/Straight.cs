@@ -75,7 +75,7 @@ namespace Poker.Domain.ApplicationServices.Hands
 
         protected override int CompareWithSame(IPokerHand other)
         {
-            return CompareHandMaxRank(other);
+            return CompareStraight(other);
         }
     }
 }
