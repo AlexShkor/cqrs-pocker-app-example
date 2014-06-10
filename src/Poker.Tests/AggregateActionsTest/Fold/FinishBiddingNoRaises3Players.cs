@@ -40,7 +40,6 @@ namespace Poker.Tests.AggregateActionsTest.Fold
                         UserId = "me2",
                         Position = 2,
                         Amount = 10,
-                        Order = 1,
                         HandScore = 0
                     }
                 }

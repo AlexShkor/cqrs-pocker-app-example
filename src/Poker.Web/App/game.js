@@ -140,6 +140,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
     eventAggregatorService.subscribe("gameFinished", function (e, data) {
 
+        //there are array of winners - data.Winners
         var winner = getPlayer(data.Winner.UserId);
         $scope.WinnerName = winner.Name;
         $scope.ShowWinner = true;

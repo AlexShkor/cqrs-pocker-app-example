@@ -7,7 +7,7 @@ namespace Poker.Tests
     {
         public static List<WinnerInfo> Me1(long prize)
         {
-            return new List<WinnerInfo> {new WinnerInfo("me1", 1, prize, 1, 1)};
+            return new List<WinnerInfo> {new WinnerInfo("me1", 1, prize, 1)};
         }
     }
 }

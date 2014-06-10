@@ -15,7 +15,7 @@ namespace Poker.Tests
             a.Apply(new GameFinished
             {
                 Id = "123",
-                Winners = new List<WinnerInfo> { new WinnerInfo("me1",1,0,1,0)}
+                Winners = new List<WinnerInfo> { new WinnerInfo("me1",1,0,0)}
             });
             a.CreateGame("game2");
         }
