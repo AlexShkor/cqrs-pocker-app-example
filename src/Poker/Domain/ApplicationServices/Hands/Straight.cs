@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Web.UI.WebControls;
 using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices.Hands
@@ -39,6 +40,10 @@ namespace Poker.Domain.ApplicationServices.Hands
                 {
                     countInOrder += 1;
                     HandCards.Add(GetCard(score));
+                    if (countInOrder > 5)
+                    {
+                        HandCards.RemoveAt(0);
+                    }
                 }
                 else if (score == previousScore)
                 {
@@ -48,7 +53,6 @@ namespace Poker.Domain.ApplicationServices.Hands
                 {
                     if (countInOrder >= 5)
                     {
-                        TrimHandCards();
                         return true;
                     }
                     HandCards.Clear();
@@ -57,19 +61,7 @@ namespace Poker.Domain.ApplicationServices.Hands
                 }
                 previousScore = score;
             }
-            if (countInOrder >= 5)
-            {
-                TrimHandCards();
-                return true;
-            }
-            return false;
-        }
-
-        private void TrimHandCards()
-        {
-            var handCards = HandCards.OrderByDescending(x => x.Rank).Take(5).ToList();
-            HandCards.Clear();
-            HandCards.AddRange(handCards);
+            return countInOrder >= 5;
         }
 
         private Card GetCard(int score)

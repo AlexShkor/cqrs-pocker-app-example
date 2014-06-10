@@ -346,6 +346,31 @@ namespace Poker.Tests.PokerHandTests.HandDetection
         }
 
         [Test]
+        public void streight_handCard3()
+        {
+            var set = new Straight();
+            var cards = new List<Card>
+            {
+                new Card(Suit.Clubs, Rank.Ace),
+                new Card(Suit.Diamonds, Rank.Two),
+                new Card(Suit.Spades, Rank.Three),
+                new Card(Suit.Hearts, Rank.Five),
+                new Card(Suit.Spades, Rank.Four),
+                new Card(Suit.Spades, Rank.Nine),
+                new Card(Suit.Clubs, Rank.Six)
+            };
+            set.SetCards(cards);
+            var result = set.IsPresent();
+            Assert.True(result);
+            var handCards = set.HandCards.OrderBy(x => x.Rank.Score).ToList();
+            handCards[0].AssertRank(Rank.Two);
+            handCards[1].AssertRank(Rank.Three);
+            handCards[2].AssertRank(Rank.Four);
+            handCards[3].AssertRank(Rank.Five);
+            handCards[4].AssertRank(Rank.Six);
+        }
+
+        [Test]
         public void streight_handCards2()
         {
             var set = new Straight();
