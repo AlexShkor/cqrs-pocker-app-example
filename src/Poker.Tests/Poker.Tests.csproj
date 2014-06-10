@@ -95,6 +95,10 @@
     <Compile Include="Extenssions\GameTableExt.cs" />
     <Compile Include="Extenssions\WinnerDetectorExt.cs" />
     <Compile Include="Helpers\Cards.cs" />
+    <Compile Include="Helpers\CardsClubs.cs" />
+    <Compile Include="Helpers\CardsDiamonds.cs" />
+    <Compile Include="Helpers\CardsHearts.cs" />
+    <Compile Include="Helpers\CardsSpades.cs" />
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />
     <Compile Include="PokerHandTests\CardExt.cs" />
