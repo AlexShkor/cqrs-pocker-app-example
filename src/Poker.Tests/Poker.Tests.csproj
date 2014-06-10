@@ -107,6 +107,7 @@
     <Compile Include="PokerHandTests\HandDetection\StraightFlushTest.cs" />
     <Compile Include="PokerHandTests\HandDetection\StraightTest.cs" />
     <Compile Include="PokerHandTests\HandDetection\TwoPairTest.cs" />
+    <Compile Include="PokerHandTests\HandScoresTest.cs" />
     <Compile Include="PokerHandTests\HandsGroupingAndOrdeting.cs" />
     <Compile Include="PokerHandTests\WinnerDetectorTest.cs" />
     <Compile Include="RankTests\RankTest.cs" />

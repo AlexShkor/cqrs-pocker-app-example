@@ -952,10 +952,7 @@ namespace Poker.Tests.PokerSetTests
                 new Card(Suit.Hearts, Rank.Jack),
                 new Card(Suit.Hearts, Rank.Ten)
             });
-
-
             var winners = detector.GetWinners().ToList();
-
             Assert.AreEqual(2, winners.Count);
             Assert.AreEqual((int)PokerScores.RoyalFlush, winners[0].PokerHand.Score);
             Assert.AreEqual((int)PokerScores.RoyalFlush, winners[1].PokerHand.Score);
