@@ -678,8 +678,6 @@ namespace Poker.Tests.PokerSetTests
         }
 
 
-
-
         [Test]
         public void Straight_vs_Straight()
         {
@@ -708,10 +706,44 @@ namespace Poker.Tests.PokerSetTests
                 new Card(Suit.Hearts, Rank.Queen)
             });
 
-
             var winner = detector.GetWinners().Single();
 
             Assert.AreEqual("me2", winner.UserId);
+            Assert.AreEqual((int)PokerScores.Straight, winner.PokerHand.Score);
+        }
+
+
+        [Test]
+        public void Straight_vs_Straight_2()
+        {
+            var detector = new WinnerDetector();
+            detector.AddPlayer("me1", new List<Card>()
+            {
+                new Card(Suit.Hearts, Rank.Six),
+                new Card(Suit.Hearts, Rank.Seven),
+
+                new Card(Suit.Hearts, Rank.Three),
+                new Card(Suit.Clubs, Rank.Four),
+                new Card(Suit.Spades, Rank.Five),
+                new Card(Suit.Diamonds, Rank.Jack),
+                new Card(Suit.Hearts, Rank.Queen)
+            });
+
+            detector.AddPlayer("me2", new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Ace),
+                new Card(Suit.Diamonds, Rank.Two),
+
+                new Card(Suit.Hearts, Rank.Three),
+                new Card(Suit.Clubs, Rank.Four),
+                new Card(Suit.Spades, Rank.Five),
+                new Card(Suit.Diamonds, Rank.Jack),
+                new Card(Suit.Hearts, Rank.Queen)
+            });
+
+            var winner = detector.GetWinners().Single();
+
+            Assert.AreEqual("me1", winner.UserId);
             Assert.AreEqual((int)PokerScores.Straight, winner.PokerHand.Score);
         }
 

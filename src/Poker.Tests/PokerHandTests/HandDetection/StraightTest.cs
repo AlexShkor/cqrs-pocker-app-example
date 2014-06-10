@@ -238,6 +238,32 @@ namespace Poker.Tests.PokerHandTests.HandDetection
 
 
         [Test]
+        public void straight_yes_12()
+        {
+            var set = new Straight();
+            var cards = new List<Card>()
+            {
+                new Card(Suit.Spades, Rank.Ace),
+                new Card(Suit.Diamonds, Rank.Two),
+
+                new Card(Suit.Clubs, Rank.Three),
+                new Card(Suit.Diamonds, Rank.Four),
+                new Card(Suit.Spades, Rank.Five),
+                new Card(Suit.Hearts, Rank.Six),
+                new Card(Suit.Spades, Rank.Seven)
+            };
+
+            set.SetCards(cards);
+
+            var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
+            Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Seven.Score, highCard.Rank.Score);
+        }
+
+
+        [Test]
         public void straight_no()
         {
             var set = new Straight();

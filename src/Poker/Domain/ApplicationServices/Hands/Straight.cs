@@ -23,7 +23,7 @@ namespace Poker.Domain.ApplicationServices.Hands
 
         public override bool IsPresent()
         {
-            var ordered = Cards.Select(x=> x.Rank.Score).ToList();
+            var ordered = Cards.Select(x => x.Rank.Score).ToList();
             if (ordered.Contains(Rank.Ace.Score))
             {
                 ordered.Add(1);
