@@ -57,9 +57,9 @@ namespace Poker.Tests.PokerSetTests
             };
             Assert.AreEqual(0, first.CompareTo(second));
             var sortedList = new WinnerDetector().GetOrdered(hands);
-            Assert.AreEqual(2, sortedList[1].Count());
-            Assert.AreEqual(1, sortedList[2].Count());
-            Assert.AreSame(third, sortedList[2].First());
+            Assert.AreEqual(2, sortedList[0].Count());
+            Assert.AreEqual(1, sortedList[1].Count());
+            Assert.AreSame(third, sortedList[1].First());
         }
     }
 }

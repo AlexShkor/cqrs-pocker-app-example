@@ -32,12 +32,7 @@ namespace Poker.Tests.AggregateActionsTest.Fold
             yield return new GameFinished
             {
                 Id = "123",
-                Bank = 6,
-                Winner = new PlayerInfo
-                {
-                    UserId = "me1",
-                    Position = 1
-                }
+                Winners = new List<WinnerInfo> { new WinnerInfo("me1", 1,6,1,1)}
             };
         }
 

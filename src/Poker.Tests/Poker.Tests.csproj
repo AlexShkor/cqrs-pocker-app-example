@@ -94,6 +94,7 @@
     <Compile Include="BiddingTests\BiddingInfoTest.cs" />
     <Compile Include="Extenssions\GameTableExt.cs" />
     <Compile Include="Extenssions\WinnerDetectorExt.cs" />
+    <Compile Include="Helpers\Cards.cs" />
     <Compile Include="PackTests\PackGetRandomCardTest.cs" />
     <Compile Include="PackTests\PackCreationTest.cs" />
     <Compile Include="PokerHandTests\CardExt.cs" />
@@ -108,10 +109,11 @@
     <Compile Include="PokerHandTests\HandDetection\TwoPairTest.cs" />
     <Compile Include="PokerHandTests\HandsGroupingAndOrdeting.cs" />
     <Compile Include="PokerHandTests\WinnerDetectorTest.cs" />
-    <Compile Include="RankTest.cs" />
+    <Compile Include="RankTests\RankTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Showdown\OneWinner.cs" />
     <Compile Include="Showdown\TwoWinners.cs" />
+    <Compile Include="Helpers\Winners.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Poker.Web\Poker.Web.csproj">

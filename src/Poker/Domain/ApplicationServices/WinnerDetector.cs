@@ -77,9 +77,9 @@ namespace Poker.Domain.ApplicationServices
                 var ordered = GetOrdered(_users.Values);
                 foreach (var hands in ordered)
                 {
-                    var count = hands.Value.Count;
+                    var count = hands.Count();
                     var prize = bank/count;
-                    foreach (var hand in hands.Value)
+                    foreach (var hand in hands)
                     {
                         yield return new WinnerResult
                         {
@@ -91,7 +91,6 @@ namespace Poker.Domain.ApplicationServices
                     break;
                 }
             }
-
             else
             {
                 yield return sameCombination.Select(x => new WinnerResult()
@@ -103,7 +102,7 @@ namespace Poker.Domain.ApplicationServices
             }
         }
 
-        public SortedList<int, List<IPokerHand>> GetOrdered(IEnumerable<IPokerHand> hands)
+        public IPokerHand[][] GetOrdered(IEnumerable<IPokerHand> hands)
         {
             var sortedList = new SortedList<int, List<IPokerHand>>();
             var nextOrder = 1;
@@ -119,7 +118,7 @@ namespace Poker.Domain.ApplicationServices
                 sortedList[nextOrder - 1].Add(hand);
                 previous = hand;
             }
-            return sortedList;
+            return sortedList.Select(x => x.Value.ToArray()).ToArray();
         } 
     }
 

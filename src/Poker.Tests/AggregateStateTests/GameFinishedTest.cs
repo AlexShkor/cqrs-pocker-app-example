@@ -51,12 +51,7 @@ namespace Poker.Tests.AggregateStateTests
             _state.Invoke(new GameFinished
             {
                 Id = "1",
-                Winner = new PlayerInfo()
-                {
-                    Position = 1,
-                    UserId = "me1"
-                },
-                Bank = 50
+                Winners = Winners.Me1(50)
             });
             Assert.IsNull(_state.GameId);
             Assert.IsNull(_state.CurrentBidding);
@@ -69,12 +64,7 @@ namespace Poker.Tests.AggregateStateTests
             _state.Invoke(new GameFinished
             {
                 Id = "1",
-                Winner = new PlayerInfo()
-                {
-                    Position = 1,
-                    UserId = "me1"
-                },
-                Bank = 50
+                Winners = Winners.Me1(50)
             });
             Assert.AreEqual(100 + 50, _state.JoinedPlayers["me1"].Cash);
         }

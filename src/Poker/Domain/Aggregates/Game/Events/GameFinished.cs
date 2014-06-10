@@ -8,9 +8,5 @@ namespace Poker.Domain.Aggregates.Game.Events
     {
         public string GameId { get; set; }
         public List<WinnerInfo> Winners { get; set; }
-
-        public PlayerInfo Winner { get; set; }
-
-        public long Bank { get; set; }
     }
 }

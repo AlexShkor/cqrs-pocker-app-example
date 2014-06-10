@@ -1,4 +1,5 @@
-﻿using Poker.Domain.Aggregates.Game;
+﻿using System.Collections.Generic;
+using Poker.Domain.Aggregates.Game;
 using Poker.Domain.Aggregates.Game.Data;
 using Poker.Domain.Aggregates.Game.Events;
 
@@ -14,12 +15,7 @@ namespace Poker.Tests
             a.Apply(new GameFinished
             {
                 Id = "123",
-                Bank = 0,
-                Winner = new PlayerInfo
-                {
-                    UserId = "me1",
-                    Position = 1
-                }
+                Winners = new List<WinnerInfo> { new WinnerInfo("me1",1,0,1,0)}
             });
             a.CreateGame("game2");
         }
