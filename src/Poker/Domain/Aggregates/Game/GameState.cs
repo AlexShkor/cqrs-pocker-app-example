@@ -225,11 +225,6 @@ namespace Poker.Domain.Aggregates.Game
         {
             return Players.Values.Count(x => x.Fold) == Players.Count - 1;
         }
-
-        public long GetPrize(string userId)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public class BiddingInfo

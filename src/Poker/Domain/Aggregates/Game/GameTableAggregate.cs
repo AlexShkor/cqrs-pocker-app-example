@@ -100,21 +100,14 @@ namespace Poker.Domain.Aggregates.Game
                             detector.AddPlayer(player.UserId, cards);
                         }
                         var bank = State.CurrentBidding.GetBank();
-                        var winners = detector.GetWinners(bank).GroupBy(x => x.PokerHand.Score).OrderByDescending(x => x.Key);
-                        var winnersInfo = new List<WinnerInfo>();
-                        var order = 1;
-                        foreach (var winnersGroup in winners)
-                        {
-                            foreach (var winner in winnersGroup)
-                            {
-                                winnersInfo.Add(new WinnerInfo(winner.UserId, State.JoinedPlayers[winner.UserId].Position, State.GetPrize(winner.UserId), order, winnersGroup.Key));
-                            }
-                            order++;
-                        }
+                        var winners = detector.GetWinners(bank);
                         Apply(new GameFinished
                         {
                             Id = State.TableId,
-                            Winners = winnersInfo,
+                            Winners = winners.Select(
+                                winner =>
+                                    new WinnerInfo(winner.UserId, State.JoinedPlayers[winner.UserId].Position,
+                                        winner.Prize, winner.PokerHand.Score)).ToList(),
                             GameId = State.GameId
                         });
                         CreateGame(GenerateGameId());
