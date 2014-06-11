@@ -746,7 +746,7 @@
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Tables\Create.cshtml" />
-    <Content Include="Views\Jasmine\JasmineTest.cshtml" />
+    <Content Include="Views\Jasmine\JasmineTests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\app\js\" />

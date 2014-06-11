@@ -10,7 +10,7 @@ namespace Poker.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View("JasmineTest");
+            return View("JasmineTests");
         }
 
     }
