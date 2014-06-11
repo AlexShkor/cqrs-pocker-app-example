@@ -34,7 +34,12 @@ describe('Tables Controller Tests', function () {
         http = $httpBackend;
         ctrl = $controller('TablesController', { $scope: scope, $location: location });
         http.expect('POST', '/tables/load/').respond(tables);
+
     }]));
+
+    afterEach(function () {
+        http.verifyNoOutstandingExpectation();
+    });
 
     it('should get tables from server', function () {
         http.flush();
@@ -56,13 +61,15 @@ describe('Tables Controller Tests', function () {
 
     it('should send join request', function () {
         var table = {};
+        http.expect('POST', '/game/join').respond({ Joined: true });;
         scope.join(table);
-        http.expect('POST', '/game/join/');
     });
 
     it('should set table name on join request', function () {
         var table = {};
+        http.expect('POST', '/game/join').respond({ Joined: true });;
         scope.join(table);
+
         expect(table.Name).toBe("Joining...");
     });
 
@@ -73,4 +80,5 @@ describe('Tables Controller Tests', function () {
         http.flush();
         expect(location.path()).toBe('/game/view/123');
     });
+    
 });
