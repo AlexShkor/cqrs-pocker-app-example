@@ -13,81 +13,120 @@ namespace Poker.Tests
 
         #region Ranks
 
-        public static List<Card> Two(this List<Card> cards, Suit suit)
+        public static List<Card> Two(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Two));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Two));
+            }
             return cards;
         }
 
-        public static List<Card> Three(this List<Card> cards, Suit suit)
+        public static List<Card> Three(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Three));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Three));
+            }
             return cards;
         }
 
-        public static List<Card> Four(this List<Card> cards, Suit suit)
+        public static List<Card> Four(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Four));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Four));
+            }
             return cards;
         }
 
-        public static List<Card> Five(this List<Card> cards, Suit suit)
+        public static List<Card> Five(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Five));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Five));
+            }
             return cards;
         }
 
-        public static List<Card> Six(this List<Card> cards, Suit suit)
+        public static List<Card> Six(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Six));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Six));
+            }
             return cards;
         }
 
-        public static List<Card> Seven(this List<Card> cards, Suit suit)
+        public static List<Card> Seven(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Seven));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Seven));
+            }
             return cards;
         }
 
-        public static List<Card> Eight(this List<Card> cards, Suit suit)
+        public static List<Card> Eight(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Eight));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Eight));
+            }
             return cards;
         }
 
-        public static List<Card> Nine(this List<Card> cards, Suit suit)
+        public static List<Card> Nine(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Nine));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Nine));
+            }
             return cards;
         }
 
-        public static List<Card> Ten(this List<Card> cards, Suit suit)
+        public static List<Card> Ten(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Ten));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Ten));
+            }
             return cards;
         }
 
-        public static List<Card> Jack(this List<Card> cards, Suit suit)
+        public static List<Card> Jack(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Jack));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Jack));
+            }
             return cards;
         }
 
-        public static List<Card> Queen(this List<Card> cards, Suit suit)
+        public static List<Card> Queen(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Queen));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Queen));
+            }
             return cards;
         }
 
-        public static List<Card> King(this List<Card> cards, Suit suit)
+        public static List<Card> King(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.King));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.King));
+            }
             return cards;
         }
 
-        public static List<Card> Ace(this List<Card> cards, Suit suit)
+        public static List<Card> Ace(this List<Card> cards, params Suit[] suits)
         {
-            cards.Add(new Card(suit, Rank.Ace));
+            foreach (var suit in suits)
+            {
+                cards.Add(new Card(suit, Rank.Ace));
+            }
             return cards;
         }
 

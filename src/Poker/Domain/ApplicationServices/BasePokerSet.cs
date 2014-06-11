@@ -6,7 +6,7 @@ using Poker.Domain.Data;
 
 namespace Poker.Domain.ApplicationServices
 {
-    public abstract class BasePokerHand: IPokerHand
+    public abstract class BasePokerHand: IPokerHand, IComparable
     {
         protected BasePokerHand()
         {
@@ -60,6 +60,26 @@ namespace Poker.Domain.ApplicationServices
         public int CompareHandMaxRank(IPokerHand other)
         {
             return HandCards.Max(x => x.Rank).CompareTo(other.HandCards.Max(x => x.Rank));
+        }
+
+        public int CompareStraight(IPokerHand other)
+        {
+            return GetStraightHighestRank(this).CompareTo(GetStraightHighestRank(other));
+        }
+
+        private static Rank GetStraightHighestRank(IPokerHand hand)
+        {
+            var ranks = new List<Rank>(hand.HandCards.Select(x=> x.Rank));
+            if (ranks.Contains(Rank.Ace) && ranks.Contains(Rank.Two))
+            {
+                ranks.Remove(Rank.Ace);
+            }
+            return ranks.Max();
+        }
+
+        public int CompareTo(object obj)
+        {
+            return CompareStraight((IPokerHand) obj);
         }
     }
 }

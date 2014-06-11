@@ -29,7 +29,7 @@ namespace Poker.Tests.PokerHandTests.HandDetection
         [Test]
         public void straightflush_no()
         {
-            var set = new Quads();
+            var set = new StraightFlush();
             var cards = new List<Card>
             {
                 new Card(Suit.Clubs, Rank.Ace),
