@@ -17,15 +17,20 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             {
                 new Card(Suit.Spades, Rank.Ace),
                 new Card(Suit.Clubs, Rank.Queen),
+
                 new Card(Suit.Diamonds, Rank.Six),
                 new Card(Suit.Clubs, Rank.King),
                 new Card(Suit.Diamonds, Rank.Seven),
                 new Card(Suit.Clubs, Rank.Ten),
                 new Card(Suit.Diamonds, Rank.Jack)
             };
+
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Ace.Score, highCard.Rank.Score);
         }
 
 
@@ -35,18 +40,23 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.Queen),
+                new Card(Suit.Diamonds, Rank.Jack),
+
                 new Card(Suit.Spades, Rank.Ace),
                 new Card(Suit.Clubs, Rank.Two),
                 new Card(Suit.Diamonds, Rank.Three),
                 new Card(Suit.Clubs, Rank.Four),
                 new Card(Suit.Diamonds, Rank.Five),
-
-                new Card(Suit.Clubs, Rank.Queen),
-                new Card(Suit.Diamonds, Rank.Jack)
             };
+
+
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First(); /* ace as one */
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Ace.Score, highCard.Rank.Score);
         }
 
         [Test]
@@ -55,18 +65,22 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.Three),
+                new Card(Suit.Diamonds, Rank.Two),
+
                 new Card(Suit.Spades, Rank.Ace),
                 new Card(Suit.Clubs, Rank.King),
                 new Card(Suit.Diamonds, Rank.Queen),
                 new Card(Suit.Clubs, Rank.Jack),
-                new Card(Suit.Diamonds, Rank.Ten),
-
-                new Card(Suit.Clubs, Rank.Three),
-                new Card(Suit.Diamonds, Rank.Two)
+                new Card(Suit.Diamonds, Rank.Ten)
             };
+
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Ace.Score, highCard.Rank.Score);
         }
 
         [Test]
@@ -75,18 +89,23 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.Three),
+                new Card(Suit.Diamonds, Rank.Two),
+
                 new Card(Suit.Spades, Rank.Ten),
                 new Card(Suit.Clubs, Rank.Jack),
                 new Card(Suit.Diamonds, Rank.Eight),
                 new Card(Suit.Clubs, Rank.Nine),
-                new Card(Suit.Diamonds, Rank.Seven),
-
-                new Card(Suit.Clubs, Rank.Three),
-                new Card(Suit.Diamonds, Rank.Two)
+                new Card(Suit.Diamonds, Rank.Seven)
             };
+
+
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Jack.Score, highCard.Rank.Score);
         }
 
 
@@ -96,18 +115,22 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.Seven),
+                new Card(Suit.Diamonds, Rank.Eight),
+
                 new Card(Suit.Spades, Rank.Two),
                 new Card(Suit.Clubs, Rank.Three),
                 new Card(Suit.Diamonds, Rank.Four),
                 new Card(Suit.Clubs, Rank.Five),
-                new Card(Suit.Diamonds, Rank.Six),
-
-                new Card(Suit.Clubs, Rank.Seven),
-                new Card(Suit.Diamonds, Rank.Eight)
+                new Card(Suit.Diamonds, Rank.Six)
             };
+
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Eight.Score, highCard.Rank.Score);
         }
 
         [Test]
@@ -116,21 +139,23 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.Eight),
+                new Card(Suit.Diamonds, Rank.Nine),
+
                 new Card(Suit.Spades, Rank.Ace),
                 new Card(Suit.Clubs, Rank.Four),
                 new Card(Suit.Diamonds, Rank.Five),
                 new Card(Suit.Clubs, Rank.Six),
-                new Card(Suit.Diamonds, Rank.Seven),
-
-                new Card(Suit.Clubs, Rank.Eight),
-                new Card(Suit.Diamonds, Rank.Nine)
+                new Card(Suit.Diamonds, Rank.Seven)
             };
 
             set.SetCards(cards);
             var result = set.IsPresent();
-            Assert.IsTrue(result);
-        }
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
 
+            Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Nine.Score, highCard.Rank.Score);
+        }
 
         [Test]
         public void straight_yes_7()
@@ -138,19 +163,23 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.Jack),
+                new Card(Suit.Diamonds, Rank.Ace),
+
                 new Card(Suit.Spades, Rank.Four),
                 new Card(Suit.Clubs, Rank.Five),
                 new Card(Suit.Diamonds, Rank.Six),
                 new Card(Suit.Clubs, Rank.Seven),
-                new Card(Suit.Diamonds, Rank.Eight),
-
-                new Card(Suit.Clubs, Rank.Jack),
-                new Card(Suit.Diamonds, Rank.Ace)
+                new Card(Suit.Diamonds, Rank.Eight)
+                
             };
 
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Eight.Score, highCard.Rank.Score);
         }
 
         [Test]
@@ -159,19 +188,23 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.Seven),
+                new Card(Suit.Diamonds, Rank.Ace),
+
                 new Card(Suit.Spades, Rank.Two),
                 new Card(Suit.Clubs, Rank.Three),
                 new Card(Suit.Diamonds, Rank.Four),
                 new Card(Suit.Clubs, Rank.Five),
-                new Card(Suit.Diamonds, Rank.Six),
-
-                new Card(Suit.Clubs, Rank.Seven),
-                new Card(Suit.Diamonds, Rank.Ace)
+                new Card(Suit.Diamonds, Rank.Six)
+               
             };
 
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Seven.Score, highCard.Rank.Score);
         }
 
         [Test]
@@ -180,19 +213,23 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.Seven),
+                new Card(Suit.Diamonds, Rank.Ace),
+
                 new Card(Suit.Spades, Rank.King),
                 new Card(Suit.Clubs, Rank.Queen),
                 new Card(Suit.Diamonds, Rank.Jack),
                 new Card(Suit.Clubs, Rank.Ten),
-                new Card(Suit.Diamonds, Rank.Six),
-
-                new Card(Suit.Clubs, Rank.Seven),
-                new Card(Suit.Diamonds, Rank.Ace)
+                new Card(Suit.Diamonds, Rank.Six)
+             
             };
 
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Ace.Score, highCard.Rank.Score);
         }
 
         [Test]
@@ -201,19 +238,22 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.Seven),
+                new Card(Suit.Diamonds, Rank.Ace),
+
                 new Card(Suit.Spades, Rank.King),
                 new Card(Suit.Clubs, Rank.Jack),
                 new Card(Suit.Diamonds, Rank.Ten),
                 new Card(Suit.Clubs, Rank.Nine),
-                new Card(Suit.Diamonds, Rank.Eight),
-
-                new Card(Suit.Clubs, Rank.Seven),
-                new Card(Suit.Diamonds, Rank.Ace)
+                new Card(Suit.Diamonds, Rank.Eight)
             };
 
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Jack.Score, highCard.Rank.Score);
         }
 
         [Test]
@@ -231,9 +271,14 @@ namespace Poker.Tests.PokerHandTests.HandDetection
                 new Card(Suit.Hearts, Rank.Jack),
                 new Card(Suit.Hearts, Rank.Ten)
             };
+
+
             set.SetCards(cards);
             var result = set.IsPresent();
+            var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
+
             Assert.IsTrue(result);
+            Assert.AreEqual(Rank.Ace.Score, highCard.Rank.Score);
         }
 
 
@@ -254,7 +299,6 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             };
 
             set.SetCards(cards);
-
             var result = set.IsPresent();
             var highCard = set.HandCards.OrderByDescending(x => x.Rank).First();
 
@@ -269,12 +313,16 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Diamonds, Rank.Two),
+                new Card(Suit.Hearts, Rank.Three),
+
                 new Card(Suit.Clubs, Rank.Ace),
                 new Card(Suit.Clubs, Rank.Seven),
                 new Card(Suit.Clubs, Rank.King),
                 new Card(Suit.Clubs, Rank.Ten),
                 new Card(Suit.Spades, Rank.Seven)
             };
+
             set.SetCards(cards);
             var result = set.IsPresent();
             Assert.IsFalse(result);
@@ -286,15 +334,18 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+
+                new Card(Suit.Clubs, Rank.Two),
+                new Card(Suit.Diamonds, Rank.Jack),
+
                 new Card(Suit.Spades, Rank.Ace),
                 new Card(Suit.Clubs, Rank.Four),
                 new Card(Suit.Diamonds, Rank.Five),
                 new Card(Suit.Clubs, Rank.Six),
-                new Card(Suit.Diamonds, Rank.Seven),
-
-                new Card(Suit.Clubs, Rank.Two),
-                new Card(Suit.Diamonds, Rank.Jack)
+                new Card(Suit.Diamonds, Rank.Seven)
+              
             };
+
             set.SetCards(cards);
             var result = set.IsPresent();
             Assert.IsFalse(result);
@@ -306,15 +357,16 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             var set = new Straight();
             var cards = new List<Card>
             {
+                new Card(Suit.Clubs, Rank.King),
+                new Card(Suit.Diamonds, Rank.Jack),
+
                 new Card(Suit.Spades, Rank.Ace),
                 new Card(Suit.Clubs, Rank.Four),
                 new Card(Suit.Diamonds, Rank.Five),
                 new Card(Suit.Clubs, Rank.Six),
-                new Card(Suit.Diamonds, Rank.Seven),
-
-                new Card(Suit.Clubs, Rank.King),
-                new Card(Suit.Diamonds, Rank.Jack)
+                new Card(Suit.Diamonds, Rank.Seven)
             };
+
             set.SetCards(cards);
             var result = set.IsPresent();
             Assert.IsFalse(result);
@@ -328,16 +380,19 @@ namespace Poker.Tests.PokerHandTests.HandDetection
             {
                 new Card(Suit.Clubs, Rank.Ace),
                 new Card(Suit.Diamonds, Rank.Two),
+
                 new Card(Suit.Spades, Rank.Three),
                 new Card(Suit.Hearts, Rank.Five),
                 new Card(Suit.Spades, Rank.Four),
                 new Card(Suit.Spades, Rank.Nine),
                 new Card(Suit.Clubs, Rank.Queen)
             };
+
             set.SetCards(cards);
             var result = set.IsPresent();
-            Assert.True(result);
             var handCards = set.HandCards.OrderBy(x => x.Rank.Score).ToList();
+
+            Assert.True(result);
             handCards[0].AssertRank(Rank.Two);
             handCards[1].AssertRank(Rank.Three);
             handCards[2].AssertRank(Rank.Four);
@@ -346,23 +401,26 @@ namespace Poker.Tests.PokerHandTests.HandDetection
         }
 
         [Test]
-        public void streight_handCard3()
+        public void streight_handCards_2()
         {
             var set = new Straight();
             var cards = new List<Card>
             {
                 new Card(Suit.Clubs, Rank.Ace),
                 new Card(Suit.Diamonds, Rank.Two),
+
                 new Card(Suit.Spades, Rank.Three),
                 new Card(Suit.Hearts, Rank.Five),
                 new Card(Suit.Spades, Rank.Four),
                 new Card(Suit.Spades, Rank.Nine),
                 new Card(Suit.Clubs, Rank.Six)
             };
+
             set.SetCards(cards);
             var result = set.IsPresent();
-            Assert.True(result);
             var handCards = set.HandCards.OrderBy(x => x.Rank.Score).ToList();
+
+            Assert.True(result);
             handCards[0].AssertRank(Rank.Two);
             handCards[1].AssertRank(Rank.Three);
             handCards[2].AssertRank(Rank.Four);
@@ -371,23 +429,26 @@ namespace Poker.Tests.PokerHandTests.HandDetection
         }
 
         [Test]
-        public void streight_handCards2()
+        public void streight_handCards_3()
         {
             var set = new Straight();
             var cards = new List<Card>
             {
                 new Card(Suit.Clubs, Rank.Six),
                 new Card(Suit.Diamonds, Rank.Two),
+
                 new Card(Suit.Spades, Rank.Three),
                 new Card(Suit.Hearts, Rank.Five),
                 new Card(Suit.Spades, Rank.Four),
                 new Card(Suit.Spades, Rank.Queen),
                 new Card(Suit.Clubs, Rank.Seven)
             };
+
             set.SetCards(cards);
             var result = set.IsPresent();
-            Assert.True(result);
             var handCards = set.HandCards.OrderBy(x => x.Rank.Score).ToList();
+
+            Assert.True(result);
             handCards[0].AssertRank(Rank.Three);
             handCards[1].AssertRank(Rank.Four);
             handCards[2].AssertRank(Rank.Five);

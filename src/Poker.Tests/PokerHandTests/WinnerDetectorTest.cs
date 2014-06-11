@@ -712,7 +712,6 @@ namespace Poker.Tests.PokerSetTests
             Assert.AreEqual((int)PokerScores.Straight, winner.PokerHand.Score);
         }
 
-
         [Test]
         public void Straight_vs_Straight_2()
         {
