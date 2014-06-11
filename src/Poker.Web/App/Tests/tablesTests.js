@@ -32,15 +32,12 @@ describe('Tables Controller Tests', function () {
         eventAggregator = eventAggregatorService;
         location = $location;
         http = $httpBackend;
-
         ctrl = $controller('TablesController', { $scope: scope, $location: location });
+        http.expect('POST', '/tables/load/').respond(tables);
     }]));
 
     it('should get tables from server', function () {
-        http.expect('POST', '/tables/load/').respond(tables);
-
         http.flush();
-
         expect(scope.items.length).toBe(2);
         expect(scope.items).toEqual(tables);
     });
@@ -71,8 +68,9 @@ describe('Tables Controller Tests', function () {
 
     it('should go to view table if already joined', function () {
         var table = { Id: "123" };
-        http.when('POST', '/game/join/').respond({ Joined: true });
+        http.expect('POST', '/game/join').respond({ Joined: true });
         scope.join(table);
+        http.flush();
         expect(location.path()).toBe('/game/view/123');
     });
 });
