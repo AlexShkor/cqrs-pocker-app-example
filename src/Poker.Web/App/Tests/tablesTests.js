@@ -36,7 +36,7 @@ describe('Tables Controller Tests', function () {
         ctrl = $controller('TablesController', { $scope: scope, $location: location });
     }]));
 
-    it('should get tables from server', function() {
+    it('should get tables from server', function () {
         http.expect('POST', '/tables/load/').respond(tables);
 
         http.flush();
@@ -45,7 +45,7 @@ describe('Tables Controller Tests', function () {
         expect(scope.items).toEqual(tables);
     });
 
-    it('should create controller', function() {
+    it('should create controller', function () {
         expect(ctrl).not.toBe(null);
     });
 
@@ -53,7 +53,7 @@ describe('Tables Controller Tests', function () {
         expect(angular.isFunction(scope.view)).toBe(true);
     });
 
-    it('should have join method', function() {
+    it('should have join method', function () {
         expect(angular.isFunction(scope.join)).toBe(true);
     });
 

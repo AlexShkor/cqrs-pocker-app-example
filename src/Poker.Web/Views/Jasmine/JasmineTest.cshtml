@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Jasmine Runner v2.0.0</title>
+    <link rel="shortcut icon" type="image/png" href="~/Scripts/jasmine-2.0.0/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/jasmine-2.0.0/jasmine.css">
+
+    <script type="text/javascript" src="~/Scripts/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="~/Scripts/jasmine-2.0.0/jasmine.js"></script>
+    <script type="text/javascript" src="~/Scripts/jasmine-2.0.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="~/Scripts/jasmine-2.0.0/boot.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular-mocks.js"></script>
+</head>
+
+<body>
+
+    @*-- start scripts --*@
+
+    <script type="text/javascript" src="~/App/eventAggregatorService.js"></script>
+    <script type="text/javascript" src="~/App/app.js"></script>
+    <script type="text/javascript" src="~/App/tables.js"></script>
+    <script type="text/javascript" src="~/App/game.js"></script>
+
+    @*-- end scripts --*@
+
+    <script type="text/javascript">
+
+        (function () {
+
+            /* -- start test -- */
+
+            describe('Tables Controller Tests', function () {
+                var ctrl, scope, eventAggregator, http, location;
+
+                beforeEach(function () {
+                    module('event-agregator');
+                    module('poker.tables');
+                });
+
+                beforeEach(inject([
+                    '$controller', '$rootScope', 'eventAggregatorService', '$location', '$httpBackend', function ($controller, $rootScope, eventAggregatorService, $location, $httpBackend) {
+                        scope = $rootScope.$new();
+                        eventAggregator = eventAggregatorService;
+                        location = $location;
+                        http = $httpBackend;
+
+                        ctrl = $controller('TablesController', { $scope: scope, $location: location });
+                    }
+                ]));
+
+
+                it('should go to view table if already joined', function () {
+                    var table = { Id: "123" };
+                    http.when('POST', '/game/join/').respond({ Joined: true });
+                    scope.join(table);
+                    expect(location.path()).toBe('/game/view/123');
+                });
+
+            });
+
+            /* -- end test -- */
+
+        })();
+
+    </script>
+
+
+</body>
+</html>
+

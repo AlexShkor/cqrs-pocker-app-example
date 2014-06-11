@@ -234,6 +234,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\JasmineController.cs" />
     <Compile Include="Controllers\ModelBinders\JsonModelBinder.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
@@ -556,6 +557,12 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\jasmine-2.0.0\boot.js" />
+    <Content Include="Scripts\jasmine-2.0.0\console.js" />
+    <Content Include="Scripts\jasmine-2.0.0\jasmine-html.js" />
+    <Content Include="Scripts\jasmine-2.0.0\jasmine.css" />
+    <Content Include="Scripts\jasmine-2.0.0\jasmine.js" />
+    <Content Include="Scripts\jasmine-2.0.0\jasmine_favicon.png" />
     <Content Include="Scripts\jasmine-html.js" />
     <Content Include="Scripts\jasmine.js" />
     <Content Include="Scripts\jquery.signalR-2.0.3.js" />
@@ -739,6 +746,7 @@
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Tables\Create.cshtml" />
+    <Content Include="Views\Jasmine\JasmineTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\app\js\" />
