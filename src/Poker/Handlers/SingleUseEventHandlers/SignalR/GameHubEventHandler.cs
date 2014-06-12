@@ -71,8 +71,6 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
 
         public void Handle(GameCreated e)
         {
-            var table = _db.Tables.GetById(e.Id);
-
             UsersHub.CurrentContext.Clients.Group(e.Id).gameCreated(new
             {
                 e = e
@@ -83,7 +81,7 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
         {
             UsersHub.CurrentContext.Clients.Group(e.Id).gameFinished(new
             {
-                Winners = e.Winners
+                Winners = e.Winners.Select(x=> new WinnerViewModel(x))
             });
 
         }

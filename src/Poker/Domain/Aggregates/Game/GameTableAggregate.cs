@@ -54,24 +54,29 @@ namespace Poker.Domain.Aggregates.Game
         private void SetDealerAndBlind()
         {
             var dealer = State.GetNextDealer();
-            var smallBlind = State.GetNextPlayer(dealer);
-            var bigBlind = State.GetNextPlayer(smallBlind);
+            var smallBlindPosition = State.GetNextPlayer(dealer);
+            var bigBlindPosition = State.GetNextPlayer(smallBlindPosition);
             Apply(new DealerAssigned
             {
                 Id = State.TableId,
                 GameId = State.GameId,
                 Dealer = State.GetPlayerInfo(dealer),
-                SmallBlind = State.GetPlayerInfo(smallBlind),
-                BigBlind = State.GetPlayerInfo(bigBlind),
+                SmallBlind = State.GetPlayerInfo(smallBlindPosition),
+                BigBlind = State.GetPlayerInfo(bigBlindPosition),
             });
-            Apply(new BlindBidsMade
+            Apply(new BidMade
             {
                 Id = State.TableId,
                 GameId = State.GameId,
-                SmallBlind = State.GetBidInfo(smallBlind, State.SmallBlind, BidTypeEnum.Raise),
-                BigBlind = State.GetBidInfo(bigBlind, State.BigBlind, BidTypeEnum.Raise),
+                Bid = State.GetBidInfo(smallBlindPosition, State.SmallBlind, BidTypeEnum.SmallBlind),
             });
-            NextTurn(bigBlind);
+            Apply(new BidMade
+            {
+                Id = State.TableId,
+                GameId = State.GameId,
+                Bid = State.GetBidInfo(bigBlindPosition, State.BigBlind, BidTypeEnum.BigBlind),
+            });
+            NextTurn(bigBlindPosition);
         }
 
         private void NextTurn(int currentPosition)

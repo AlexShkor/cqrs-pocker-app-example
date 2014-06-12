@@ -75,16 +75,6 @@ namespace Poker.Handlers.ViewHandlers
             }));
         }
 
-        public void Handle(BlindBidsMade e)
-        {
-            _tables.Update(e.Id, table =>
-            {
-                table.SetBid(e.SmallBlind.UserId, e.SmallBlind.Bid, e.SmallBlind.NewCashValue);
-                table.SetBid(e.BigBlind.UserId, e.BigBlind.Bid, e.BigBlind.NewCashValue);
-            });
-        }
-
-
         public void Handle(BidMade e)
         {
             _tables.Update(e.Id, table => table.SetBid(e.Bid.UserId, e.Bid.Bid, e.Bid.NewCashValue));

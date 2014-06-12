@@ -141,12 +141,12 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     eventAggregatorService.subscribe("gameFinished", function (e, data) {
 
         //there are array of winners - data.Winners
-        var winner = getPlayer(data.Winner.UserId);
+        var winner = getPlayer(data.Winners[0].UserId);
         $scope.WinnerName = winner.Name;
         $scope.ShowWinner = true;
         $scope.$apply();
 
-        addLog(logs.gameFinished, { name: winner.Name });
+        addLog(logs.gameFinished, { name: winner.Name, hand: data.Winners[0].Hand });
     });
 
 
@@ -239,7 +239,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         gameCreated: "New game is created",
         bidMade: "/name/ made a bid",
         playerTurned: "/name/ turn",
-        gameFinished: { msg: "/name/ is winner. Game is finished", ishighlighted: true },
+        gameFinished: { msg: "/name/ is winner. Hand: /hand/", ishighlighted: true },
         cardsDealed: "Cards are dealt",
         deckDealed: "Deck is dealt"
     };
