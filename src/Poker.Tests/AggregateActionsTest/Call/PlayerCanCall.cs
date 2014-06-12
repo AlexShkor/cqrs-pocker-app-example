@@ -32,10 +32,9 @@ namespace Poker.Tests.AggregateActionsTest.Call
                     Position = 2,
                     Odds = 2,
                     Bid = 4,
-                    AllIn = false,
-                    NewCashValue = 96
+                    NewCashValue = 96,
+                    BidType = BidTypeEnum.Call
                 },
-                BidType = BidTypeEnum.Call
             };
             yield return new NextPlayerTurned
             {

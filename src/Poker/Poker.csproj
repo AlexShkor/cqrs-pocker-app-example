@@ -115,6 +115,8 @@
     <Compile Include="Authentication\AkqPrincipal.cs" />
     <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Authentication\FacebookAuthorize.cs" />
+    <Compile Include="Domain\Aggregates\Game\BiddingInfo.cs" />
+    <Compile Include="Domain\Aggregates\Game\BiddingStage.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\DeckDealed.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\BidMade.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\NextPlayerTurned.cs" />
@@ -160,7 +162,6 @@
     <Compile Include="Domain\Aggregates\Game\Data\TablePlayer.cs" />
     <Compile Include="Domain\Aggregates\Game\Data\PlayerCard.cs" />
     <Compile Include="Domain\Aggregates\Game\Data\PlayerInfo.cs" />
-    <Compile Include="Domain\Aggregates\Game\Events\PlayerFoldBid.cs" />
     <Compile Include="Domain\Aggregates\User\Commands\ResetPassword.cs" />
     <Compile Include="Handlers\SingleUseEventHandlers\SignalR\TableHubEventHandler.cs" />
     <Compile Include="ViewModel\GameViewModel.cs" />

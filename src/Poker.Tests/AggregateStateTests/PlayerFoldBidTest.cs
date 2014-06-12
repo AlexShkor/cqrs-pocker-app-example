@@ -51,11 +51,19 @@ namespace Poker.Tests.AggregateStateTests
         [Test]
         public void SetsDealer()
         {
-            _state.Invoke(new PlayerFoldBid
+            _state.Invoke(new BidMade
             {
                 Id = "123",
-                Position = 1,
-                UserId = "me1"
+                Bid = new BidInfo
+                {
+                    UserId = "userId",
+                    Bid = 0,
+                    BidType = BidTypeEnum.Fold,
+                    BiddingStage = 1,
+                    NewCashValue = 100,
+                    Position = 1,
+                    Odds = 0
+                }
             });
             Assert.IsTrue(_state.Players[1].Fold);
         } 

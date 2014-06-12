@@ -68,7 +68,7 @@ namespace Poker.Domain.Aggregates.Game
                 Pack = new Pack(e.Cards);
                 Deck = new List<Card>();
                 SitPlayers(e.Players);
-                CurrentBidding = new BiddingInfo();
+                CurrentBidding = new BiddingInfo(e.Players.Count);
             });
             On((DealerAssigned e) =>
             {
@@ -98,10 +98,6 @@ namespace Poker.Domain.Aggregates.Game
             {
                 CurrentPlayer = e.Player.Position;
             });
-            On((PlayerFoldBid e) =>
-            {
-                Players[e.Position].Fold = true;
-            });
             On((DeckDealed e) =>
             {
                 foreach (var card in e.Cards)
@@ -117,7 +113,8 @@ namespace Poker.Domain.Aggregates.Game
         {
             CurrentBidding.AddBid(bid);
             Players[bid.Position].Bid = bid.Bid;
-            Players[bid.Position].AllIn = bid.AllIn;
+            Players[bid.Position].AllIn = bid.IsAllIn();
+            Players[bid.Position].Fold = bid.IsFold();
             JoinedPlayers[bid.UserId].Cash -= bid.Odds;
             if (bid.Bid > MaxBid)
             {
@@ -185,7 +182,7 @@ namespace Poker.Domain.Aggregates.Game
             return new PlayerInfo(Players[position]);
         }
 
-        public BidInfo GetBidInfo(int position, long bid)
+        public BidInfo GetBidInfo(int position, long bid, BidTypeEnum bidType)
         {
             var player = Players[position];
             var user = JoinedPlayers[player.UserId];
@@ -198,10 +195,10 @@ namespace Poker.Domain.Aggregates.Game
                 Position = position,
                 Bid = player.Bid + bid,
                 Odds = bid,
-                AllIn = user.Cash == bid,
                 UserId = player.UserId,
                 NewCashValue = user.Cash - bid,
-                BiddingStage = CurrentBidding.Stage
+                BiddingStage = CurrentBidding.Stage,
+                BidType = bidType
             };
             
         }
@@ -227,57 +224,6 @@ namespace Poker.Domain.Aggregates.Game
         }
     }
 
-    public class BiddingInfo
-    {
-        public List<BiddingStage> BiddingStages { get; private set; }
-
-        public BiddingStage CurrentStage
-        {
-            get { return BiddingStages.Last(); }
-        }
-
-        public int Stage
-        {
-            get { return BiddingStages.Count - 1; }
-        }
-
-        public BiddingInfo()
-        {
-            BiddingStages = new List<BiddingStage>();
-            NextStage();
-        }
-
-        public void AddBid(BidInfo bid)
-        {
-            CurrentStage.Bids.Add(bid);
-        }
-
-        public long GetBank()
-        {
-            return CurrentStage.GetBank();
-        }
-
-        public void NextStage()
-        {
-            BiddingStages.Add(new BiddingStage());
-        }
-    }
-
-    public class BiddingStage
-    {
-        public List<BidInfo> Bids { get; private set; }
-
-        public BiddingStage()
-        {
-            Bids = new List<BidInfo>();
-        }
-
-        public long GetBank()
-        {
-            return Bids.GroupBy(x => x.UserId).Select(x => x.Select(b => b.Bid).Max()).Sum();
-        }
-    }
-
     public class BidInfo
     {
         public string UserId { get; set; }
@@ -286,7 +232,25 @@ namespace Poker.Domain.Aggregates.Game
         public long Bid { get; set; }
         public long NewCashValue { get; set; }
         public long Odds { get; set; }
-        public bool AllIn { get; set; }
+        public BidTypeEnum BidType { get; set; }
+
+        public bool IsAllIn()
+        {
+            return NewCashValue == 0;
+        }
+
+        public bool IsFold()
+        {
+            return BidType == BidTypeEnum.Fold;
+        }
+    }
+
+    public enum BidTypeEnum
+    {
+        Check = 0,
+        Call = 1,
+        Raise = 2,
+        Fold = 3
     }
 
     public enum BiddingStagesEnum
