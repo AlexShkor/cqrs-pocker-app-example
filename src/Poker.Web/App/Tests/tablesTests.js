@@ -61,13 +61,13 @@ describe('Tables Controller Tests', function () {
 
     it('should send join request', function () {
         var table = {};
-        http.expect('POST', '/game/join').respond({ Joined: true });;
+        http.expect('POST', '/game/join').respond({ Joined: true });
         scope.join(table);
     });
 
     it('should set table name on join request', function () {
         var table = {};
-        http.expect('POST', '/game/join').respond({ Joined: true });;
+        http.expect('POST', '/game/join').respond({ Joined: true });
         scope.join(table);
 
         expect(table.Name).toBe("Joining...");
@@ -80,5 +80,5 @@ describe('Tables Controller Tests', function () {
         http.flush();
         expect(location.path()).toBe('/game/view/123');
     });
-    
+
 });
