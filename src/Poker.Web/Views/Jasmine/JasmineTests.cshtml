@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Poker.Web.App_Start
+@{
     Layout = null;
 }
 
@@ -22,7 +23,10 @@
 
     @*-- start scripts --*@
 
-    <script type="text/javascript" src="~/App/eventAggregatorService.js"></script>
+    @*<script type="text/javascript" src="~/App/eventAggregatorService.js"></script>*@
+    <script src="/app/eventAggregatorService.js?v=@BundleConfig.ContentVersion" type="text/javascript"></script>
+    <script src="/app/signals.js?v=@BundleConfig.ContentVersion" type="text/javascript"></script>
+    <script src="/assets/vendor/angular-spiner/js/rzslider.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="~/App/app.js"></script>
     <script type="text/javascript" src="~/App/tables.js"></script>
     <script type="text/javascript" src="~/App/game.js"></script>
