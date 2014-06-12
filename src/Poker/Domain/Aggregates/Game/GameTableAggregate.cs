@@ -68,8 +68,8 @@ namespace Poker.Domain.Aggregates.Game
             {
                 Id = State.TableId,
                 GameId = State.GameId,
-                SmallBlind = State.GetBidInfo(smallBlind, State.SmallBlind),
-                BigBlind = State.GetBidInfo(bigBlind, State.BigBlind),
+                SmallBlind = State.GetBidInfo(smallBlind, State.SmallBlind, BidTypeEnum.Raise),
+                BigBlind = State.GetBidInfo(bigBlind, State.BigBlind, BidTypeEnum.Raise),
             });
             NextTurn(bigBlind);
         }
@@ -144,8 +144,7 @@ namespace Poker.Domain.Aggregates.Game
 
         private bool CheckBiddingFinished()
         {
-            //need to check did big blind said last bid
-            return State.Players.Values.All(x => x.Fold || x.Bid == State.MaxBid || x.AllIn) && State.CurrentPlayer == State.GetBigBlindPlayer();
+            return State.CurrentBidding.CurrentStage.IsFinished() && State.CurrentPlayer == State.GetBigBlindPlayer();
         }
 
         public void FinishGame(string id)
@@ -218,12 +217,11 @@ namespace Poker.Domain.Aggregates.Game
             var player = State.Players[user.Position];
             if (!player.Fold && (player.Bid == State.MaxBid || player.AllIn))
             {
-                Apply(new PlayerCheckedBid
+                Apply(new BidMade
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    UserId = userId,
-                    Position = player.Position
+                    Bid = State.GetBidInfo(player.Position, player.Bid, BidTypeEnum.Check)
                 });
                 NextTurn(player.Position);
             }
@@ -241,8 +239,7 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    BidType = BidTypeEnum.Call,
-                    Bid = State.GetBidInfo(player.Position, bid)
+                    Bid = State.GetBidInfo(player.Position, bid, BidTypeEnum.Call)
                 });
                 NextTurn(player.Position);
             }
@@ -263,8 +260,7 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    BidType = BidTypeEnum.Raise,
-                    Bid = State.GetBidInfo(player.Position, amount)
+                    Bid = State.GetBidInfo(player.Position, amount, BidTypeEnum.Raise)
                 });
                 NextTurn(player.Position);
             }
@@ -274,14 +270,19 @@ namespace Poker.Domain.Aggregates.Game
         {
             IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
-            Apply(new PlayerFoldBid
+            var player = State.Players[user.Position];
+
+            if (player.Fold)
+            {
+               throw new InvalidOperationException("Player has already fold.");
+            }
+            Apply(new BidMade
             {
                 Id = State.TableId,
                 GameId = State.GameId,
-                UserId = userId,
-                Position = user.Position
+                Bid = State.GetBidInfo(player.Position, player.Bid, BidTypeEnum.Fold)
             });
-            NextTurn(user.Position);
+            NextTurn(player.Position);
         }
 
         #endregion

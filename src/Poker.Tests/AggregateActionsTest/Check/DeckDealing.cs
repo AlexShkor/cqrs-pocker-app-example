@@ -27,11 +27,19 @@ namespace Poker.Tests.AggregateActionsTest.Check
 
         public override IEnumerable<IEvent> Expected()
         {
-            yield return new PlayerCheckedBid
+            yield return new BidMade
             {
                 Id = "123",
-                Position = 1,
-                UserId = "me1"
+                Bid = new BidInfo
+                {
+                    UserId = "me2",
+                    Bid = 4,
+                    BidType = BidTypeEnum.Check,
+                    BiddingStage = 0,
+                    NewCashValue = 96,
+                    Position = 2,
+                    Odds = 0
+                }
             };
             yield return new DeckDealed
             {

@@ -80,7 +80,7 @@ namespace Poker.Tests.AggregateActionsTest.JoinPlayer
                     Position = 2,
                     Bid = 2,
                     Odds = 2,
-                    AllIn = false,
+                    BidType = BidTypeEnum.Raise,
                     NewCashValue = 98
                 },
                 BigBlind = new BidInfo
@@ -89,7 +89,7 @@ namespace Poker.Tests.AggregateActionsTest.JoinPlayer
                     Position = 1,
                     Bid = 4,
                     Odds = 4,
-                    AllIn = false,
+                    BidType = BidTypeEnum.Raise,
                     NewCashValue = 96
                 }
             };

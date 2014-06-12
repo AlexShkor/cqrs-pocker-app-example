@@ -32,14 +32,13 @@ namespace Poker.Tests.AggregateActionsTest.Raise
             yield return new BidMade
             {
                 Id = "123",
-                BidType = BidTypeEnum.Raise,
                 Bid = new BidInfo
                 {
                     UserId = "me2",
                     Position = 2,
                     Bid = 25,
                     Odds = 10,
-                    AllIn = false,
+                    BidType = BidTypeEnum.Raise,
                     NewCashValue = 75
                 }
             };

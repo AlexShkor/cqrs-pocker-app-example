@@ -23,11 +23,19 @@ namespace Poker.Tests.AggregateActionsTest.Fold
 
         public override IEnumerable<IEvent> Expected()
         {
-            yield return new PlayerFoldBid
+            yield return new BidMade
             {
                 Id = "123",
-                UserId = "me2",
-                Position = 2
+                Bid = new BidInfo
+                {
+                    UserId = "me2",
+                    Bid = 0,
+                    BidType = BidTypeEnum.Fold,
+                    BiddingStage = 0,
+                    NewCashValue = 100,
+                    Position = 2,
+                    Odds = 0
+                }
             };
             yield return new NextPlayerTurned
             {

@@ -9,14 +9,14 @@ namespace Poker.Tests.BiddingTests
         [Test]
         public void init_stage_when_bidding_inits()
         {
-            var bidding = new BiddingInfo();
+            var bidding = new BiddingInfo(1);
             Assert.NotNull(bidding.CurrentStage);
         }
 
         [Test]
         public void calculate_bank_for_one_stage_and_one_bid_per_player()
         {
-            var bidding = new BiddingInfo();
+            var bidding = new BiddingInfo(2);
             SetBank60ForTwoPlayers(bidding);
             Assert.AreEqual(60, bidding.GetBank());
         }
@@ -24,7 +24,7 @@ namespace Poker.Tests.BiddingTests
         [Test]
         public void calculate_bank_for_two_stages_and_one_bid_per_player()
         {
-            var bidding = new BiddingInfo();
+            var bidding = new BiddingInfo(2);
             SetBank60ForTwoPlayers(bidding);
             bidding.NextStage();
             SetBank60ForTwoPlayers(bidding);
