@@ -249,6 +249,10 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         var date = new Date();
         if (typeof (log) != "object") {
             log = { msg: log, ishighlighted: false }
+        } else {
+            var temp = {};
+            angular.copy(log, temp);
+            log = temp;
         }
         if (replacements) {
             for (var key in replacements) {
