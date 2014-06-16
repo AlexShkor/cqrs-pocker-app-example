@@ -27,6 +27,7 @@ describe('Tables Controller Tests', function () {
         module('event-agregator');
         module('poker.tables');
     });
+
     beforeEach(inject(['$controller', '$rootScope', 'eventAggregatorService', '$location', '$httpBackend', function ($controller, $rootScope, eventAggregatorService, $location, $httpBackend) {
         scope = $rootScope.$new();
         eventAggregator = eventAggregatorService;

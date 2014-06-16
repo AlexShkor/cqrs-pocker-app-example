@@ -30,34 +30,41 @@
                     <div class="card-symbol" ng-bind-html="card.Symbol"></div>
                 </div>
             </div>
-
         </div>
-
     </div>
+
     <br />
 
     <div>
         <div>
-            <button ng-click="check()" ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-success btn-block">Check</button>
-            <button ng-click="fold()" ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-danger btn-block">Fold</button>
-            <button ng-click="call()" ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-warning btn-block">Call</button>
-            <button ng-click="raise()" ng-disabled="game.CurrentPlayerId != game.MyId" class="btn btn-warning btn-block">Raise</button>
 
-            <span class="label label-warning offset1" ng-show="game.CurrentPlayerId == game.MyId">Your turn</span>
+            <button ng-click="check()" ng-disabled="!isMe()" class="btn btn-success btn-block">Check</button>
+            <button ng-click="fold()" ng-disabled="!isMe()" class="btn btn-danger btn-block">Fold</button>
+            <button ng-click="call()" ng-disabled="!isMe()" class="btn btn-warning btn-block">Call</button>
+            <button ng-click="raise()" ng-disabled="!isMe() || rateIndex == 0" class="btn btn-warning btn-block">Raise</button>
+
+            <span class="label label-warning offset1" ng-show="isMe()">Your turn</span>
+
         </div>
 
     </div>
 
     <br />
-    
-    <pre>{{ currentUserRate(rate) }}</pre>
 
-    <span class="pull-left">{{minRateDisplay}}</span> <span class="pull-right">{{maxRateDisplay}}</span>
-    <rzslider rz-slider-floor="0"
-              rz-slider-ceil="rateMax"
-              rz-slider-model="rate"
-              rz-slider-translate="currentUserRate"></rzslider>
+    <div ng-show="isMe()">
 
+        <pre>{{ currentUserRate(rateIndex) }}</pre>
+
+        <span class="pull-left">{{minRateValue}}</span> <span class="pull-right">{{maxRateValue}}</span>
+
+
+
+        <rzslider rz-slider-floor="0"
+                  rz-slider-ceil="rateMaxIndex"
+                  rz-slider-model="rateIndex"
+                  rz-slider-translate="currentUserRate"></rzslider>
+
+    </div>
 
 
     <div class="well">
@@ -68,11 +75,12 @@
             <li ng-repeat="message in messages">[{{message.Time}}] {{message.Name}}: {{message.Content}}</li>
         </ul>
     </div>
-    
 
-    <div class="well" >
+
+    <div class="well">
         <ul id="logs" style="max-height: 300px; overflow: auto;">
             <li ng-repeat='log in Logs' ng-class="{highlight: log.ishighlighted}">{{log.msg}}</li>
         </ul>
     </div>
+
 </div>

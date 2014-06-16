@@ -15,7 +15,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     $scope.messages = [];
     $scope.newMessage = "";
 
-    var load = function() {
+    var load = function () {
         $http.post("/game/load/", { tableId: $stateParams.tableId }).success(function (data) {
             $scope.game = data;
             $scope.RaiseValue = data.MaxBid;
@@ -28,12 +28,18 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
     load();
 
-    $scope.call = function () {
-        $http.post("/game/call", { tableId: $scope.game.Id });
-    };
     $scope.check = function () {
         $http.post("/game/check", { tableId: $scope.game.Id });
     };
+
+    $scope.fold = function () {
+        $http.post("/game/fold", { tableId: $scope.game.Id });
+    };
+
+    $scope.call = function () {
+        $http.post("/game/call", { tableId: $scope.game.Id });
+    };
+
     $scope.raise = function () {
         if ($scope.RaiseValue > 0 && $scope.RaiseValue > $scope.game.MaxBid) {
 
@@ -47,10 +53,16 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
     $scope.sendMessage = function () {
         if ($scope.newMessage) {
-            $.post("/chat/send", { message: $scope.newMessage }, function (parameters) {
-            });
+            $http.post("/chat/send", { message: $scope.newMessage }).success(function (parameters) { });
             $scope.newMessage = "";
         }
+    }
+
+    $scope.isMe = function () {
+        if ($scope.game)
+            return $scope.game.CurrentPlayerId == $scope.game.MyId;
+
+        return false;
     }
 
     eventAggregatorService.subscribe("chatMessage", function (e, data) {
@@ -59,34 +71,29 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         });
     });
 
-
-    $scope.fold = function () {
-        $http.post("/game/fold", { tableId: $scope.game.Id });
-    };
-
     $scope.refresh = function () {
         load();
     };
 
-    var gameCreationDelay = 1000; //ms
+    var gameCreationDelay = 1000; // ms
 
     eventAggregatorService.subscribe("gameCreated", function (e, data) {
         addLog(logs.gameCreated);
-        $timeout(function() {
+        $timeout(function () {
             load();
         }, gameCreationDelay);
     });
 
     eventAggregatorService.subscribe("cardsDealed", function (e, data) {
 
-        for (var i = 0; i < data.Cards.length; i++) {
-            var model = data.Cards[i];
-            var player = getPlayer(model.UserId);
-            if (player != null) {
-                player.Cards.push(model.Card);
-                model.Card.Symbol = $sce.trustAsHtml(model.Card.Symbol);
-            }
-        }
+        //for (var i = 0; i < data.Cards.length; i++) {
+        //    var model = data.Cards[i];
+        //    var player = getPlayer(model.UserId);
+        //    if (player != null) {
+        //        player.Cards.push(model.Card);
+        //        model.Card.Symbol = $sce.trustAsHtml(model.Card.Symbol);
+        //    }
+        //}
 
         addLog(logs.cardsDealed);
     });
@@ -111,8 +118,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         initUserRates();
         $scope.$apply();
 
-        addLog(logs.bidMade, {name: player.Name});
-
+        addLog(logs.bidMade, { name: player.Name });
     });
 
 
@@ -127,7 +133,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
                 currentPlayerName = player.Name;
             } else {
                 player.CurrentTurn = false;
-        }
+            }
         }
 
         $scope.game.CurrentPlayerId = data.CurrentPlayerId;
@@ -140,13 +146,11 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
     eventAggregatorService.subscribe("gameFinished", function (e, data) {
 
-        //there are array of winners - data.Winners
-        var winner = getPlayer(data.Winner.UserId);
-        $scope.WinnerName = winner.Name;
-        $scope.ShowWinner = true;
-        $scope.$apply();
-
-        addLog(logs.gameFinished, { name: winner.Name });
+        for (var i = 0; i < data.Winners.length; i++) {
+            var winner = getPlayer(data.Winners[i].UserId);
+            addLog(logs.noteWinner, { name: winner.Name });
+        }
+        addLog(logs.gameFinished);
     });
 
 
@@ -169,10 +173,10 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     function getPlayer(id) {
         for (var i = 0; i < $scope.game.Players.length; i++) {
             var player = $scope.game.Players[i];
-                if (player.UserId == id)
-                    return player;
-            }
+            if (player.UserId == id)
+                return player;
         }
+    }
 
     function initUserRates() {
 
@@ -200,29 +204,36 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
                 loopCashValue -= $scope.game.SmallBlind;
             }
 
-            if (reminder != 0)
-                rates.push(reminder);
+            if (reminder != 0) {
+                var lastRate = rates[rates.length - 1];
+                rates.push(lastRate + reminder);
+            }
 
-            $scope.rate = 0; // index
-            $scope.rateMax = rates.length - 1;
+            $scope.rateIndex = 0;
+            $scope.rateMaxIndex = rates.length - 1;
 
-            $scope.minRateDisplay = rates[0];
-            $scope.maxRateDisplay = rates[rates.length - 1];
+            $scope.minRateValue = rates[0];
+            $scope.maxRateValue = rates[rates.length - 1];
 
             $('.bubble').css('display', 'none');
 
-            $scope.currentUserRate = function (rate) {
-                $scope.RaiseValue = rates[rate];
-                return rates[rate].toString();
+            $scope.currentUserRate = function (index) {
+                $scope.RaiseValue = rates[index];
+                $scope.rateIndex = index;
+                return rates[index].toString();
             };
         }
 
-        // TODO: logig if not enougth cash
+        // TODO: logic if not enougth cash
     }
 
     function initBlinds() {
         for (var i = 0; i < $scope.game.Players.length; i++) {
             var player = $scope.game.Players[i];
+            player.IsSmallBlind = false;
+            player.IsBigBlind = false;
+            player.BlindText = '';
+
             if (player.Bid == $scope.game.SmallBlind) {
                 player.IsSmallBlind = true;
                 player.BlindText = 'Small blind';
@@ -239,7 +250,8 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         gameCreated: "New game is created",
         bidMade: "/name/ made a bid",
         playerTurned: "/name/ turn",
-        gameFinished: { msg: "/name/ is winner. Game is finished", ishighlighted: true },
+        gameFinished: { msg: "Game is finished", ishighlighted: true },
+        noteWinner: { msg: "/name/ is winner.", ishighlighted: true },
         cardsDealed: "Cards are dealt",
         deckDealed: "Deck is dealt"
     };
@@ -258,12 +270,18 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         }
         log.msg = date.toLocaleTimeString() + " " + log.msg;
         $scope.Logs.push(log);
-        logsCont.scrollTop = logsCont.scrollHeight;
+
+        if (logsCont)
+            logsCont.scrollTop = logsCont.scrollHeight;
     }
 
     String.prototype.splice = function (idx, rem, s) {
         return (this.slice(0, idx) + s + this.slice(idx + Math.abs(rem)));
     };
+
+    $scope.addLog = function (log, replacements) {
+        addLog(log, replacements);
+    }
 
 });
 
