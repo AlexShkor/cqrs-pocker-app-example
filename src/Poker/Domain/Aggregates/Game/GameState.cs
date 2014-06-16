@@ -88,11 +88,6 @@ namespace Poker.Domain.Aggregates.Game
                     Players[playerCard.Position].Cards.Add(playerCard.Card);
                 }
             });
-            On((BlindBidsMade e) =>
-            {
-                AddBid(e.SmallBlind);
-                AddBid(e.BigBlind);
-            });
             On((BidMade e) => AddBid(e.Bid));
             On((NextPlayerTurned e) =>
             {
@@ -250,7 +245,9 @@ namespace Poker.Domain.Aggregates.Game
         Check = 0,
         Call = 1,
         Raise = 2,
-        Fold = 3
+        Fold = 3,
+        SmallBlind = 4,
+        BigBlind = 5
     }
 
     public enum BiddingStagesEnum

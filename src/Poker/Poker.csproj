@@ -150,7 +150,6 @@
     <Compile Include="Databases\MongoAdminDatabase.cs" />
     <Compile Include="Documents\Administration\LogItem.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\ArchiveTable.cs" />
-    <Compile Include="Domain\Aggregates\Game\Events\BlindBidsMade.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CallBid.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\ForcePlayer.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\DealerAssigned.cs" />
@@ -166,6 +165,7 @@
     <Compile Include="Handlers\SingleUseEventHandlers\SignalR\TableHubEventHandler.cs" />
     <Compile Include="ViewModel\GameViewModel.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />
+    <Compile Include="ViewModel\WinnerViewModel.cs" />
     <Compile Include="Views\TableView.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CheckBid.cs" />
     <Compile Include="Domain\Aggregates\Game\Commands\CreateTable.cs" />

@@ -71,25 +71,29 @@ namespace Poker.Tests.AggregateActionsTest.JoinPlayer
                     UserId = "me1"
                 }
             };
-            yield return new BlindBidsMade
+            yield return new BidMade
             {
                 Id = "123",
-                SmallBlind = new BidInfo
+                Bid = new BidInfo
                 {
                     UserId = "me2",
                     Position = 2,
                     Bid = 2,
                     Odds = 2,
-                    BidType = BidTypeEnum.Raise,
+                    BidType = BidTypeEnum.SmallBlind,
                     NewCashValue = 98
-                },
-                BigBlind = new BidInfo
+                }
+            };
+            yield return new BidMade
+            {
+                Id = "123",
+                Bid = new BidInfo
                 {
                     UserId = "me1",
                     Position = 1,
                     Bid = 4,
                     Odds = 4,
-                    BidType = BidTypeEnum.Raise,
+                    BidType = BidTypeEnum.BigBlind,
                     NewCashValue = 96
                 }
             };
