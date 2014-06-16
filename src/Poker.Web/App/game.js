@@ -148,7 +148,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
         for (var i = 0; i < data.Winners.length; i++) {
             var winner = getPlayer(data.Winners[i].UserId);
-            addLog(logs.noteWinner, { name: winner.Name });
+            addLog(logs.noteWinner, { name: winner.Name, hand: data.Winners[i].Hand });
         }
         addLog(logs.gameFinished);
     });
@@ -251,7 +251,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         bidMade: "/name/ made a bid",
         playerTurned: "/name/ turn",
         gameFinished: { msg: "Game is finished", ishighlighted: true },
-        noteWinner: { msg: "/name/ is winner.", ishighlighted: true },
+        noteWinner: { msg: "/name/ is winner. Hand: /hand/", ishighlighted: true },
         cardsDealed: "Cards are dealt",
         deckDealed: "Deck is dealt"
     };
