@@ -187,7 +187,7 @@ describe('Game Controller Test', function () {
     });
 
 
-    it('should add highlighted log and replace alias', function () {
+    it('should add highlighted log and replace aliases', function () {
 
         var msg = 'Player /name/ on position /position/ is winner';
         scope.addLog({ msg: msg, ishighlighted: true }, { name: 'Nik', position: '5' });

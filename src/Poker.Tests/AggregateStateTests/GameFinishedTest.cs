@@ -56,6 +56,7 @@ namespace Poker.Tests.AggregateStateTests
             Assert.IsNull(_state.GameId);
             Assert.IsNull(_state.CurrentBidding);
             Assert.AreEqual(0,_state.MaxBid);
+            
         }
 
         [Test]
