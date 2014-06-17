@@ -8,14 +8,14 @@ using Poker.Platform.Domain;
 
 namespace Poker.Domain.Aggregates.Game
 {
-    public sealed class GameTableState: AggregateState
+    public sealed class GameTableState : AggregateState
     {
 
-        public static readonly int[] Positions = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        public static readonly int[] Positions = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-        public Dictionary<string,TablePlayer> JoinedPlayers { get; set; }
+        public Dictionary<string, TablePlayer> JoinedPlayers { get; set; }
 
-        public Dictionary<int,GamePlayer> Players { get; set; }
+        public Dictionary<int, GamePlayer> Players { get; set; }
 
         public string GameId { get; private set; }
 
@@ -51,7 +51,7 @@ namespace Poker.Domain.Aggregates.Game
                 Dealer = null;
                 JoinedPlayers = new Dictionary<string, TablePlayer>();
                 Players = new Dictionary<int, GamePlayer>();
-            }); 
+            });
             On((GameFinished e) =>
             {
                 GameId = null;
@@ -61,6 +61,12 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     JoinedPlayers[winner.UserId].Cash += winner.Amount;
                 }
+
+                foreach (var player in Players)
+                {
+                    player.Value.Bid = 0;
+                }
+
             });
             On((GameCreated e) =>
             {
@@ -120,9 +126,9 @@ namespace Poker.Domain.Aggregates.Game
         private void SitPlayers(IEnumerable<TablePlayer> players)
         {
             Players.Clear();
-            foreach (var player in players.OrderBy(x=> x.Position))
+            foreach (var player in players.OrderBy(x => x.Position))
             {
-                Players.Add(player.Position,new GamePlayer()
+                Players.Add(player.Position, new GamePlayer()
                 {
                     Position = player.Position,
                     UserId = player.UserId
@@ -130,7 +136,7 @@ namespace Poker.Domain.Aggregates.Game
             }
         }
 
-        public int GetNextPlayer(int position, Func<GamePlayer,bool> predicate = null)
+        public int GetNextPlayer(int position, Func<GamePlayer, bool> predicate = null)
         {
             for (int i = 1; i < 10; i++)
             {
@@ -154,7 +160,7 @@ namespace Poker.Domain.Aggregates.Game
             {
                 return GetNextPlayer(Dealer.Value);
             }
-            return Players.Select(x => x.Value.Position).OrderBy(x=> x).First();
+            return Players.Select(x => x.Value.Position).OrderBy(x => x).First();
         }
 
         public bool IsTableFull()
@@ -195,7 +201,7 @@ namespace Poker.Domain.Aggregates.Game
                 BiddingStage = CurrentBidding.Stage,
                 BidType = bidType
             };
-            
+
         }
 
         public List<TablePlayer> CopyPlayers()
