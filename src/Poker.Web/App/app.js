@@ -22,4 +22,4 @@ app.controller('AppCtrl', ['$scope', '$rootScope', "signalsService", "eventAggre
     $scope.init = function (user) {
         signalsService.initialize();
     };
-}]);
+}]); 
