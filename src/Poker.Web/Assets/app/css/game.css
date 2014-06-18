@@ -61,6 +61,12 @@
     background-color: white;
 }
 
+    .card.back {
+        background-image: url("/assets/app/css/img/card-back.png");
+        background-position: -2px -2px;
+        background-repeat: no-repeat;
+    }
+
 .overlap {
     margin-left: -10px;
 }
@@ -321,7 +327,6 @@
 
 /*result*/
 .resultArea {
-
     height: 240px;
     color: #333;
     position: absolute;
@@ -330,7 +335,7 @@
     margin-top: 200px;
     z-index: 1;
     overflow: hidden;
-        -moz-border-radius: 2px;
+    -moz-border-radius: 2px;
     border-radius: 2px;
     border: 1px solid black;
     /* box shadow */
@@ -340,12 +345,18 @@
 }
 
 .resultPanel .title {
-     text-align: center; color:White; margin-top:10px;font-size: 30px;margin-bottom: 15px;
+    text-align: center;
+    color: White;
+    margin-top: 10px;
+    font-size: 30px;
+    margin-bottom: 15px;
 }
+
 .resultPanel hr {
-     margin: 0;
+    margin: 0;
 }
-.resultPanel .message{
+
+.resultPanel .message {
     color: yellow;
 }
 
@@ -356,14 +367,16 @@
 .resultPanel p {
     color: black;
 }
-.resultPanel p a {
-    color: white;
-}
+
+    .resultPanel p a {
+        color: white;
+    }
 
 
 .results-buttons {
     margin-top: 10px;
 }
+
 .resultPanel {
     text-align: center;
     font-size: 22px;
@@ -374,7 +387,7 @@
     -moz-border-radius: 2px;
     border-radius: 2px;
     border: 0px solid black;
-background-color: rgb(39,71,201);
+    background-color: rgb(39,71,201);
     /* box shadow */
     -moz-box-shadow: 2px 2px 12px #FFF;
     -webkit-box-shadow: 2px 2px 12px #FFF;
@@ -393,17 +406,17 @@ background-color: rgb(39,71,201);
     width: 180px;
 }
 
-.replayTable td {
-    font-size: 14px;
-}
+    .replayTable td {
+        font-size: 14px;
+    }
 
-.replayTable .won-trick {
-    color: yellow;
-}
+    .replayTable .won-trick {
+        color: yellow;
+    }
 
-.replayTable tr.green {
-    background: green;
-}
+    .replayTable tr.green {
+        background: green;
+    }
 
 .sideBar .nav {
     margin-bottom: 0;
@@ -416,46 +429,51 @@ background-color: rgb(39,71,201);
 
 
 .table tbody tr.success > td {
-  background-color: #dff0d8;
+    background-color: #dff0d8;
 }
 
 .table tbody tr.error > td {
-  background-color: #f2dede;
+    background-color: #f2dede;
 }
 
 .table tbody tr.warning > td {
-  background-color: #fcf8e3;
+    background-color: #fcf8e3;
 }
 
 .table tbody tr.info > td {
-  background-color: #d9edf7;
+    background-color: #d9edf7;
 }
 
 .table-hover tbody tr.success:hover > td {
-  background-color: #d0e9c6;
+    background-color: #d0e9c6;
 }
 
 .table-hover tbody tr.error:hover > td {
-  background-color: #ebcccc;
+    background-color: #ebcccc;
 }
 
 .table-hover tbody tr.warning:hover > td {
-  background-color: #faf2cc;
+    background-color: #faf2cc;
 }
 
 .table-hover tbody tr.info:hover > td {
-  background-color: #c4e3f3;
+    background-color: #c4e3f3;
 }
 
-.sidebarSection .table tbody tr{
+.sidebarSection .table tbody tr {
     cursor: default;
 }
 
 .replay-hands {
-    max-height: 150px; overflow-x: hidden;overflow-y: auto;
+    max-height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
+
 .replay-others {
-    max-height: 300px; overflow-x: hidden;overflow-y: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .rotate180 {
@@ -469,23 +487,29 @@ background-color: rgb(39,71,201);
 }
 
 .card div.card-value {
-    margin-top: -8px;margin-left: -4px;
+    margin-top: -8px;
+    margin-left: -4px;
 }
 
 .card div.card-symbol {
-    margin-top: -4px;margin-left: -2px;
+    margin-top: -4px;
+    margin-left: -2px;
 }
 
 #gameLayout {
-    overflow: hidden
+    overflow: hidden;
 }
 
-#gameLayout > div {
-    position: relative; float: left; left: 50%; margin-top: 18px;
-}
+    #gameLayout > div {
+        position: relative;
+        float: left;
+        left: 50%;
+        margin-top: 18px;
+    }
 
 .auctionPanel {
-    width: 250px; height: 160px
+    width: 250px;
+    height: 160px;
 }
 
     .auctionPanel h2 {
@@ -496,23 +520,30 @@ background-color: rgb(39,71,201);
         margin-bottom: 20px;
     }
 
-.auctionPanel p {
-    text-align: center; color: white; font-size: 30px;margin-bottom: 20px;
-}
+    .auctionPanel p {
+        text-align: center;
+        color: white;
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
 
 .cards-row {
-     height: 85px;
-}
-.cards-row.east .card{
-    float: right;
+    height: 85px;
 }
 
+    .cards-row.east .card {
+        float: right;
+    }
+
 .deal-number {
-    margin-left: 20px; z-index: 9999; margin-top: -620px;color: white;
+    margin-left: 20px;
+    z-index: 9999;
+    margin-top: -620px;
+    color: white;
 }
 
 .deal-number-value {
-    margin-left: 10px
+    margin-left: 10px;
 }
 
 .table-caption {
@@ -520,12 +551,14 @@ background-color: rgb(39,71,201);
 }
 
 .replay-btns {
-    top: 20px; padding-left: 390px
+    top: 20px;
+    padding-left: 390px;
 }
 
 
 .time-label {
-    margin-left: 20px; color: yellow;
+    margin-left: 20px;
+    color: yellow;
 }
 
 .sidebar-replay {
@@ -533,24 +566,32 @@ background-color: rgb(39,71,201);
 }
 
 .horisontal-cards-holder {
-    position:relative;float:left;left:50%;
+    position: relative;
+    float: left;
+    left: 50%;
 }
 
 .horisontal-cards-container {
-     position:relative;float:left;left:-50%; 
+    position: relative;
+    float: left;
+    left: -50%;
 }
 
 .cards-devider {
-    width: 5px;height: 80px; float: left;
+    width: 5px;
+    height: 80px;
+    float: left;
 }
 
 .player-name-under-cards {
-    text-align: center;height: 18px; color: #AECC23
+    text-align: center;
+    height: 18px;
+    color: #AECC23;
 }
 
 .auction-contract {
-     padding: 5px;
-         -moz-text-shadow: 0px 0px 10px #0BF;
+    padding: 5px;
+    -moz-text-shadow: 0px 0px 10px #0BF;
     -webkit-text-shadow: 0px 0px 10px #0BF;
     text-shadow: 0px 0px 10px #0BF;
     font-weight: bolder;
@@ -558,43 +599,48 @@ background-color: rgb(39,71,201);
 }
 
 .on-top {
-    z-index: 9999
+    z-index: 9999;
 }
 
 div.prev-card-value {
-    margin-top: 4px; margin-left: -4px
+    margin-top: 4px;
+    margin-left: -4px;
 }
+
 div.prev-card-symbol {
-   margin-left: -2px
+    margin-left: -2px;
 }
 
 .medium-label {
-    font-size: 16px
+    font-size: 16px;
 }
 
 .big-label {
-    float: left; font-size: 20px
+    float: left;
+    font-size: 20px;
 }
 
 .label-card-value {
-    margin-left: 6px; float: left
+    margin-left: 6px;
+    float: left;
 }
 
 .label-card-symbol {
-    margin-left: 3px; float: left
+    margin-left: 3px;
+    float: left;
 }
 
-.auction-title { }
+.auction-title {
+}
 
 .contract-symbol {
 }
+
 .contract-value {
-    
 }
 
 .symbol-bigger {
-    
-    font-size: 1.2em;  
+    font-size: 1.2em;
 }
 
 .sidebarSection #play {

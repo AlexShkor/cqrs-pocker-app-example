@@ -279,6 +279,7 @@
     <Content Include="Assets\app\css\animate-custom.css" />
     <Content Include="Assets\app\css\auctionrobot.css" />
     <Content Include="Assets\app\css\common.css" />
+    <Content Include="Assets\app\css\img\card-back.png" />
     <Content Include="Assets\app\css\poker.css" />
     <Content Include="Assets\app\css\img\favicon.ico" />
     <Content Include="Assets\app\css\landing.css" />
