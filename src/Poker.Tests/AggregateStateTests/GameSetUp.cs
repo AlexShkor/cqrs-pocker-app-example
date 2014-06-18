@@ -125,6 +125,13 @@ namespace Poker.Tests.AggregateStateTests
                     BidType = BidTypeEnum.BigBlind,
                 }
             });
+
+            _state.Invoke(new NextPlayerTurned
+            {
+                Id = TestTableId,
+                GameId = "game_1",
+                Player = _state.GetPlayerInfo(2)
+            });
         }
 
 

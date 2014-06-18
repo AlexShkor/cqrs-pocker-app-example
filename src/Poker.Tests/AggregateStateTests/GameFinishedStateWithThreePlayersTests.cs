@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Poker.Domain.Aggregates.Game;
 using Poker.Domain.Aggregates.Game.Data;
 using Poker.Domain.Aggregates.Game.Events;
 using Poker.Domain.Data;
-using Poker.Platform.Domain;
 
 namespace Poker.Tests.AggregateStateTests
 {
-    public class GameCreatedStateWithThreePlayersTests : GameSetUp
+    public class GameFinishedStateWithThreePlayersTests : GameSetUp
     {
         public override void SetUp()
         {
@@ -45,58 +47,7 @@ namespace Poker.Tests.AggregateStateTests
                 Cards = pack.GetAllCards(),
                 Players = _state.CopyPlayers()
             });
-        }
 
-        [Test]
-        public void TablePropertiesAreSetWithThirdPlayer()
-        {
-            Assert.AreEqual("game_2", _state.GameId);
-
-            Assert.AreEqual("me1", _state.Players[1].UserId);
-            Assert.AreEqual(1, _state.Players[1].Position);
-
-            Assert.AreEqual("me2", _state.Players[2].UserId);
-            Assert.AreEqual(2, _state.Players[2].Position);
-
-            Assert.AreEqual("me3", _state.Players[3].UserId);
-            Assert.AreEqual(3, _state.Players[3].Position);
-
-            Assert.AreEqual(3, _state.Players.Count);
-            Assert.AreEqual(3, _state.JoinedPlayers.Count);
-        }
-
-        [Test]
-        public void CardsAreDealtWithThirdPlayer()
-        {
-            _state.Invoke(new CardsDealed
-            {
-                Id = TestTableId,
-                GameId = "game_2",
-                Cards = TakeCards(_state.CopyPlayers(), _state.Pack)
-            });
-
-
-            var currentCards = _state.Pack.GetAllCards();
-            Assert.AreEqual(46, currentCards.Count);
-            Assert.AreEqual(2, _state.Players[1].Cards.Count);
-            Assert.AreEqual(2, _state.Players[2].Cards.Count);
-            Assert.AreEqual(2, _state.Players[3].Cards.Count);
-
-            var playersCards = new List<Card>();
-            playersCards.AddRange(_state.Players[1].Cards);
-            playersCards.AddRange(_state.Players[2].Cards);
-            playersCards.AddRange(_state.Players[3].Cards);
-
-            foreach (var card in playersCards)
-            {
-                var similar = currentCards.FindAll(c => c.Rank == card.Rank && c.Suit == card.Suit);
-                Assert.AreEqual(0, similar.Count());
-            }
-        }
-
-        [Test]
-        public void BlindsAreAssignedtWithThirdPlayer()
-        {
             _state.Invoke(new CardsDealed
             {
                 Id = TestTableId,
@@ -153,9 +104,46 @@ namespace Poker.Tests.AggregateStateTests
                 }
             });
 
-            Assert.AreEqual(10, _state.Players[1].Bid);
+            _state.Invoke(new NextPlayerTurned
+            {
+                Id = TestTableId,
+                GameId = "game_2",
+                Player = _state.GetPlayerInfo(2)
+            });
+
+        }
+
+        [Test]
+        public void ResetsFieldsWithThirdPlayer()
+        {
+            _state.Invoke(new BidMade
+            {
+                Id = TestTableId,
+                Bid = new BidInfo
+                {
+                    UserId = _state.Players[2].UserId,
+                    Position = _state.Players[2].Position,
+                    Bid = 60,
+                    Odds = 60,
+                    NewCashValue = 900,
+                    BidType = BidTypeEnum.Raise,
+                }
+            });
+
+            _state.Invoke(new GameFinished
+            {
+                Id = TestTableId,
+                GameId = "game_2",
+                Winners = Winners.Me1(50)
+            });
+
+            Assert.IsNull(_state.GameId);
+            Assert.IsNull(_state.CurrentBidding);
+            Assert.AreEqual(0, _state.MaxBid);
+            Assert.AreEqual(0, _state.Players[1].Bid);
             Assert.AreEqual(0, _state.Players[2].Bid);
-            Assert.AreEqual(5, _state.Players[3].Bid);
+            Assert.AreEqual(0, _state.Players[3].Bid);
+
         }
     }
 }

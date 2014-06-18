@@ -84,7 +84,8 @@
     <Compile Include="AggregateStateTests\DealerAssignedTest.cs" />
     <Compile Include="AggregateStateTests\GameCreatedStateWithThreePlayersTests.cs" />
     <Compile Include="AggregateStateTests\GameCreatedStateWithTwoPlayersTests.cs" />
-    <Compile Include="AggregateStateTests\GameFinishedStateTest.cs" />
+    <Compile Include="AggregateStateTests\GameFinishedStateWithThreePlayersTests.cs" />
+    <Compile Include="AggregateStateTests\GameFinishedStateWithTwoPlayersTests.cs" />
     <Compile Include="AggregateStateTests\GameSetUp.cs" />
     <Compile Include="AggregateStateTests\Methods\GetBidInfoTest.cs" />
     <Compile Include="AggregateStateTests\Methods\GetNextDealerTest.cs" />

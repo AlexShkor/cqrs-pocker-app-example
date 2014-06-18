@@ -66,8 +66,8 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     player.Value.Bid = 0;
                 }
-
             });
+
             On((GameCreated e) =>
             {
                 GameId = e.GameId;

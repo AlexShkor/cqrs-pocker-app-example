@@ -7,7 +7,7 @@ using Poker.Domain.Data;
 
 namespace Poker.Tests.AggregateStateTests
 {
-    public class GameFinishedStateTest : GameSetUp
+    public class GameFinishedStateWithTwoPlayersTests : GameSetUp
     {
         [Test]
         public void GivesBankToWinner()
