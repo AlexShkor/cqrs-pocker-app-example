@@ -108,7 +108,7 @@ namespace Poker
         {
             var namespaces = isReplayMode
                 // Only View and Index handlers are used when replaying
-                ? new[] { "PAQK.Handlers.ViewHandlers", "PAQK.Handlers.IndexHandlers" }
+                ? new[] { "Poker.Handlers.ViewHandlers", "Poker.Handlers.ViewHandlers" }
                 // but all handlers are used in standard mode
                 : new string[] { };
 
