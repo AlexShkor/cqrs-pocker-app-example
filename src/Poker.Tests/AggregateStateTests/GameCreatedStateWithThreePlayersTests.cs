@@ -153,6 +153,14 @@ namespace Poker.Tests.AggregateStateTests
                 }
             });
 
+            _state.Invoke(new NextPlayerTurned
+            {
+                Id = TestTableId,
+                GameId = "game_2",
+                Player = _state.GetPlayerInfo(2)
+            });
+
+
             Assert.AreEqual(10, _state.Players[1].Bid);
             Assert.AreEqual(0, _state.Players[2].Bid);
             Assert.AreEqual(5, _state.Players[3].Bid);
