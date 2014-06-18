@@ -11,24 +11,24 @@ using Uniform.InMemory;
 namespace Poker.Tests.ViewHandlers
 {
     [TestFixture]
-    public class BaseViewHandlerTest
+    public abstract class BaseViewHandlerTest
     {
-        public GameTableAggregate Aggregate { get; set; }
-        public ViewDatabase Db { get; set; }
+        public GameTableAggregate Table { get; set; }
+        public ViewDatabase View { get; set; }
         public Dispatcher Dispatcher { get; set; }
 
         [SetUp]
         public void SetUp()
         {
             IContainer container = ObjectFactory.Container;
-            Aggregate = new GameTableAggregate();
-            Aggregate.Setup(new GameTableState(), 0);
+            Table = new GameTableAggregate();
+            Table.Setup(new GameTableState(), 0);
             var db = new InMemoryDatabase();
             var uniform = UniformDatabase.Create(config => config
                 .RegisterDocuments(typeof(UserView).Assembly)
                 .RegisterDatabase(ViewDatabases.Mongodb, db));
-            Db = new ViewDatabase(uniform);
-            container.Configure(x => x.For<ViewDatabase>().Use(Db));
+            View = new ViewDatabase(uniform);
+            container.Configure(x => x.For<ViewDatabase>().Use(View));
 
             Dispatcher = Dispatcher.Create(d => d
                    .AddHandlers(typeof(UserView).Assembly, new[] { "Poker.Handlers.ViewHandlers", "Poker.Handlers.ViewHandlers" })
@@ -37,7 +37,7 @@ namespace Poker.Tests.ViewHandlers
 
         public void SendAllEvents()
         {
-            foreach (var @event in Aggregate.Changes)
+            foreach (var @event in Table.Changes)
             {
                 Dispatcher.Dispatch(@event);
             }

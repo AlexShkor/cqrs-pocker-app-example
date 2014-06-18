@@ -10,7 +10,7 @@ namespace Poker.Tests.Infrastructure
     public class InMemoryDatabaseTest
     {
         [Test]
-        public void test()
+        public void UserState()
         {
             var db = new InMemoryDatabase();
             var uniform = UniformDatabase.Create(config => config

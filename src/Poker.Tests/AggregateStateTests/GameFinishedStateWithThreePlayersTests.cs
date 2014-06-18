@@ -140,10 +140,7 @@ namespace Poker.Tests.AggregateStateTests
             Assert.IsNull(_state.GameId);
             Assert.IsNull(_state.CurrentBidding);
             Assert.AreEqual(0, _state.MaxBid);
-            Assert.AreEqual(0, _state.Players[1].Bid);
-            Assert.AreEqual(0, _state.Players[2].Bid);
-            Assert.AreEqual(0, _state.Players[3].Bid);
-
+            
         }
     }
 }

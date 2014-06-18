@@ -61,11 +61,6 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     JoinedPlayers[winner.UserId].Cash += winner.Amount;
                 }
-
-                foreach (var player in Players)
-                {
-                    player.Value.Bid = 0;
-                }
             });
 
             On((GameCreated e) =>

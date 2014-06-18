@@ -5,11 +5,12 @@ namespace Poker.Tests.ViewHandlers
     public class GameTableTest: BaseViewHandlerTest
     {
         [Test]
-        public void test()
+        public void TableState()
         {
-            Aggregate.CreateTable("table1", "Table 1", 1000, 5);
+            Table.CreateTable("table1", "Table 1", 1000, 5);
             SendAllEvents();
-            var table = Db.Tables.GetById("table1");
+
+            var table = View.Tables.GetById("table1");
             Assert.NotNull(table);
             Assert.AreEqual("Table 1", table.Name);
         }
