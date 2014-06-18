@@ -65,6 +65,10 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         return false;
     }
 
+    $scope.isPlayerMe = function (player) {
+        return player.UserId == $scope.game.MyId;
+    }
+
     eventAggregatorService.subscribe("chatMessage", function (e, data) {
         $scope.$apply(function () {
             $scope.messages.push(data);
@@ -133,7 +137,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
                 currentPlayerName = player.Name;
             } else {
                 player.CurrentTurn = false;
-        }
+            }
         }
 
         $scope.game.CurrentPlayerId = data.CurrentPlayerId;
@@ -173,10 +177,10 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     function getPlayer(id) {
         for (var i = 0; i < $scope.game.Players.length; i++) {
             var player = $scope.game.Players[i];
-                if (player.UserId == id)
-                    return player;
-            }
+            if (player.UserId == id)
+                return player;
         }
+    }
 
     function initUserRates() {
 
@@ -276,7 +280,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         $scope.Logs.push(log);
 
         if (logsCont)
-        logsCont.scrollTop = logsCont.scrollHeight;
+            logsCont.scrollTop = logsCont.scrollHeight;
     }
 
     String.prototype.splice = function (idx, rem, s) {

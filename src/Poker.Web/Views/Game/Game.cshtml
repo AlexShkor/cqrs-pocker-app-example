@@ -25,10 +25,17 @@
             </div>
 
             <div style="padding-top: 10px">
-                <div ng-repeat="card in player.Cards" class="card" ng-style="{color: card.Color}">
+
+                <div ng-show="isPlayerMe(player)" ng-repeat="card in player.Cards" class="card" ng-style="{color: card.Color}">
                     <div class="card-value">{{card.Value}}</div>
                     <div class="card-symbol" ng-bind-html="card.Symbol"></div>
                 </div>
+
+                <div ng-show="!isPlayerMe(player)">
+                    <div class="card back"></div>
+                    <div class="card back"></div>
+                </div>
+
             </div>
         </div>
     </div>
