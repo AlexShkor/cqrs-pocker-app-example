@@ -39,8 +39,8 @@ namespace Poker.Tests.AggregateStateTests
 
             foreach (var card in playersCards)
             {
-                var similar = currentCards.FindAll(c => c.Rank == card.Rank && c.Suit == card.Suit);
-                Assert.AreEqual(0, similar.Count());
+                var similarExists = currentCards.Any(c => c.Rank == card.Rank && c.Suit == card.Suit);
+                Assert.IsFalse(similarExists);
             }
         }
 
