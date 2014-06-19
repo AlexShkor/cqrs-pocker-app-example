@@ -4,7 +4,7 @@ namespace Poker
 {
     public class SiteSettings
     {
-        public const string SiteId = "PAQK-Site";
+        public const string SiteId = "ParalectPoker";
 
         [SettingsProperty("mongo.events_connection_string")]
         public string MongoEventsConnectionString { get; set; }
