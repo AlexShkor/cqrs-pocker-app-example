@@ -88,7 +88,7 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    Winners = new List<WinnerInfo> {new WinnerInfo(winner, State.CurrentBidding.GetBank())},
+                    Winners = new List<WinnerInfo> { new WinnerInfo(winner, State.CurrentBidding.GetBank()) },
                 });
             }
             else
@@ -149,15 +149,7 @@ namespace Poker.Domain.Aggregates.Game
 
         private bool CheckBiddingFinished()
         {
-            return State.CurrentBidding.CurrentStage.IsFinished() && State.CurrentPlayer == State.GetBigBlindPlayer();
-        }
-
-        public void FinishGame(string id)
-        {
-            Apply(new GameFinished()
-            {
-                Id = id,
-            });
+            return State.CurrentBidding.CurrentStage.IsFinished() && State.CurrentBidding.BigBlindWasLastIfPreFlop();
         }
 
         public void JoinTable(string userId, long cashInCents)
@@ -279,7 +271,7 @@ namespace Poker.Domain.Aggregates.Game
 
             if (player.Fold)
             {
-               throw new InvalidOperationException("Player has already fold.");
+                throw new InvalidOperationException("Player has already fold.");
             }
             Apply(new BidMade
             {

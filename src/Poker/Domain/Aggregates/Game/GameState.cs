@@ -57,6 +57,7 @@ namespace Poker.Domain.Aggregates.Game
                 GameId = null;
                 MaxBid = 0;
                 CurrentBidding = null;
+
                 foreach (var winner in e.Winners)
                 {
                     JoinedPlayers[winner.UserId].Cash += winner.Amount;

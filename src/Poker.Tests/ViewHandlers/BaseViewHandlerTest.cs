@@ -21,8 +21,10 @@ namespace Poker.Tests.ViewHandlers
         public void SetUp()
         {
             IContainer container = ObjectFactory.Container;
+            
             Table = new GameTableAggregate();
             Table.Setup(new GameTableState(), 0);
+
             var db = new InMemoryDatabase();
             var uniform = UniformDatabase.Create(config => config
                 .RegisterDocuments(typeof(UserView).Assembly)

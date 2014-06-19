@@ -58,5 +58,12 @@ namespace Poker.Domain.Aggregates.Game
             BiddingStages.Add(newStage);
 
         }
+
+        public bool BigBlindWasLastIfPreFlop()
+        {
+            return
+                Stage != (int) BiddingStagesEnum.PreFlop ||
+                CurrentStage.Bids.Values.All(x => x.BidType != BidTypeEnum.BigBlind);
+        }
     }
 }

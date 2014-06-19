@@ -59,6 +59,7 @@ namespace Poker.Handlers.ViewHandlers
                 foreach (var player in view.Players)
                 {
                     player.Cards = new List<Card>();
+                    player.Bid = 0;
                 }
             });
         }
