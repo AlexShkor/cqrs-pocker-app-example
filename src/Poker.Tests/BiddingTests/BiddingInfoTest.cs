@@ -50,7 +50,8 @@ namespace Poker.Tests.BiddingTests
                 Bid = bid,
                 BiddingStage = biddingInfo.Stage,
                 Position = position,
-                UserId = "me" + position
+                UserId = "me" + position,
+                NewCashValue = 1000
             });
         }
     }
