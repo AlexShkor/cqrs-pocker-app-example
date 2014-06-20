@@ -90,6 +90,7 @@ namespace Poker.Domain.Aggregates.Game
                     GameId = State.GameId,
                     Winners = new List<WinnerInfo> { new WinnerInfo(winner, State.CurrentBidding.GetBank()) },
                 });
+                CreateGame(GenerateGameId());
             }
             else
             {

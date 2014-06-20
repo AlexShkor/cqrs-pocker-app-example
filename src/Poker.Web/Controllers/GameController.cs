@@ -41,7 +41,7 @@ namespace Poker.Web.Controllers
             var table = _tables.GetById(tableId);
             if (table.Players.Any(x => x.UserId == UserId))
             {
-                return Json(new {Joined = true});
+                return Json(new { Joined = true });
             }
             var cmd = new JoinTable
             {
@@ -86,6 +86,19 @@ namespace Poker.Web.Controllers
                 UserId = UserId,
                 Amount = amount
             };
+            Send(cmd);
+            return Json(cmd);
+        }
+
+        [POST("fold")]
+        public ActionResult Fold(string tableId)
+        {
+            var cmd = new FoldBid()
+            {
+                Id = tableId,
+                UserId = UserId
+            };
+
             Send(cmd);
             return Json(cmd);
         }
