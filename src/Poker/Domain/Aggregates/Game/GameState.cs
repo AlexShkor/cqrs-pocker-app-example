@@ -202,7 +202,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public List<TablePlayer> CopyPlayers()
         {
-            return JoinedPlayers.Values.Select(x => new TablePlayer
+            return JoinedPlayers.Values.OrderBy(x => x.Position).Select(x => new TablePlayer
             {
                 UserId = x.UserId,
                 Position = x.Position,

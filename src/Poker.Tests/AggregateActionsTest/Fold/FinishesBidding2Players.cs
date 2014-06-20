@@ -49,13 +49,42 @@ namespace Poker.Tests.AggregateActionsTest.Fold
                  }
               }
             };
+
+            yield return new GameCreated()
+            {
+                Id = "123"
+            };
+
+            yield return new CardsDealed()
+            {
+                Id = "123"
+            };
+
+            yield return new DealerAssigned()
+            {
+                Id = "123"
+            };
+
+            yield return new BidMade()
+            {
+                Id = "123"
+            };
+
+            yield return new BidMade()
+            {
+                Id = "123"
+            };
+
+            yield return new NextPlayerTurned()
+            {
+                Id = "123"
+            };
         }
 
-        
         [Test]
         public override void Test()
         {
-            ValidateEvents("GameId");
+            ValidateEvents("GameId", "Players", "Cards", "Dealer", "SmallBlind", "BigBlind", "Bid", "Player");
         }
     }
 }

@@ -98,7 +98,6 @@ namespace Poker.Web.Controllers
                 Id = tableId,
                 UserId = UserId
             };
-
             Send(cmd);
             return Json(cmd);
         }

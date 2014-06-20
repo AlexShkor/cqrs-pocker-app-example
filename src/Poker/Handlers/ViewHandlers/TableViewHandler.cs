@@ -87,7 +87,6 @@ namespace Poker.Handlers.ViewHandlers
             _tables.Update(e.Id, table => table.Players.RemoveAll(x => x.UserId == e.UserId));
         }
 
-
         public void Handle(NextPlayerTurned e)
         {
             _tables.Update(e.Id, table =>
