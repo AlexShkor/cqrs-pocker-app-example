@@ -18,7 +18,7 @@ namespace Poker.Tests.AggregateActionsTest.Raise
 
         public override void When(GameTableAggregate a)
         {
-            a.Raise("me2", 12);
+            a.Raise("me2", 6);
         }
 
         public override IEnumerable<IEvent> Expected()
@@ -30,9 +30,9 @@ namespace Poker.Tests.AggregateActionsTest.Raise
                 {
                     UserId = "me2",
                     Position = 2,
-                    Bid = 14,
-                    Odds = 12,
-                    NewCashValue = 86,
+                    Bid = 8,
+                    Odds = 6,
+                    NewCashValue = 92,
                     BidType = BidTypeEnum.Raise,
                 }
             };

@@ -7,65 +7,29 @@ using Poker.Domain.Data;
 
 namespace Poker.Tests.AggregateStateTests
 {
-    [TestFixture]
-    public class PlayerFoldBidTest
+
+    public class PlayerFoldBidTest : GameSetUp
     {
-        private GameTableState _state;
-        private List<Card> _cards;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _state = new GameTableState();
-            var pack = new Pack();
-            _cards = pack.GetAllCards();
-            _state.Invoke(new TableCreated
-            {
-                Id = "1",
-                BuyIn = 1000,
-                MaxPlayers = 10,
-                Name = "name",
-                SmallBlind = 5
-            });
-            _state.Invoke(new PlayerJoined
-            {
-                Id = "1",
-                Position = 1,
-                UserId = "userId",
-                Cash = 100
-            });
-            _state.Invoke(new GameCreated
-            {
-                Id = "1",
-                GameId = "game1",
-                Cards = _cards,
-                Players = new List<TablePlayer> { new TablePlayer
-                {
-                    Cash = 100,
-                    Position = 1,
-                    UserId = "userId"
-                }}
-            });
-        }
-
         [Test]
-        public void SetsDealer()
+        public void PlayerState()
         {
             _state.Invoke(new BidMade
             {
-                Id = "123",
+                Id = "game1",
                 Bid = new BidInfo
                 {
-                    UserId = "userId",
-                    Bid = 0,
+                    UserId = "me2",
+                    Bid = 5,
                     BidType = BidTypeEnum.Fold,
-                    BiddingStage = 1,
-                    NewCashValue = 100,
-                    Position = 1,
+                    BiddingStage = 0,
+                    NewCashValue = 995,
+                    Position = 2,
                     Odds = 0
                 }
             });
-            Assert.IsTrue(_state.Players[1].Fold);
-        } 
+
+            Assert.IsTrue(_state.Players[2].Fold);
+            Assert.AreEqual(5, _state.Players[2].Bid);
+        }
     }
 }

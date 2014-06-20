@@ -33,11 +33,11 @@ namespace Poker.Tests.BiddingTests
 
         public void SetBank60ForTwoPlayers(BiddingInfo bidding)
         {
-            bidding.AddTestBid(1, 5);
-            bidding.AddTestBid(2, 10);
-            bidding.AddTestBid(1, 20);
-            bidding.AddTestBid(2, 30);
+            bidding.AddTestBid(2, 5);
+            bidding.AddTestBid(1, 10);
+            bidding.AddTestBid(2, 20);
             bidding.AddTestBid(1, 30);
+            bidding.AddTestBid(2, 30);
         }
     }
 
@@ -48,7 +48,7 @@ namespace Poker.Tests.BiddingTests
             biddingInfo.AddBid(new BidInfo
             {
                 Bid = bid,
-
+                BiddingStage = biddingInfo.Stage,
                 Position = position,
                 UserId = "me" + position
             });

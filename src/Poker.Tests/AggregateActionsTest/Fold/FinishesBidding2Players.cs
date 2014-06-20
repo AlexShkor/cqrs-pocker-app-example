@@ -7,7 +7,7 @@ using Poker.Platform.Domain.Interfaces;
 
 namespace Poker.Tests.AggregateActionsTest.Fold
 {
-    public class FinishesBidding2Players: GameTableTest
+    public class FinishesBidding2Players : GameTableTest
     {
         public override void Given(GameTableAggregate a)
         {
@@ -29,21 +29,29 @@ namespace Poker.Tests.AggregateActionsTest.Fold
                 Bid = new BidInfo
                 {
                     UserId = "me2",
-                    Bid = 4,
+                    Bid = 2,
                     BidType = BidTypeEnum.Fold,
                     BiddingStage = 0,
-                    NewCashValue = 96,
+                    NewCashValue = 98,
                     Position = 2,
-                    Odds = 2
+                    Odds = 0
                 }
             };
             yield return new GameFinished
             {
                 Id = "123",
-                Winners = new List<WinnerInfo> { new WinnerInfo("me1", 1,6,1)}
+                Winners = new List<WinnerInfo> { new WinnerInfo
+                {
+                    UserId = "me1",
+                    Position = 1,
+                    Amount = 6,
+                    HandScore = 1
+                 }
+              }
             };
         }
 
+        
         [Test]
         public override void Test()
         {

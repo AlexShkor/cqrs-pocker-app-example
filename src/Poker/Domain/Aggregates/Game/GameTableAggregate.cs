@@ -218,7 +218,7 @@ namespace Poker.Domain.Aggregates.Game
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    Bid = State.GetBidInfo(player.Position, player.Bid, BidTypeEnum.Check)
+                    Bid = State.GetBidInfo(player.Position, 0, BidTypeEnum.Check)
                 });
                 NextTurn(player.Position);
             }
@@ -248,8 +248,9 @@ namespace Poker.Domain.Aggregates.Game
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
 
-            if (State.MaxBid >= player.Bid + amount)
-                throw new InvalidOperationException("Rate must be higher than max bid while raising");
+            //if ((State.MaxBid >= player.Bid + amount))
+            if (!RateMustBeGreaterThanMaxBidByBigBlind(player, amount))
+                throw new InvalidOperationException("Rate must be higher than max bid and multiple to Big Blind while raising");
 
             if (!player.Fold)
             {
@@ -262,6 +263,12 @@ namespace Poker.Domain.Aggregates.Game
                 NextTurn(player.Position);
             }
         }
+
+        private bool RateMustBeGreaterThanMaxBidByBigBlind(GamePlayer player, long amount)
+        {
+            return (player.Bid + amount > State.MaxBid) && (player.Bid + amount) % (State.SmallBlind * 2) == 0;
+        }
+
 
         public void Fold(string userId)
         {
@@ -277,7 +284,7 @@ namespace Poker.Domain.Aggregates.Game
             {
                 Id = State.TableId,
                 GameId = State.GameId,
-                Bid = State.GetBidInfo(player.Position, player.Bid, BidTypeEnum.Fold)
+                Bid = State.GetBidInfo(player.Position, 0, BidTypeEnum.Fold)
             });
             NextTurn(player.Position);
         }

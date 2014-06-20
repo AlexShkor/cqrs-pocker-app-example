@@ -80,8 +80,8 @@
     <Compile Include="AggregateActionsTest\CreateTableTest\PreventDoubleCreation.cs" />
     <Compile Include="AggregateActionsTest\JoinPlayer\TableIsFullTest.cs" />
     <Compile Include="AggregateActionsTest\Raise\CanRaise.cs" />
-    <Compile Include="AggregateActionsTest\Raise\CanRaiseRound.cs" />
-    <Compile Include="AggregateActionsTest\Raise\CantRaiseLowerTheBid.cs" />
+    <Compile Include="AggregateActionsTest\Raise\CanReRaise.cs" />
+    <Compile Include="AggregateActionsTest\Raise\RateMustBeGreaterThanMaxBidByBigBlind.cs" />
     <Compile Include="AggregateActionsTest\Raise\NotYourTurn.cs" />
     <Compile Include="AggregateStateTests\DealerAssignedTest.cs" />
     <Compile Include="AggregateStateTests\GameCreatedStateWithThreePlayersTests.cs" />

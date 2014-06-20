@@ -40,7 +40,7 @@ namespace Poker.Tests.ViewHandlers
             Table.Call("me2");
             Table.Call("me1");
 
-            /* Tern */
+            /* Turn */
             Table.Call("me2");
             Table.Call("me1");
 
@@ -104,7 +104,7 @@ namespace Poker.Tests.ViewHandlers
             Table.Call("me1");
             Table.Call("me2");
 
-            /* Tern */
+            /* Turn */
             Table.Call("me3");
             Table.Call("me1");
             Table.Call("me2");

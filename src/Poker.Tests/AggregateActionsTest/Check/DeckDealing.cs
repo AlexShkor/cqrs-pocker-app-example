@@ -32,15 +32,16 @@ namespace Poker.Tests.AggregateActionsTest.Check
                 Id = "123",
                 Bid = new BidInfo
                 {
-                    UserId = "me2",
+                    UserId = "me1",
                     Bid = 4,
                     BidType = BidTypeEnum.Check,
                     BiddingStage = 0,
                     NewCashValue = 96,
-                    Position = 2,
+                    Position = 1,
                     Odds = 0
                 }
             };
+
             yield return new DeckDealed
             {
                 Id = "123"
@@ -48,14 +49,14 @@ namespace Poker.Tests.AggregateActionsTest.Check
             yield return new NextPlayerTurned
             {
                 Id = "123",
-                Player = new PlayerInfo(2,"me2")
+                Player = new PlayerInfo(2, "me2")
             };
         }
 
         [Test]
         public override void Test()
         {
-            Assert.AreEqual(3,GetChanges<DeckDealed>().First().Cards.Count);
+            Assert.AreEqual(3, GetChanges<DeckDealed>().First().Cards.Count);
             ValidateEvents("GameId", "Cards");
         }
     }

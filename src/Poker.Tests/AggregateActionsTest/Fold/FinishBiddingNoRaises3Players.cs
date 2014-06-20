@@ -30,14 +30,15 @@ namespace Poker.Tests.AggregateActionsTest.Fold
                 Bid = new BidInfo
                 {
                     UserId = "me1",
-                    Bid = 8,
+                    Bid = 4,
                     BidType = BidTypeEnum.Fold,
                     BiddingStage = 0,
-                    NewCashValue = 92,
+                    NewCashValue = 96,
                     Position = 1,
-                    Odds = 4
+                    Odds = 0
                 }
             };
+
             yield return new GameFinished
             {
                 Id = "123",
