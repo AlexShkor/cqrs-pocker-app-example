@@ -60,6 +60,8 @@ namespace Poker.Handlers.ViewHandlers
                 {
                     player.Cards = new List<Card>();
                     player.Bid = 0;
+                    player.IsSmallBlind = false;
+                    player.IsBigBlind = false;
                 }
             });
         }
@@ -78,7 +80,7 @@ namespace Poker.Handlers.ViewHandlers
 
         public void Handle(BidMade e)
         {
-            _tables.Update(e.Id, table => table.SetBid(e.Bid.UserId, e.Bid.Bid, e.Bid.NewCashValue));
+            _tables.Update(e.Id, table => table.SetBid(e.Bid.UserId, e.Bid));
         }
 
 

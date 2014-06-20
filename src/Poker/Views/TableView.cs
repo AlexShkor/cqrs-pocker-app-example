@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
+using Poker.Domain.Aggregates.Game;
 using Poker.Domain.Data;
 using Uniform;
 
@@ -36,11 +37,22 @@ namespace Poker.Views
             player.Cards.Add(card);
         }
 
-        public void SetBid(string userId, long bid, long newCashValue)
+        public void SetBid(string userId, BidInfo bidInfo)
         {
             var player = GetPlayer(userId);
-            player.Bid = bid;
-            player.Cash = newCashValue;
+            player.Bid = bidInfo.Bid;
+            player.Cash = bidInfo.NewCashValue;
+
+            MarkBlindsIfGameStarts(player, bidInfo.BidType);
+        }
+
+        private void MarkBlindsIfGameStarts(PlayerDocument player, BidTypeEnum bidType)
+        {
+            if (bidType == BidTypeEnum.SmallBlind || bidType == BidTypeEnum.BigBlind)
+            {
+                player.IsSmallBlind = bidType == BidTypeEnum.SmallBlind;
+                player.IsBigBlind = bidType == BidTypeEnum.BigBlind;
+            }
         }
 
         public PlayerDocument GetPlayer(string userId)

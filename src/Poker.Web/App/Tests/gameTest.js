@@ -21,7 +21,6 @@ describe('Game Controller Test', function () {
         SmallBlind: 5,
 
         Players: [
-
         {
             Bid: 10,
             Cards: [],
@@ -32,7 +31,10 @@ describe('Game Controller Test', function () {
             Position: 1,
             RaiseValue: 0,
             UserId: "me1",
-        },
+            IsSmallBlind: false,
+            IsBigBlind: true,
+            BlindText: 'Big Blind'
+},
 
         {
             Bid: 5,
@@ -43,7 +45,10 @@ describe('Game Controller Test', function () {
             Name: "Player 2",
             Position: 2,
             RaiseValue: 0,
-            UserId: "me2"
+            UserId: "me2",
+            IsSmallBlind: true,
+            IsBigBlind: false,
+            BlindText: 'Small Blind'
         },
 
         {
@@ -55,7 +60,10 @@ describe('Game Controller Test', function () {
             Name: "Player 3",
             Position: 3,
             RaiseValue: 0,
-            UserId: "me3"
+            UserId: "me3",
+            IsSmallBlind: false,
+            IsBigBlind: false,
+            BlindText: ''
         }]
     }
 
@@ -97,14 +105,14 @@ describe('Game Controller Test', function () {
 
         http.flush();
         expect(scope.game.Players[0].IsBigBlind).toBe(true);
-        expect(scope.game.Players[0].BlindText).toBe('Big blind');
+        expect(scope.game.Players[0].BlindText).toBe('Big Blind');
     });
 
     it('should assign Small Blind when new game is created', function () {
 
         http.flush();
         expect(scope.game.Players[1].IsSmallBlind).toBe(true);
-        expect(scope.game.Players[1].BlindText).toBe('Small blind');
+        expect(scope.game.Players[1].BlindText).toBe('Small Blind');
     });
 
     it('should not assign Blinds to other players when new game is created', function () {

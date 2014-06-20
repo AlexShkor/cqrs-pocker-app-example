@@ -12,6 +12,10 @@ namespace Poker.Views
         public string UserId { get; set; }
         public string Name { get; set; }
         public bool CurrentTurn { get; set; }
+        public bool IsSmallBlind { get; set; }
+        public bool IsBigBlind { get; set; }
+
+        
 
         public PlayerDocument()
         {

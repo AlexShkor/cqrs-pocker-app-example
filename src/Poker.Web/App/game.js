@@ -20,7 +20,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             $scope.game = data;
             $scope.RaiseValue = data.MaxBid;
 
-            initBlinds();
+            //initBlinds();
             initUserRates();
             trustSuitsAsHtml($scope.game);
         });

@@ -249,7 +249,6 @@ namespace Poker.Domain.Aggregates.Game
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
 
-            //if ((State.MaxBid >= player.Bid + amount))
             if (!RateMustBeGreaterThanMaxBidByBigBlind(player, amount))
                 throw new InvalidOperationException("Rate must be higher than max bid and multiple to Big Blind while raising");
 

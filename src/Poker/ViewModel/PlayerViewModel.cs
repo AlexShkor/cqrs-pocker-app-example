@@ -12,9 +12,24 @@ namespace Poker.ViewModel
         public long RaiseValue { get; set; }
         public string UserId { get; set; }
         public string Name { get; set; }
-        public bool IsMe { get; set; } 
-        public bool CurrentTurn { get; set; } 
+        public bool IsMe { get; set; }
+        public bool CurrentTurn { get; set; }
         public List<CardViewModel> Cards { get; set; }
+        public bool IsSmallBlind { get; set; }
+        public bool IsBigBlind { get; set; }
+        public string BlindText
+        {
+            get
+            {
+                if (IsSmallBlind)
+                    return "Small Blind";
+                if (IsBigBlind)
+                    return "Big Blind";
+
+                return string.Empty;
+            }
+        }
+
 
         public PlayerViewModel(PlayerDocument doc, string myUserId)
         {
@@ -25,6 +40,9 @@ namespace Poker.ViewModel
             Name = doc.Name;
             IsMe = UserId == myUserId;
             CurrentTurn = doc.CurrentTurn;
+            IsSmallBlind = doc.IsSmallBlind;
+            IsBigBlind = doc.IsBigBlind;
+
             if (IsMe)
             {
                 Cards = doc.Cards.Select(x => new CardViewModel(x)).ToList();

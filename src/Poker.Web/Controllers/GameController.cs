@@ -101,18 +101,5 @@ namespace Poker.Web.Controllers
             Send(cmd);
             return Json(cmd);
         }
-
-        [POST("force")]
-        public ActionResult Force(string tableId)
-        {
-            var cmd = new JoinTable
-            {
-                Id = tableId,
-                Cash = 1000,
-                UserId = UserId
-            };
-            Send(cmd);
-            return Json(cmd);
-        }
     }
 }
