@@ -1,10 +1,13 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AttributeRouting;
 using AttributeRouting.Web.Mvc;
 using Poker.Domain.Aggregates.Game.Commands;
+using Poker.Domain.Data;
 using Poker.Platform.Mvc;
 using Poker.ViewModel;
+using Poker.Views;
 using Poker.ViewServices;
 
 namespace Poker.Web.Controllers
@@ -34,7 +37,7 @@ namespace Poker.Web.Controllers
             var model = new GameViewModel(table, UserId);
             return Json(model);
         }
-
+        
         [POST("join")]
         public ActionResult Join(string tableId)
         {

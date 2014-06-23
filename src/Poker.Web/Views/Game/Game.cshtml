@@ -3,89 +3,95 @@
     <h2>Game {{game.Name}}</h2>
 
     <button ng-click="refresh()" class="btn pull-right">Refresh</button>
-    <div>
-        <div class="span6">
-            <div ng-repeat="card in game.Deck" class="card" ng-style="{color: card.Color}">
-                <div class="card-value">{{card.Value}}</div>
-                <div class="card-symbol" ng-bind-html="card.Symbol"></div>
-            </div>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <br />
+
     <div class="row-fluid">
-        <div class="well span2" ng-repeat="player in game.Players">
-            <h4 ng-class="{highlight: player.CurrentTurn}">{{player.Name}} #{{player.Position}} </h4>
-            <div>
-                <span>Cash: {{player.Cash}}</span>
-            </div>
-            <div>
-                <span style="padding-right: 20px">Bid: {{player.Bid}}</span>
-                <span ng-show="player.IsSmallBlind || player.IsBigBlind" ng-class="{'label label-success' : player.IsSmallBlind, 'label label-info' : player.IsBigBlind }">{{player.BlindText}}</span>
-            </div>
 
-            <div style="padding-top: 10px">
+        <div class="poker-table text-center offset1">
 
-                <div ng-show="isPlayerMe(player)" ng-repeat="card in player.Cards" class="card" ng-style="{color: card.Color}">
+            <ol class="poker-players">
+
+                <li class="well span2 player" ng-repeat="player in game.Players">
+
+                    <h4 ng-class="{highlight: player.CurrentTurn}">{{player.Name}} #{{player.Position}} </h4>
+                    <div>
+                        <span>Cash: {{player.Cash}}</span>
+                    </div>
+                    <div>
+                        <span style="padding-right: 20px">Bid: {{player.Bid}}</span>
+                        <span ng-show="player.IsSmallBlind || player.IsBigBlind" ng-class="{'label label-warning' : player.IsSmallBlind, 'label label-info' : player.IsBigBlind }">{{player.BlindText}}</span>
+                    </div>
+
+                    <div style="padding-top: 10px">
+
+                        <div ng-show="isPlayerMe(player)" ng-repeat="card in player.Cards" class="card" ng-style="{color: card.Color}">
+                            <div class="card-value">{{card.Value}}</div>
+                            <div class="card-symbol" ng-bind-html="card.Symbol"></div>
+                        </div>
+
+                        <div ng-show="!isPlayerMe(player) && player.IsInGame">
+                            <div class="card back"></div>
+                            <div class="card back"></div>
+                        </div>
+
+                    </div>
+                </li>
+            </ol>
+
+            <div class="span3 offset3">
+                <div ng-repeat="card in game.Deck" class="card" ng-style="{color: card.Color}">
                     <div class="card-value">{{card.Value}}</div>
                     <div class="card-symbol" ng-bind-html="card.Symbol"></div>
                 </div>
-
-                <div ng-show="!isPlayerMe(player) && player.IsInGame">
-                    <div class="card back"></div>
-                    <div class="card back"></div>
-                </div>
-
             </div>
-        </div>
-    </div>
-
-    <br />
-
-    <div>
-        <div>
-
-            <button ng-click="check()" ng-disabled="!isMe()" class="btn btn-success btn-block">Check</button>
-            <button ng-click="fold()" ng-disabled="!isMe()" class="btn btn-danger btn-block">Fold</button>
-            <button ng-click="call()" ng-disabled="!isMe()" class="btn btn-warning btn-block">Call</button>
-            <button ng-click="raise()" ng-disabled="!isMe() || rateIndex == 0" class="btn btn-warning btn-block">Raise</button>
-
-            <span class="label label-warning offset1" ng-show="isMe()">Your turn</span>
 
         </div>
-
-    </div>
-
-    <br />
-
-    <div ng-show="isMe()">
-
-        <pre>{{ currentUserRate(rateIndex) }}</pre>
-        <span class="pull-left">{{rates[0]}}</span> <span class="pull-right">{{rates[rates.length - 1]}}</span>
-
-
-        <rzslider rz-slider-floor="0"
-                  rz-slider-ceil="rateMaxIndex"
-                  rz-slider-model="rateIndex"
-                  rz-slider-translate="currentUserRate"></rzslider>
-
     </div>
 
 
-    <div class="well">
-        <div class="span10"><input type="text" class="span9" required ng-model="newMessage" /><button class="btn " ng-click="sendMessage()">Send</button></div>
-        <div class="clearfix"></div>
-        <hr />
-        <ul style="max-height: 400px; overflow-y: auto;">
-            <li ng-repeat="message in messages">[{{message.Time}}] {{message.Name}}: {{message.Content}}</li>
-        </ul>
+    <div class="row-fluid voffset7">
+
+        <div class="span3 voffset4">
+            <button ng-click="check()" ng-disabled="!isMyTurn()" class="btn btn-success ">Check</button>
+            <button ng-click="fold()" ng-disabled="!isMyTurn()" class="btn btn-danger ">Fold</button>
+            <button ng-click="call()" ng-disabled="!isMyTurn()" class="btn btn-warning ">Call</button>
+            <button ng-click="raise()" ng-disabled="!isMyTurn() || rateIndex == 0" class="btn btn-warning ">Raise</button>
+
+            @*<span class="label label-warning pull-right" ng-show="isMyTurn()">Your turn</span>*@
+        </div>
+
+        <div class="span2 voffset4 text-center"><span class="well">{{ currentUserRate(rateIndex) }}</span></div>
+
+        <div class="span7" ng-show="isMyTurn()">
+            <span class="pull-left">{{rates[0]}}</span> <span class="pull-right">{{rates[rates.length - 1]}}</span>
+            <rzslider rz-slider-floor="0"
+                      rz-slider-ceil="rateMaxIndex"
+                      rz-slider-model="rateIndex"
+                      rz-slider-translate="currentUserRate"></rzslider>
+        </div>
+
     </div>
 
+    <div class="row-fluid voffset3">
 
-    <div class="well">
-        <ul id="logs" style="max-height: 300px; overflow: auto;">
-            <li ng-repeat='log in Logs' ng-class="{highlight: log.ishighlighted}">{{log.msg}}</li>
-        </ul>
+        <div class="well span5">
+            <ul id="logs" class="log-container">
+                <li ng-repeat='log in Logs' ng-class="{highlight: log.ishighlighted}">{{log.msg}}</li>
+            </ul>
+        </div>
+
+
+        <div class="well span6">
+            <div ng-keyup="sendMessage($event)">
+                <input class="input-message" type="text" required ng-model="newMessage" />
+                <button class="btn btn-offset1" ng-click="sendMessage($event)">Send</button>
+            </div>
+            <div class="clearfix"></div>
+            <hr />
+            <ul id="msgs" class="msg-container">
+                <li ng-repeat="message in messages">[{{message.Time}}] {{message.Name}}: {{message.Content}}</li>
+            </ul>
+        </div>
+
     </div>
 
 </div>

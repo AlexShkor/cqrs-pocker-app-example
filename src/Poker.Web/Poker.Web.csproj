@@ -293,6 +293,7 @@
     <Content Include="Assets\vendor\angular-spiner\css\rzslider.css" />
     <Content Include="Assets\vendor\angular-spiner\js\rzslider.min.js" />
     <Content Include="css\jasmine.css" />
+    <Content Include="Assets\app\css\table.css" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-cookies.js" />

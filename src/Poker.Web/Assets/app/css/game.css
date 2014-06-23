@@ -491,6 +491,13 @@
     margin-left: -4px;
 }
 
+
+.player .card div.card-value {
+    margin-top: 10px;
+    margin-left: -4px;
+}
+
+
 .card div.card-symbol {
     margin-top: -4px;
     margin-left: -2px;

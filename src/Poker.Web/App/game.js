@@ -50,14 +50,16 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         }
     };
 
-    $scope.sendMessage = function () {
-        if ($scope.newMessage) {
-            $http.post("/chat/send", { message: $scope.newMessage }).success(function (parameters) { });
-            $scope.newMessage = "";
+    $scope.sendMessage = function (e) {
+        if (e.type === 'click' || (e.type === 'keyup' && e.keyCode === keyCode.Enter)) {
+            if ($scope.newMessage) {
+                $http.post("/chat/send", { message: $scope.newMessage }).success(function (parameters) { });
+                $scope.newMessage = "";
+            }
         }
     }
 
-    $scope.isMe = function () {
+    $scope.isMyTurn = function () {
         if ($scope.game)
             return $scope.game.CurrentPlayerId == $scope.game.MyId;
 
@@ -68,9 +70,13 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         return player.UserId == $scope.game.MyId;
     }
 
+    var msgCont = document.getElementById('msgs');
     eventAggregatorService.subscribe("chatMessage", function (e, data) {
         $scope.$apply(function () {
-            $scope.messages.push(data);
+            $scope.messages.unshift(data);
+
+            if (msgCont)
+                msgCont.scrollTop = 0;
         });
     });
 
@@ -255,10 +261,10 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             }
         }
         log.msg = date.toLocaleTimeString() + " " + log.msg;
-        $scope.Logs.push(log);
+        $scope.Logs.unshift(log);
 
         if (logsCont)
-            logsCont.scrollTop = logsCont.scrollHeight;
+            logsCont.scrollTop = 0;
     }
 
     String.prototype.splice = function (idx, rem, s) {
@@ -270,4 +276,8 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     }
 
 });
+
+var keyCode = {
+    Enter: 13
+};
 
