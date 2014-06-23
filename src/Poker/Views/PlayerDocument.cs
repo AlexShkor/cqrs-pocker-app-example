@@ -15,8 +15,6 @@ namespace Poker.Views
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
 
-        
-
         public PlayerDocument()
         {
             Cards = new List<Card>();

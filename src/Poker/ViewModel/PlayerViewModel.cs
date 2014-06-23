@@ -15,6 +15,7 @@ namespace Poker.ViewModel
         public bool IsMe { get; set; }
         public bool CurrentTurn { get; set; }
         public List<CardViewModel> Cards { get; set; }
+        public bool IsInGame { get; set; }
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
         public string BlindText
@@ -30,7 +31,7 @@ namespace Poker.ViewModel
             }
         }
 
-
+        
         public PlayerViewModel(PlayerDocument doc, string myUserId)
         {
             Position = doc.Position;
@@ -42,6 +43,7 @@ namespace Poker.ViewModel
             CurrentTurn = doc.CurrentTurn;
             IsSmallBlind = doc.IsSmallBlind;
             IsBigBlind = doc.IsBigBlind;
+            IsInGame = doc.Cards.Count != 0;
 
             if (IsMe)
             {

@@ -31,7 +31,7 @@
                     <div class="card-symbol" ng-bind-html="card.Symbol"></div>
                 </div>
 
-                <div ng-show="!isPlayerMe(player)">
+                <div ng-show="!isPlayerMe(player) && player.IsInGame">
                     <div class="card back"></div>
                     <div class="card back"></div>
                 </div>
