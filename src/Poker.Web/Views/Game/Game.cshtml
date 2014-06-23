@@ -61,9 +61,7 @@
     <div ng-show="isMe()">
 
         <pre>{{ currentUserRate(rateIndex) }}</pre>
-
-        <span class="pull-left">{{minRateValue}}</span> <span class="pull-right">{{maxRateValue}}</span>
-
+        <span class="pull-left">{{rates[0]}}</span> <span class="pull-right">{{rates[rates.length - 1]}}</span>
 
 
         <rzslider rz-slider-floor="0"

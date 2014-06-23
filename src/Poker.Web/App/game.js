@@ -20,7 +20,6 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             $scope.game = data;
             $scope.RaiseValue = data.MaxBid;
 
-            //initBlinds();
             initUserRates();
             trustSuitsAsHtml($scope.game);
         });
@@ -185,69 +184,48 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     function initUserRates() {
 
         var me = getPlayer($scope.game.MyId);
-        var rates = [];
+        $scope.rates = [];
 
-        var availableCash = me.Cash - $scope.game.MaxBid + $scope.game.SmallBlind * 2;
+        var bigBlind = $scope.game.SmallBlind * 2;
+        var availableCash = me.Cash - $scope.game.MaxBid + bigBlind;
 
         if (availableCash > 0) {
 
-            var reminder = availableCash % $scope.game.SmallBlind;
+            var reminder = availableCash % bigBlind;
             var loopCashValue = availableCash - reminder;
             var rate = 0;
 
-            while ($scope.game.SmallBlind < loopCashValue) {
+            while (loopCashValue) {
 
                 if (rate == 0) {
                     rate = $scope.game.MaxBid;
-                    rates.push(rate);
+                    $scope.rates.push(rate);
                 } else {
-                    rate += $scope.game.SmallBlind;
-                    rates.push(rate);
+                    rate += bigBlind;
+                    $scope.rates.push(rate);
                 }
 
-                loopCashValue -= $scope.game.SmallBlind;
+                loopCashValue -= bigBlind;
             }
 
             if (reminder != 0) {
-                var lastRate = rates[rates.length - 1];
-                rates.push(lastRate + reminder);
+                var lastRate = $scope.rates[$scope.rates.length - 1];
+                $scope.rates.push(lastRate + reminder);
             }
 
             $scope.rateIndex = 0;
-            $scope.rateMaxIndex = rates.length - 1;
-
-            $scope.minRateValue = rates[0];
-            $scope.maxRateValue = rates[rates.length - 1];
+            $scope.rateMaxIndex = $scope.rates.length - 1;
 
             $('.bubble').css('display', 'none');
 
             $scope.currentUserRate = function (index) {
-                $scope.RaiseValue = rates[index];
+                $scope.RaiseValue = $scope.rates[index];
                 $scope.rateIndex = index;
-                return rates[index].toString();
+                return $scope.rates[index].toString();
             };
         }
 
-        // TODO: logic if not enougth cash
-    }
-
-    function initBlinds() {
-        for (var i = 0; i < $scope.game.Players.length; i++) {
-            var player = $scope.game.Players[i];
-            player.IsSmallBlind = false;
-            player.IsBigBlind = false;
-            player.BlindText = '';
-
-            if (player.Bid == $scope.game.SmallBlind) {
-                player.IsSmallBlind = true;
-                player.BlindText = 'Small blind';
-            }
-
-            else if (player.Bid == $scope.game.SmallBlind * 2) {
-                player.IsBigBlind = true;
-                player.BlindText = 'Big blind';
-            }
-        }
+        // TODO: logic if not enough cash
     }
 
     var logs = {

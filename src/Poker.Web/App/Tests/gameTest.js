@@ -34,7 +34,7 @@ describe('Game Controller Test', function () {
             IsSmallBlind: false,
             IsBigBlind: true,
             BlindText: 'Big Blind'
-},
+        },
 
         {
             Bid: 5,
@@ -75,7 +75,7 @@ describe('Game Controller Test', function () {
         module('poker.game');
     });
 
-    // signalsService
+    
     beforeEach(inject(['$controller', '$rootScope', '$location', '$httpBackend', 'eventAggregatorService', function ($controller, $rootScope, $location, $httpBackend, eventAggregatorService) {
         scope = $rootScope.$new();
         eventAggregator = eventAggregatorService;
@@ -101,13 +101,6 @@ describe('Game Controller Test', function () {
         expect(scope.game.Name).toEqual(game.Name);
     });
 
-    it('should assign Big Blind when new game is created', function () {
-
-        http.flush();
-        expect(scope.game.Players[0].IsBigBlind).toBe(true);
-        expect(scope.game.Players[0].BlindText).toBe('Big Blind');
-    });
-
     it('should assign Small Blind when new game is created', function () {
 
         http.flush();
@@ -115,6 +108,13 @@ describe('Game Controller Test', function () {
         expect(scope.game.Players[1].BlindText).toBe('Small Blind');
     });
 
+    it('should assign Big Blind when new game is created', function () {
+
+        http.flush();
+        expect(scope.game.Players[0].IsBigBlind).toBe(true);
+        expect(scope.game.Players[0].BlindText).toBe('Big Blind');
+    });
+    
     it('should not assign Blinds to other players when new game is created', function () {
 
         http.flush();
@@ -126,16 +126,39 @@ describe('Game Controller Test', function () {
     it('should init My actual and max rates', function () {
 
         http.flush();
-        expect(scope.minRateValue).toEqual(10);
-        expect(scope.maxRateValue).toEqual(990);
+        expect(scope.rates[0]).toEqual(10);
+        expect(scope.rates[scope.rates.length - 1]).toEqual(990);
+    });
+
+    it('should check that rates are multiple to Big Blind', function () {
+
+        http.flush();
+        for (var i = 0; i < scope.rates.length; i++) {
+            var rate = scope.rates[i];
+
+            if (i != scope.rates.length - 1)
+                expect(rate % (scope.game.SmallBlind * 2)).toEqual(0);
+        }
     });
 
     it('should init My actual and max rates with reminder', function () {
 
         game.Players[0].Cash = 802;
         http.flush();
-        expect(scope.minRateValue).toEqual(10);
-        expect(scope.maxRateValue).toEqual(802);
+        expect(scope.rates[0]).toEqual(10);
+        expect(scope.rates[scope.rates.length - 1]).toEqual(802);
+    });
+
+    it('should check that rates with reminder are multiple to Big Blind', function () {
+
+        game.Players[0].Cash = 802;
+        http.flush();
+        for (var i = 0; i < scope.rates.length; i++) {
+            var rate = scope.rates[i];
+
+            if (i != scope.rates.length - 1)
+                expect(rate % (scope.game.SmallBlind * 2)).toEqual(0);
+        }
     });
 
     it('should send request when player checks', function () {
