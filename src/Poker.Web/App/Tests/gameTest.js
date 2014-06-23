@@ -75,7 +75,7 @@ describe('Game Controller Test', function () {
         module('poker.game');
     });
 
-    
+
     beforeEach(inject(['$controller', '$rootScope', '$location', '$httpBackend', 'eventAggregatorService', function ($controller, $rootScope, $location, $httpBackend, eventAggregatorService) {
         scope = $rootScope.$new();
         eventAggregator = eventAggregatorService;
@@ -114,7 +114,7 @@ describe('Game Controller Test', function () {
         expect(scope.game.Players[0].IsBigBlind).toBe(true);
         expect(scope.game.Players[0].BlindText).toBe('Big Blind');
     });
-    
+
     it('should not assign Blinds to other players when new game is created', function () {
 
         http.flush();
@@ -204,7 +204,8 @@ describe('Game Controller Test', function () {
 
         scope.newMessage = 'My message';
         http.expect('POST', '/chat/send').respond(200);
-        scope.sendMessage();
+        var event = { type: 'click' }
+        scope.sendMessage(event);
         expect(scope.newMessage).toEqual('');
     });
 
@@ -212,7 +213,8 @@ describe('Game Controller Test', function () {
     it('should not send message from player when message is empty', function () {
 
         scope.newMessage = '';
-        scope.sendMessage();
+        var event = { type: 'click' }
+        scope.sendMessage(event);
 
         // verifyNoOutstandingExpectation will be called
     });
