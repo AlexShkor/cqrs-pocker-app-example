@@ -144,7 +144,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             initUserRates();
             $scope.$apply();
 
-            addLog(logs.bidMade, { name: player.Name });
+            addLog(logs.bidMade, { name: player.Name, bidType: data.BidType }, data.BidType + '-note');
         }
     });
 
@@ -175,9 +175,9 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
         for (var i = 0; i < data.Winners.length; i++) {
             var winner = getPlayer(data.Winners[i].UserId);
-            addLog(logs.noteWinner, { name: winner.Name, hand: data.Winners[i].Hand });
+            addLog(logs.noteWinner, { name: winner.Name, hand: data.Winners[i].Hand }, 'highlight');
         }
-        addLog(logs.gameFinished);
+        addLog(logs.gameFinished, null, 'highlight');
     });
 
     eventAggregatorService.subscribe("playerJoined", function (e, data) {
@@ -247,7 +247,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
                     $scope.rates.push(lastRate + reminder);
                 }
 
-                $scope.rateIndex = 0; /* set rate that satisfies raising condition */
+                $scope.rateIndex = 0;
                 $scope.rateMaxIndex = $scope.rates.length - 1;
 
 
@@ -265,16 +265,16 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
     var logs = {
         gameCreated: "New game is created",
-        bidMade: "/name/ made a bid",
+        bidMade: { msg: "/name/ /bidType/" },
         playerTurned: "/name/ turn",
-        gameFinished: { msg: "Game is finished", ishighlighted: true },
-        noteWinner: { msg: "/name/ is winner. Hand: /hand/", ishighlighted: true },
+        gameFinished: "Game is finished",
+        noteWinner: { msg: "/name/ is winner. Hand: /hand/" },
         cardsDealed: "Cards are dealt",
         deckDealed: "Deck is dealt"
     };
 
     var logsCont = document.getElementById('logs');
-    function addLog(log, replacements) {
+    function addLog(log, replacements, css) {
         var date = new Date();
         if (typeof (log) != "object") {
             log = { msg: log, ishighlighted: false }
@@ -289,6 +289,9 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
                 log.msg = log.msg.splice(log.msg.indexOf(alias), alias.length, replacements[key]);
             }
         }
+        if (css)
+            log.css = css.toLowerCase();
+
         log.msg = date.toLocaleTimeString() + " " + log.msg;
         $scope.Logs.unshift(log);
 
