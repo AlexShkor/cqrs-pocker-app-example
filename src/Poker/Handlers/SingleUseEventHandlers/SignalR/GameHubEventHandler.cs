@@ -81,9 +81,21 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
         {
             UsersHub.CurrentContext.Clients.Group(e.Id).gameFinished(new
             {
-                Winners = e.Winners.Select(x=> new WinnerViewModel(x))
+                Winners = e.Winners.Select(x => new WinnerViewModel(x))
             });
 
         }
+
+        public void Handle(PlayerJoined e)
+        {
+            var table = _db.Tables.GetById(e.Id);
+            var newPlayer = table.Players.Find(p => p.UserId == e.UserId);
+            UsersHub.CurrentContext.Clients.Group(e.Id).playerJoined(new
+            {
+                NewPlayer = newPlayer
+            });
+
+        }
+
     }
 }

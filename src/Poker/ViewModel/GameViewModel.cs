@@ -18,6 +18,7 @@ namespace Poker.ViewModel
             Deck = view.Deck.Select(x => new CardViewModel(x)).ToList();
             Players = view.Players.OrderBy(x => x.Position).Select(x => new PlayerViewModel(x, userId)).ToList();
             MaxBid = view.Players.Select(x => x.Bid).Max();
+            IsGuest = view.Players.All(x => x.UserId != userId);
         }
 
         public string Id { get; set; }
@@ -37,5 +38,7 @@ namespace Poker.ViewModel
         public List<PlayerViewModel> Players { get; set; }
 
         public long MaxBid { get; set; }
+
+        public bool IsGuest { get; set; }
     }
 }

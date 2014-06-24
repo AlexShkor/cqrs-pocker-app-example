@@ -22,6 +22,9 @@ angular.module("hubs.service", ['event-agregator'])
             proxy.on('goToTable', function (data) {
                 eventAggregatorService.publish('goToTable', data);
             });
+            proxy.on('updateTable', function (data) {
+                eventAggregatorService.publish('updateTable', data);
+            });
             proxy.on('goToTablesView', function (data) {
                 eventAggregatorService.publish('goToTablesView', data);
             });
@@ -45,6 +48,9 @@ angular.module("hubs.service", ['event-agregator'])
             });
             proxy.on('chatMessage', function (data) {
                 eventAggregatorService.publish('chatMessage', data);
+            });
+            proxy.on('playerJoined', function (data) {
+                eventAggregatorService.publish('playerJoined', data);
             });
 
         };

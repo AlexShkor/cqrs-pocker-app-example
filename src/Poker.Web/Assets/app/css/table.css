@@ -119,6 +119,13 @@
                 margin-left: 0;
             }
 
+.rate-box {
+    display: inline-block;
+    min-width: 40px;
+    font-size: 15px;
+    color: gold;
+}
+
 
 .input-message {
     width: 80%;
