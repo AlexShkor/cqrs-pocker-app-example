@@ -6,6 +6,7 @@ using Poker.Platform.Mvc;
 namespace Poker.Web.Controllers
 {
     [RoutePrefix("home")]
+    [Authorize]
     public class HomeController : BaseController
     {
         [GET("")]
@@ -13,18 +14,6 @@ namespace Poker.Web.Controllers
         public ActionResult Index()
         {
             return View("Templates/Empty","_BaseLayout");
-        }
-
-        [GET("view")]
-        public ActionResult ViewTemplateActionResult()
-        {
-            return PartialView();
-        }
-
-        [GET("pages/404", IgnoreRoutePrefix = true)]
-        public ActionResult Page404()
-        {
-            return PartialView();
         }
     }
 }

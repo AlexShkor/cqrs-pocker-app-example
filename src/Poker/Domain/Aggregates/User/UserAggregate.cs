@@ -22,12 +22,12 @@ namespace Poker.Domain.Aggregates.User
                 {
                     Apply(new UserReCreated
                     {
-                        Id = id,
-                        UserName = userName,
-                        Email = email,
-                        PasswordHash = passwordHash,
-                        PasswordSalt = passwordSalt,
-                        CreationDate = DateTime.Now
+                        Id = State.Id,
+                        UserName = State.UserName,
+                        Email = State.Email,
+                        PasswordHash = State.PasswordHash,
+                        PasswordSalt = State.PasswordSalt,
+                        CreationDate = State.CreationDate
                     });
                 }
                 else

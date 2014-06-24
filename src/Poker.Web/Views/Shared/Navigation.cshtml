@@ -1,4 +1,4 @@
-﻿<div class="navbar" style="position: static;">
+﻿<div class="navbar" style="position: static;" ng-controller="HeaderCtrl">
     <div class="navbar-inner">
         <div class="container">
             <a class="brand light" href="/">CQRS<span class="redsuit">poker</span></a>
@@ -15,14 +15,13 @@
                     {
                         <text>
                         <li><a href="/profile"><strong class="light">@User.Identity.Name</strong> </a></li>
-                        <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+                        <li><a href="#" ng-click="logout()">Log Off </a></li>
                         </text>
                     }
                     else
                     {
                         <text>
                         <li><a href="/account/login">Log In</a></li>
-                        <li><a href="/account/loginwithfacebook">Log In with Facebook</a></li>
                         <li><a href="/account/register">Sign Up</a></li>
                         </text>
                     }

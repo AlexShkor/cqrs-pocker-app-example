@@ -236,6 +236,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\JasmineController.cs" />
     <Compile Include="Controllers\ModelBinders\JsonModelBinder.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
@@ -269,6 +270,7 @@
     <Content Include="App\app.js" />
     <Content Include="App\eventAggregatorService.js" />
     <Content Include="App\game.js" />
+    <Content Include="App\header.js" />
     <Content Include="App\home.html" />
     <Content Include="App\home.js" />
     <Content Include="App\signals.js" />
@@ -290,6 +292,21 @@
     <Content Include="Assets\app\css\img\grey.png" />
     <Content Include="Assets\app\css\login.css" />
     <Content Include="Assets\app\css\m-buttons.css" />
+    <Content Include="Assets\avatars\avatar-10.jpg" />
+    <Content Include="Assets\avatars\avatar-110.jpg" />
+    <Content Include="Assets\avatars\avatar-18.jpg" />
+    <Content Include="Assets\avatars\avatar-22.jpg" />
+    <Content Include="Assets\avatars\avatar-23.jpg" />
+    <Content Include="Assets\avatars\avatar-26.jpg" />
+    <Content Include="Assets\avatars\avatar-41.jpg" />
+    <Content Include="Assets\avatars\avatar-43.jpg" />
+    <Content Include="Assets\avatars\avatar-5.jpg" />
+    <Content Include="Assets\avatars\avatar-6.jpg" />
+    <Content Include="Assets\avatars\avatar-61.jpg" />
+    <Content Include="Assets\avatars\avatar-68.jpg" />
+    <Content Include="Assets\avatars\avatar-8.jpg" />
+    <Content Include="Assets\avatars\avatar-81.jpg" />
+    <Content Include="Assets\avatars\avatar-94.jpg" />
     <Content Include="Assets\vendor\angular-spiner\css\rzslider.css" />
     <Content Include="Assets\vendor\angular-spiner\js\rzslider.min.js" />
     <Content Include="css\jasmine.css" />
@@ -749,6 +766,8 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Tables\Create.cshtml" />
     <Content Include="Views\Jasmine\JasmineTests.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\ChooseAvatar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\app\js\" />

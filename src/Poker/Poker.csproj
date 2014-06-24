@@ -115,6 +115,7 @@
     <Compile Include="Authentication\AkqPrincipal.cs" />
     <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Authentication\FacebookAuthorize.cs" />
+    <Compile Include="AvatarsService.cs" />
     <Compile Include="Domain\Aggregates\Game\BiddingInfo.cs" />
     <Compile Include="Domain\Aggregates\Game\BiddingStage.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\DeckDealed.cs" />
