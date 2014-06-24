@@ -40,6 +40,9 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     };
 
     $scope.raise = function () {
+
+        $scope.RaiseValue = $scope.rates[$scope.rateIndex];
+
         if ($scope.RaiseValue > 0 && $scope.RaiseValue > $scope.game.MaxBid) {
 
             var player = getPlayer($scope.game.CurrentPlayerId);
@@ -48,6 +51,12 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             $http.post("/game/raise", { tableId: $scope.game.Id, amount: amount });
             $scope.RaiseValue = null;
         }
+    };
+
+    $scope.join = function () {
+        $http.post("/game/join", { tableId: $stateParams.tableId }).success(function (response) {
+            load();
+        });
     };
 
     $scope.sendMessage = function (e) {
@@ -66,6 +75,14 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         return false;
     }
 
+
+    $scope.showExistingEmptyPlace = function () {
+        if ($scope.game)
+            return $scope.game.Players.length < MaxPlayersCount && $scope.game.IsGuest;
+
+        return false;
+    };
+
     $scope.isPlayerMe = function (player) {
         return player.UserId == $scope.game.MyId;
     }
@@ -74,7 +91,6 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     eventAggregatorService.subscribe("chatMessage", function (e, data) {
         $scope.$apply(function () {
             $scope.messages.unshift(data);
-
             if (msgCont)
                 msgCont.scrollTop = 0;
         });
@@ -120,14 +136,16 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
     eventAggregatorService.subscribe("bidMade", function (e, data) {
         var player = getPlayer(data.UserId);
-        player.Cash = data.NewCashValue;
-        player.Bid = data.Bid;
-        $scope.game.MaxBid = data.MaxBid;
+        if (player) {
+            player.Cash = data.NewCashValue;
+            player.Bid = data.Bid;
+            $scope.game.MaxBid = data.MaxBid;
 
-        initUserRates();
-        $scope.$apply();
+            initUserRates();
+            $scope.$apply();
 
-        addLog(logs.bidMade, { name: player.Name });
+            addLog(logs.bidMade, { name: player.Name });
+        }
     });
 
 
@@ -162,6 +180,12 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         addLog(logs.gameFinished);
     });
 
+    eventAggregatorService.subscribe("playerJoined", function (e, data) {
+
+        $scope.game.Players.push(data.NewPlayer);
+        $scope.$apply();
+    });
+
 
     function trustSuitsAsHtml(game) {
 
@@ -187,52 +211,57 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         }
     }
 
+
     function initUserRates() {
 
-        var me = getPlayer($scope.game.MyId);
         $scope.rates = [];
 
-        var bigBlind = $scope.game.SmallBlind * 2;
-        var availableCash = me.Cash - $scope.game.MaxBid + bigBlind;
+        if (!$scope.game.IsGuest) {
 
-        if (availableCash > 0) {
+            var me = getPlayer($scope.game.MyId);
 
-            var reminder = availableCash % bigBlind;
-            var loopCashValue = availableCash - reminder;
-            var rate = 0;
+            var bigBlind = $scope.game.SmallBlind * 2;
+            var availableCash = me.Cash - $scope.game.MaxBid + bigBlind;
 
-            while (loopCashValue) {
+            if (availableCash > 0) {
 
-                if (rate == 0) {
-                    rate = $scope.game.MaxBid;
-                    $scope.rates.push(rate);
-                } else {
-                    rate += bigBlind;
-                    $scope.rates.push(rate);
+                var reminder = availableCash % bigBlind;
+                var loopCashValue = availableCash - reminder;
+                var rate = 0;
+
+                while (loopCashValue) {
+
+                    if (rate == 0) {
+                        rate = $scope.game.MaxBid;
+                        $scope.rates.push(rate);
+                    } else {
+                        rate += bigBlind;
+                        $scope.rates.push(rate);
+                    }
+
+                    loopCashValue -= bigBlind;
                 }
 
-                loopCashValue -= bigBlind;
+                if (reminder != 0) {
+                    var lastRate = $scope.rates[$scope.rates.length - 1];
+                    $scope.rates.push(lastRate + reminder);
+                }
+
+                $scope.rateIndex = 0; /* set rate that satisfies raising condition */
+                $scope.rateMaxIndex = $scope.rates.length - 1;
+
+
+                $('.bubble').css('display', 'none');
             }
-
-            if (reminder != 0) {
-                var lastRate = $scope.rates[$scope.rates.length - 1];
-                $scope.rates.push(lastRate + reminder);
-            }
-
-            $scope.rateIndex = 0;
-            $scope.rateMaxIndex = $scope.rates.length - 1;
-
-            $('.bubble').css('display', 'none');
-
-            $scope.currentUserRate = function (index) {
-                $scope.RaiseValue = $scope.rates[index];
-                $scope.rateIndex = index;
-                return $scope.rates[index].toString();
-            };
         }
 
         // TODO: logic if not enough cash
     }
+
+
+    $scope.currentRateIndex = function (index) {
+        $scope.rateIndex = index;
+    };
 
     var logs = {
         gameCreated: "New game is created",
@@ -280,4 +309,6 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 var keyCode = {
     Enter: 13
 };
+
+var MaxPlayersCount = 10;
 

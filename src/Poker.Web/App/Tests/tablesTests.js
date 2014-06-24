@@ -13,12 +13,14 @@ describe('Tables Controller Tests', function () {
             Id: 1,
             BuyIn: 1000,
             SmallBind: 10,
+            Players: [],
             Name: "Table1"
         },
         {
             Id: 2,
             BuyIn: 1200,
             SmallBind: 15,
+            Players: [{ UserId: "me1" }, { UserId: "me2" }],
             Name: "Table2"
         }
     ];
@@ -80,6 +82,18 @@ describe('Tables Controller Tests', function () {
         scope.join(table);
         http.flush();
         expect(location.path()).toBe('/game/view/123');
+    });
+
+    it('should disable view button if table has no game yet', function () {
+        http.flush();
+        var disabled = scope.viewIsAvailable(scope.items[0]);
+        expect(disabled).toBe(true);
+    });
+
+    it('should enable view button if table has game', function () {
+        http.flush();
+        var disabled = scope.viewIsAvailable(scope.items[1]);
+        expect(disabled).toBe(false);
     });
 
 });

@@ -3,7 +3,7 @@
     <table class="table table-condensed">
         <thead>
             <tr>
-                
+
                 <th>Name</th>
                 <th class="span1">Buy In</th>
                 <th class="span1">Small Blind</th>
@@ -13,13 +13,18 @@
         </thead>
         <tbody>
             <tr ng-repeat="item in items">
-               
-                <td>{{item.Name}}</td>
-                <td>${{item.BuyIn}}</td>
-                <td>${{item.SmallBlind}}</td>
-                <td>{{item.Players.length}}/{{item.MaxPlayers}}</td>
-                 <td>
-                    <a href="" class="btn btn-success btn-mini" ng-click="join(item)">Join</a>
+
+                <td style="width: 60%">{{item.Name}}</td>
+                <td style="width: 10%">${{item.BuyIn}}</td>
+                <td style="width: 10%">${{item.SmallBlind}}</td>
+                <td style="width: 10%">{{item.Players.length}}/{{item.MaxPlayers}}</td>
+                <td style="width: 20%">
+
+                    <div class="btn-group">
+                        <button class="btn btn-info btn-mini width-1" ng-disabled="viewIsAvailable(item)" ng-click="view(item)">View</button>
+                        <button class="btn btn-success btn-mini width-1" ng-click="join(item)">Join</button>
+                    </div>
+
                 </td>
             </tr>
         </tbody>

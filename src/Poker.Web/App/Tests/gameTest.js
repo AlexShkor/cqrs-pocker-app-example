@@ -19,6 +19,7 @@ describe('Game Controller Test', function () {
         MyId: "me1",
         Name: "Game 123",
         SmallBlind: 5,
+        IsGuest: false,
 
         Players: [
         {
@@ -160,6 +161,17 @@ describe('Game Controller Test', function () {
                 expect(rate % (scope.game.SmallBlind * 2)).toEqual(0);
         }
     });
+    
+    //it('should set My rate that satisfies raising conditions', function () {
+    //    game.Players[0].Cash = 990;
+    //    game.MaxBid = 50;
+
+    //    http.flush();
+    //    expect(scope.rates[0]).toEqual(50);
+    //    expect(scope.rates[scope.rates.length - 1]).toEqual(990);
+    //    expect(scope.rates[scope.rateIndex]).toEqual(60);
+    //});
+
 
     it('should send request when player checks', function () {
 
@@ -186,7 +198,7 @@ describe('Game Controller Test', function () {
 
         http.flush();
         scope.game.MaxBid = 40;
-        scope.RaiseValue = 50;
+        scope.rateIndex = 5;
         http.expect('POST', '/game/raise').respond(200);
         scope.raise();
     });
@@ -219,7 +231,6 @@ describe('Game Controller Test', function () {
         // verifyNoOutstandingExpectation will be called
     });
 
-
     it('should add highlighted log and replace aliases', function () {
 
         var msg = 'Player /name/ on position /position/ is winner';
@@ -227,6 +238,29 @@ describe('Game Controller Test', function () {
         var log = scope.Logs[scope.Logs.length - 1];
         expect(log.msg).toContain('Player Nik on position 5 is winner');
         expect(log.ishighlighted).toBe(true);
+    });
+
+
+    it('should not init rates for guest', function () {
+        game.MyId = 'guest1';
+        game.IsGuest = true;
+        http.flush();
+    });
+
+    it('should show existing empty place for guest', function () {
+        game.MyId = 'guest1';
+        game.IsGuest = true;
+        http.flush();
+        var show = scope.showExistingEmptyPlace();
+        expect(show).toBe(true);
+    });
+
+    it('should not show existing empty place for player', function () {
+        game.MyId = 'me1';
+        game.IsGuest = false;
+        http.flush();
+        var show = scope.showExistingEmptyPlace();
+        expect(show).toBe(false);
     });
 
 });
