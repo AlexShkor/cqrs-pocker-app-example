@@ -140,3 +140,23 @@
     max-height: 120px;
     overflow: auto;
 }
+
+.msg {
+    color: white;
+}
+
+.call-note {
+    color: #6CD1EE;
+}
+
+.raise-note {
+    color: #f89406;
+}
+
+.check-note {
+    color: #58B358;
+}
+
+.fold-note {
+    color: #D3514B;
+}

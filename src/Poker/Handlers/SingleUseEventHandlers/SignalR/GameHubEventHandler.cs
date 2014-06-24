@@ -40,7 +40,8 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
                 UserId = e.Bid.UserId,
                 NewCashValue = e.Bid.NewCashValue,
                 Bid = e.Bid.Bid,
-                MaxBid = maxBid
+                BidType = ((BidTypeEnum)e.Bid.BidType).ToString(),
+                MaxBid = maxBid,
             });
         }
 

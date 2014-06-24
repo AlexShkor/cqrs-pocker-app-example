@@ -58,7 +58,7 @@
         <div class="span3 voffset4">
             <button ng-click="check()" ng-disabled="!isMyTurn()" class="btn btn-success ">Check</button>
             <button ng-click="fold()" ng-disabled="!isMyTurn()" class="btn btn-danger ">Fold</button>
-            <button ng-click="call()" ng-disabled="!isMyTurn()" class="btn btn-warning ">Call</button>
+            <button ng-click="call()" ng-disabled="!isMyTurn()" class="btn btn-info ">Call</button>
             <button ng-click="raise()" ng-disabled="!isMyTurn() || rateIndex == 0" class="btn btn-warning ">Raise</button>
 
             @*<span class="label label-warning pull-right" ng-show="isMyTurn()">Your turn</span>*@
@@ -80,10 +80,9 @@
 
         <div class="well span5">
             <ul id="logs" class="log-container">
-                <li ng-repeat='log in Logs' ng-class="{highlight: log.ishighlighted}">{{log.msg}}</li>
+                <li ng-repeat='log in Logs' class="{{log.css}}">{{log.msg}}</li>
             </ul>
         </div>
-
 
         <div class="well span6">
             <div ng-keyup="sendMessage($event)">
@@ -93,7 +92,7 @@
             <div class="clearfix"></div>
             <hr />
             <ul id="msgs" class="msg-container">
-                <li ng-repeat="message in messages">[{{message.Time}}] {{message.Name}}: {{message.Content}}</li>
+                <li class="msg" ng-repeat="message in messages">[{{message.Time}}] {{message.Name}}: {{message.Content}}</li>
             </ul>
         </div>
 
