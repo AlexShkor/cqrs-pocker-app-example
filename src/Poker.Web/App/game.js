@@ -9,9 +9,12 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
     signalsService.invoke("connectToTable", $stateParams.tableId);
 
+    var timeForTurnConst = 20;
+
     $scope.RaiseValue = 0;
     $scope.Logs = [];
-
+    $scope.timeForTurn = timeForTurnConst;
+    $scope.timeBarWidth = "100%";
     $scope.messages = [];
     $scope.newMessage = "";
 
@@ -99,6 +102,21 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     $scope.refresh = function () {
         load();
     };
+    $scope.onTimeout = function () {
+        var newValue = $scope.timeForTurn - 0.1;
+        if (newValue > 0) {
+            $scope.timeForTurn = newValue;
+            $scope.timeBarWidth = ($scope.timeForTurn / timeForTurnConst)*100;
+        } else {
+            //next turn
+        }
+        mytimeout = $timeout($scope.onTimeout, 100);
+    }
+    var mytimeout = $timeout($scope.onTimeout, 100);
+
+    $scope.stop = function () {
+        $timeout.cancel(mytimeout);
+    }
 
     var gameCreationDelay = 1000; // ms
 
@@ -164,6 +182,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         }
 
         $scope.game.CurrentPlayerId = data.CurrentPlayerId;
+        $scope.timeForTurn = timeForTurnConst;
         $scope.$apply();
 
         addLog(logs.playerTurned, { name: currentPlayerName });

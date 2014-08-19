@@ -18,6 +18,8 @@ namespace Poker.ViewModel
         public bool IsInGame { get; set; }
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
+        public string AvatarUrl { get; set; }
+
         public string BlindText
         {
             get
@@ -44,6 +46,7 @@ namespace Poker.ViewModel
             IsSmallBlind = doc.IsSmallBlind;
             IsBigBlind = doc.IsBigBlind;
             IsInGame = doc.Cards.Count != 0;
+            AvatarUrl = AvatarsService.GetUrlById(doc.AvatarId);
 
             if (IsMe)
             {

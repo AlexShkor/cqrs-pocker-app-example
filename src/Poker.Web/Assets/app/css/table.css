@@ -9,6 +9,103 @@
     border: 10px solid #43290e;
 }
 
+
+    .time-bar {
+        color: green;
+        border-color: #22FF66;
+        border-width: 2px;
+        margin: 0 0 -2px 0;
+        padding: 0;
+    }
+.player-cards {
+    width: 90px;
+    float: left;
+    clear: right;
+    padding-top: 4px;
+}
+.player-info{
+
+    width: 70px;
+    float: right;
+    padding-top: 4px;
+}
+
+.poker-bids {
+     list-style-type: none;
+    width: 750px;
+    height: 290px;
+    position: relative;
+    margin: -110px -10px;
+}
+
+.poker-bids > li {
+     position: absolute;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        font-size: 12px;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+}
+
+.player-bid span{
+    font-weight: bold;
+    
+    margin-top: 10px;
+display: block;
+}
+
+   .poker-bids > li:nth-child(1) {
+        top: -20px;
+        left: 90px;
+    }
+
+.poker-bids > li:nth-child(2) {
+     top: -60px;
+        left: 180px;
+}
+
+.poker-bids > li:nth-child(3) {
+       top: -60px;
+        left: 370px;
+}
+
+.poker-bids > li:nth-child(4) {
+     top: -60px;
+        left: 560px;
+}
+
+.poker-bids > li:nth-child(5) {
+      top: -30px;
+        left: 650px;
+}
+
+.poker-bids > li:nth-child(6) {
+        top: 50px;
+        left: 650px;
+}
+
+.poker-bids > li:nth-child(7) {
+       top: 100px;
+        left: 560px;
+}
+
+.poker-bids > li:nth-child(8) {
+      top: 100px;
+        left: 370px;
+}
+
+.poker-bids > li:nth-child(9) {
+     top: 100px;
+        left: 180px;
+}
+
+.poker-bids > li:nth-child(10) {
+      top: 50px;
+        left: 90px;
+}
+
 .poker-players {
     list-style-type: none;
     width: 750px;

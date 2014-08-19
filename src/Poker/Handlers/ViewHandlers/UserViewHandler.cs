@@ -3,6 +3,7 @@ using Poker.Domain.Aggregates.User.Events;
 using Poker.Platform.Dispatching;
 using Poker.Platform.Dispatching.Attributes;
 using Poker.Platform.Dispatching.Interfaces;
+using Poker.Platform.Extensions;
 using Poker.Views;
 using Uniform;
 
@@ -52,6 +53,14 @@ namespace Poker.Handlers.ViewHandlers
             {
                 u.PasswordHash = e.PasswordHash;
                 u.PasswordSalt = e.PasswordSalt;
+            });
+        }
+
+        public void Handle(ProfileAvatarSet e)
+        {
+            _users.Update(e.Id, u =>
+            {
+                u.AvatarId = e.AvatarId;
             });
         }
 

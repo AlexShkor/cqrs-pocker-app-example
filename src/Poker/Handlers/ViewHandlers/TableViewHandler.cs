@@ -74,7 +74,8 @@ namespace Poker.Handlers.ViewHandlers
                 UserId = e.UserId,
                 Position = e.Position,
                 Cash = e.Cash,
-                Name = user.UserName
+                Name = user.UserName,
+                AvatarId = user.AvatarId
             }));
         }
 

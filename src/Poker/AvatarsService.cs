@@ -7,6 +7,8 @@ namespace Poker
 {
     public class AvatarsService
     {
+        const string Root = "/assets/avatars/";
+
         public IEnumerable<AvatarInfo> GetAll()
         {
             return Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "avatars"))
@@ -15,8 +17,13 @@ namespace Poker
                 .Select(x => new AvatarInfo
                 {
                     Id = x.Name,
-                    Url = "/assets/avatars/" + x.Name
+                    Url = Root + x.Name
                 });
+        }
+
+        public static string GetUrlById(string avatarId)
+        {
+            return Root + (avatarId ?? "sample_avatar.jpg");
         }
     }
 

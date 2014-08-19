@@ -15,6 +15,7 @@ namespace Poker.Views
         public DateTime CreationDate { get; set; }
         public string FacebookId { get; set; }
         public long Cash { get; set; }
+        public string AvatarId { get; set; }
 
         public UserView()
         {

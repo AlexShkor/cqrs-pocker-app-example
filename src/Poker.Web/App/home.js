@@ -24,7 +24,11 @@ angular.module('poker.home', [])
                 $scope.avatars.push(data[i]);
             }
         });
+        $http.post("/profile/myavatar", {}).success(function (data) {
+            $scope.currentAvatar = data.avatarUrl;
+        });
         $scope.choose = function(avatar) {
             $scope.currentAvatar = avatar.Url;
+            $http.post("/profile/setavatar", { avatarId: avatar.Id });
         }
     });

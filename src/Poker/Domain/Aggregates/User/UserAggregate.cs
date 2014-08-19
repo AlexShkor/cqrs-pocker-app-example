@@ -80,5 +80,14 @@ namespace Poker.Domain.Aggregates.User
                 UserName = c.UserName
             });
         }
+
+        public void SetProfileAvatar(string avatarId)
+        {
+            Apply(new ProfileAvatarSet
+            {
+                Id = State.Id,
+                AvatarId = avatarId
+            });
+        }
     }
 }

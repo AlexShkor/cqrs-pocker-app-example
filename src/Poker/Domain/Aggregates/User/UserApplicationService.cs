@@ -45,5 +45,10 @@ namespace Poker.Domain.Aggregates.User
         {
             _repository.Perform(c.Id, user => user.UpdateDetails(c));
         }
+
+        public void Handle(SetProfileAvatar c)
+        {
+            _repository.Perform(c.Id, user => user.SetProfileAvatar(c.AvatarId));
+        }
     }
 }

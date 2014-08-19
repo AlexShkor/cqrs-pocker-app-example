@@ -93,7 +93,7 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
             var newPlayer = table.Players.Find(p => p.UserId == e.UserId);
             UsersHub.CurrentContext.Clients.Group(e.Id).playerJoined(new
             {
-                NewPlayer = newPlayer
+                NewPlayer = new PlayerViewModel(newPlayer, "")
             });
 
         }
