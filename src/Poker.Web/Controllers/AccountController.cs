@@ -53,12 +53,13 @@ namespace Poker.Web.Controllers
             _settings = settings;
         }
 
+        [GET("login")]
         public ActionResult Login(string returnUrl)
         {
             return View(new LoginModel{ReturnUrl = returnUrl, RememberMe = true});
         }
 
-        [HttpPost]
+        [POST("login")]
         public ActionResult Login(LoginModel loginModel)
         {
             var user = _authenticationService.ValidateUser(loginModel.Email, loginModel.Password);
@@ -79,6 +80,7 @@ namespace Poker.Web.Controllers
             return Redirect("/");
         }
 
+        [GET("LogOff")]
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
@@ -88,12 +90,13 @@ namespace Poker.Web.Controllers
             return Redirect("/");
         }
 
+        [GET("Register")]
         public ActionResult Register(string returnUrl)
         {
             return View(new SignUpModel(){ReturnUrl = returnUrl});
         }
 
-        [HttpPost]
+        [POST("Register")]
         public ActionResult Register(SignUpModel signUpModel)
         {
             if (!ModelState.IsValid) return View(signUpModel);
@@ -129,6 +132,7 @@ namespace Poker.Web.Controllers
         }
 
         [FacebookAuthorize]
+        [GET("ProcessFacebook")]
         public ActionResult ProcessFacebook(string returnUrl)
         {
             if (Request.IsAuthenticated)
@@ -157,6 +161,7 @@ namespace Poker.Web.Controllers
             return Redirect("/");
         }
 
+        [GET("LoginWithFacebook")]
         public ActionResult LoginWithFacebook(string returnUrl)
         {
             var csrfToken = Guid.NewGuid().ToString();
@@ -181,6 +186,7 @@ namespace Poker.Web.Controllers
             return RedirectToAction("ProcessFacebook", new { returnUrl });
         }
 
+        [GET("FacebookCallback")]
         public ActionResult FacebookCallback(string code, string state)
         {
             if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(state))

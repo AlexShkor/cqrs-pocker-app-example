@@ -30,6 +30,10 @@
     padding-top: 4px;
 }
 
+.player-cash {
+    color: yellow;
+}
+
 .poker-bids {
      list-style-type: none;
     width: 750px;
@@ -47,11 +51,13 @@
         width: 40px;
         height: 40px;
         text-align: center;
+
+    background-image: url("/assets/chips.png");
+    background-size: 40px;
 }
 
 .player-bid span{
     font-weight: bold;
-    
     margin-top: 10px;
 display: block;
 }

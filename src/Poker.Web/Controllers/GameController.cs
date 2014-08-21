@@ -23,14 +23,13 @@ namespace Poker.Web.Controllers
             _tables = tables;
         }
 
-        [GET("")]
+        [GET("template")]
         public ActionResult Index(string tableId)
         {
             return PartialView("Game");
         }
 
-
-        [POST("view/{tableId}")]
+        [POST("load")]
         public ActionResult Load(string tableId)
         {
             var table = _tables.GetById(tableId);

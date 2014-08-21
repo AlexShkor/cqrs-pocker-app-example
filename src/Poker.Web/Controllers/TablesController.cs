@@ -25,7 +25,7 @@ namespace Poker.Web.Controllers
         }
 
 
-        [GET("")]
+        [GET("view")]
         public ActionResult Index()
         {
             return PartialView("Tables");

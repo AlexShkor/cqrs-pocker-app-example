@@ -25,13 +25,13 @@
                     </div>
                     <div class="player-info">
                         <div>
-                            <span >${{player.Cash}}</span>
+                            <span class="player-cash">${{player.Cash}}</span>
                         </div>
                         <div class="pull-right">
                             <span style="margin-right: 5px; padding: 2px;" ng-show="player.IsSmallBlind || player.IsBigBlind" ng-class="{'label label-warning' : player.IsSmallBlind, 'label label-info' : player.IsBigBlind }">{{player.BlindText}}</span>
                         </div>
                         <div class="pull-right">
-                            <img class="pull-right" ng-src="{{player.AvatarUrl}}" style="margin-right: 15px; margin-top: 5px; height: 40px" alt="avatar" src="/Assets/sample_avatar.jpg"></img>
+                            <img class="pull-right" ng-src="{{player.AvatarUrl}}" style="margin-right: 15px; margin-top: 5px; height: 40px" alt="avatar"></img>
                         </div>
                     </div>
                 </li>
@@ -46,8 +46,8 @@
             
             <ol class="poker-bids">
 
-                <li class="well player-bid" ng-repeat="player in game.Players">
-                        <span>{{player.Bid}}</span>
+                <li class="player-bid" ng-show="player.Bid > 0" ng-repeat="player in game.Players">
+                    <span>{{player.Bid}}</span>
                 </li>
 
             </ol>
