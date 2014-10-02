@@ -118,6 +118,7 @@
     <Compile Include="AvatarsService.cs" />
     <Compile Include="Domain\Aggregates\Game\BiddingInfo.cs" />
     <Compile Include="Domain\Aggregates\Game\BiddingStage.cs" />
+    <Compile Include="Domain\Aggregates\Game\Events\BiddingFinished.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\DeckDealed.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\BidMade.cs" />
     <Compile Include="Domain\Aggregates\Game\Events\NextPlayerTurned.cs" />

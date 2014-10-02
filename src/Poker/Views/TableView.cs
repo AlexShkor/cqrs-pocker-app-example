@@ -25,6 +25,8 @@ namespace Poker.Views
 
         public string CurrentPlayerId { get; set; }
 
+        public long LastBet { get; set; }
+
         public TableView()
         {
             Deck = new List<Card>();
@@ -44,6 +46,7 @@ namespace Poker.Views
             player.Cash = bidInfo.NewCashValue;
 
             MarkBlindsIfGameStarts(player, bidInfo.BidType);
+            LastBet = bidInfo.LastBet;
         }
 
         private void MarkBlindsIfGameStarts(PlayerDocument player, BidTypeEnum bidType)

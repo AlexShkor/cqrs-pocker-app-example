@@ -66,20 +66,15 @@ top: -250px;">
     </div>
 
 
-    <div ng-if="!game.IsGuest" class="row-fluid voffset7">
+    <div ng-if="!game.IsGuest" class="row-fluid">
 
-        <div class="span3 voffset4">
+        <div class="span4 voffset4">
             <button ng-click="check()" ng-disabled="!isMyTurn()" class="btn btn-success ">Check</button>
             <button ng-click="fold()" ng-disabled="!isMyTurn()" class="btn btn-danger ">Fold</button>
             <button ng-click="call()" ng-disabled="!isMyTurn()" class="btn btn-info ">Call</button>
-            <button ng-click="raise()" ng-disabled="!isMyTurn() || rateIndex == 0" class="btn btn-warning ">Raise</button>
-
-            @*<span class="label label-warning pull-right" ng-show="isMyTurn()">Your turn</span>*@
+            <button ng-click="raise()" ng-disabled="!isMyTurn()" class="btn btn-warning ">Bet <span>{{ rates[rateIndex] }}</span></button>
         </div>
-
-        <div ng-show="isMyTurn()" class="span2 voffset4 text-center"><span class="well rate-box">{{ rates[rateIndex] }}</span></div>
-
-        <div ng-show="isMyTurn()" class="span7">
+        <div ng-show="isMyTurn()" class="span3">
             <span class="pull-left">{{rates[0]}}</span> <span class="pull-right">{{rates[rates.length - 1]}}</span>
             <rzslider rz-slider-floor="0"
                       rz-slider-ceil="rateMaxIndex"

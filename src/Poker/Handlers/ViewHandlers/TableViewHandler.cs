@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.UI.WebControls;
 using Poker.Databases;
 using Poker.Domain.Aggregates.Game;
 using Poker.Domain.Aggregates.Game.Events;
@@ -84,6 +85,10 @@ namespace Poker.Handlers.ViewHandlers
             _tables.Update(e.Id, table => table.SetBid(e.Bid.UserId, e.Bid));
         }
 
+        public void Handle(BiddingFinished e)
+        {
+            _tables.Update(e.Id, table => table.LastBet = table.SmallBlind);
+        }
 
         public void Handle(PlayerLeft e)
         {

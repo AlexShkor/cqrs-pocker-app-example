@@ -40,6 +40,8 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
                 UserId = e.Bid.UserId,
                 NewCashValue = e.Bid.NewCashValue,
                 Bid = e.Bid.Bid,
+                Odds = e.Bid.Odds,
+                LastBet = e.Bid.LastBet,
                 BidType = ((BidTypeEnum)e.Bid.BidType).ToString(),
                 MaxBid = maxBid,
             });
@@ -98,5 +100,13 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
 
         }
 
+        public void Handle(BiddingFinished e)
+        {
+            UsersHub.CurrentContext.Clients.Group(e.Id).biddingFinished(new
+            {
+                Bank = e.Bank
+            });
+
+        }
     }
 }

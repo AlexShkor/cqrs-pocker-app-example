@@ -39,6 +39,8 @@ namespace Poker.Domain.Aggregates.Game
 
         public long MaxBid { get; set; }
 
+        public long LastBet { get; set; }
+
         public readonly int MaxPlayers = 10;
 
         public GameTableState()
@@ -91,6 +93,10 @@ namespace Poker.Domain.Aggregates.Game
                 }
             });
             On((BidMade e) => AddBid(e.Bid));
+            On((BiddingFinished e) =>
+            {
+                LastBet = SmallBlind;
+            });
             On((NextPlayerTurned e) =>
             {
                 CurrentPlayer = e.Player.Position;
@@ -116,6 +122,14 @@ namespace Poker.Domain.Aggregates.Game
             if (bid.Bid > MaxBid)
             {
                 MaxBid = bid.Bid;
+            }
+            if (bid.BidType == BidTypeEnum.Raise)
+            {
+                LastBet = bid.Odds;
+            }
+            if (bid.BidType == BidTypeEnum.BigBlind)
+            {
+                LastBet = SmallBlind;
             }
         }
 
@@ -195,7 +209,8 @@ namespace Poker.Domain.Aggregates.Game
                 UserId = player.UserId,
                 NewCashValue = user.Cash - bid,
                 BiddingStage = CurrentBidding.Stage,
-                BidType = bidType
+                BidType = bidType,
+                LastBet = LastBet
             };
 
         }
@@ -230,6 +245,7 @@ namespace Poker.Domain.Aggregates.Game
         public long NewCashValue { get; set; }
         public long Odds { get; set; }
         public BidTypeEnum BidType { get; set; }
+        public long LastBet { get; set; }
 
         public bool IsAllIn()
         {

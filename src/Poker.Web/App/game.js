@@ -6,7 +6,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     this.$stateParams = $stateParams;
     this.$http = $http;
     this.eventAggregatorService = eventAggregatorService;
-
+    
     signalsService.invoke("connectToTable", $stateParams.tableId);
 
     var timeForTurnConst = 20;
@@ -42,18 +42,12 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         $http.post("/game/call", { tableId: $scope.game.Id });
     };
 
-    $scope.raise = function () {
-
+    $scope.raise = function() {
         $scope.RaiseValue = $scope.rates[$scope.rateIndex];
-
-        if ($scope.RaiseValue > 0 && $scope.RaiseValue > $scope.game.MaxBid) {
-
-            var player = getPlayer($scope.game.CurrentPlayerId);
-            var amount = $scope.RaiseValue - player.Bid;
-
-            $http.post("/game/raise", { tableId: $scope.game.Id, amount: amount });
-            $scope.RaiseValue = null;
-        }
+        var player = getPlayer($scope.game.CurrentPlayerId);
+        var amount = $scope.RaiseValue - player.Bid;
+        $http.post("/game/raise", { tableId: $scope.game.Id, amount: amount });
+        $scope.RaiseValue = null;
     };
 
     $scope.join = function () {
@@ -161,9 +155,14 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
             initUserRates();
             $scope.$apply();
-
+            $scope.game.LastBet = data.LastBet;
             addLog(logs.bidMade, { name: player.Name, bidType: data.BidType }, data.BidType + '-note');
         }
+    });
+
+    eventAggregatorService.subscribe("biddingFinished", function (e, data) {
+        var bank = data.Bank;
+        $scope.game.LastBet = $scope.game.SmallBind;
     });
 
 
@@ -239,36 +238,20 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
             var me = getPlayer($scope.game.MyId);
 
-            var bigBlind = $scope.game.SmallBlind * 2;
-            var availableCash = me.Cash - $scope.game.MaxBid + bigBlind;
-
-            if (availableCash > 0) {
-
-                var reminder = availableCash % bigBlind;
-                var loopCashValue = availableCash - reminder;
-                var rate = 0;
-
-                while (loopCashValue) {
-
-                    if (rate == 0) {
-                        rate = $scope.game.MaxBid;
-                        $scope.rates.push(rate);
-                    } else {
-                        rate += bigBlind;
-                        $scope.rates.push(rate);
-                    }
-
-                    loopCashValue -= bigBlind;
+            var smallBlind = $scope.game.SmallBlind;
+            
+            var minBet = $scope.game.LastBet * 2;
+            var betRange = me.Cash - minBet;
+            if (betRange > 0) {
+                var bet = minBet;
+                while (betRange) {
+                    $scope.rates.push(bet);
+                    bet += smallBlind;
+                    betRange -= smallBlind;
                 }
-
-                if (reminder != 0) {
-                    var lastRate = $scope.rates[$scope.rates.length - 1];
-                    $scope.rates.push(lastRate + reminder);
-                }
-
+                $scope.rates.push(bet);
                 $scope.rateIndex = 0;
                 $scope.rateMaxIndex = $scope.rates.length - 1;
-
 
                 $('.bubble').css('display', 'none');
             }
