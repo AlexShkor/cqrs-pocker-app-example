@@ -40,6 +40,7 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
                 UserId = e.Bid.UserId,
                 NewCashValue = e.Bid.NewCashValue,
                 Bid = e.Bid.Bid,
+                Bet = e.Bid.Bet,
                 Odds = e.Bid.Odds,
                 LastBet = e.Bid.LastBet,
                 BidType = ((BidTypeEnum)e.Bid.BidType).ToString(),

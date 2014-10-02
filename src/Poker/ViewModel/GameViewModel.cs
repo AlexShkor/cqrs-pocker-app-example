@@ -14,6 +14,7 @@ namespace Poker.ViewModel
             BuyIn = view.BuyIn;
             SmallBlind = view.SmallBlind;
             LastBet = view.LastBet;
+            Bank = view.Bank;
             MyId = userId;
             CurrentPlayerId = view.CurrentPlayerId;
             Deck = view.Deck.Select(x => new CardViewModel(x)).ToList();
@@ -35,6 +36,8 @@ namespace Poker.ViewModel
         public long SmallBlind { get; set; }
 
         public long LastBet { get; set; }
+
+        public long Bank { get; set; }
 
         public List<CardViewModel> Deck { get; set; }
 

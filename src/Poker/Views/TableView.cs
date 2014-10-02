@@ -26,6 +26,7 @@ namespace Poker.Views
         public string CurrentPlayerId { get; set; }
 
         public long LastBet { get; set; }
+        public long Bank { get; set; }
 
         public TableView()
         {
@@ -44,7 +45,7 @@ namespace Poker.Views
             var player = GetPlayer(userId);
             player.Bid = bidInfo.Bid;
             player.Cash = bidInfo.NewCashValue;
-
+            player.Bet = bidInfo.Bet;
             MarkBlindsIfGameStarts(player, bidInfo.BidType);
             LastBet = bidInfo.LastBet;
         }

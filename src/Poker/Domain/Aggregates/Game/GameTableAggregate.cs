@@ -237,14 +237,14 @@ namespace Poker.Domain.Aggregates.Game
             IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
-            var bid = State.MaxBid - player.Bid;
+            var amount = State.MaxBid - player.Bid;
             if (!player.Fold)
             {
                 Apply(new BidMade
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    Bid = State.GetBidInfo(player.Position, bid, BidTypeEnum.Call)
+                    Bid = State.GetBidInfo(player.Position, amount, BidTypeEnum.Call)
                 });
                 NextTurn(player.Position);
             }

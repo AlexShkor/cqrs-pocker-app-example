@@ -38,7 +38,7 @@ namespace Poker.ViewModel
         {
             Position = doc.Position;
             Cash = doc.Cash;
-            Bid = doc.Bid;
+            Bid = doc.Bet;
             UserId = doc.UserId;
             Name = doc.Name;
             IsMe = UserId == myUserId;

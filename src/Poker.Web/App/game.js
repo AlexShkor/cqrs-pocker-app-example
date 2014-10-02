@@ -150,7 +150,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         var player = getPlayer(data.UserId);
         if (player) {
             player.Cash = data.NewCashValue;
-            player.Bid = data.Bid;
+            player.Bid = data.Bet;
             $scope.game.MaxBid = data.MaxBid;
 
             initUserRates();
@@ -161,8 +161,9 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     });
 
     eventAggregatorService.subscribe("biddingFinished", function (e, data) {
-        var bank = data.Bank;
         $scope.game.LastBet = $scope.game.SmallBind;
+        $scope.game.Bank = data.Bank;
+        resetAllBids();
     });
 
 
@@ -204,6 +205,12 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         $scope.$apply();
     });
 
+
+    function resetAllBids() {
+        for (var i = 0; i < $scope.game.Players.length; i++) {
+            $scope.game.Players[i].Bid = 0;
+        }
+    }
 
     function trustSuitsAsHtml(game) {
 
