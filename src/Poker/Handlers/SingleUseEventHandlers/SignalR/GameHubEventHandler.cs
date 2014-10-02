@@ -45,6 +45,7 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
                 LastBet = e.Bid.LastBet,
                 BidType = ((BidTypeEnum)e.Bid.BidType).ToString(),
                 MaxBid = maxBid,
+                MaxBet = e.Bid.GetMaxBet()
             });
         }
 

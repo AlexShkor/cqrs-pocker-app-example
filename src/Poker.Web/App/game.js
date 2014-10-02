@@ -45,7 +45,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     $scope.raise = function() {
         $scope.RaiseValue = $scope.rates[$scope.rateIndex];
         var player = getPlayer($scope.game.CurrentPlayerId);
-        var amount = $scope.RaiseValue - player.Bid;
+        var amount = $scope.RaiseValue - player.Bet;
         $http.post("/game/raise", { tableId: $scope.game.Id, amount: amount });
         $scope.RaiseValue = null;
     };
@@ -150,20 +150,22 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         var player = getPlayer(data.UserId);
         if (player) {
             player.Cash = data.NewCashValue;
-            player.Bid = data.Bet;
+            player.Bet = data.Bet;
             $scope.game.MaxBid = data.MaxBid;
-
+            $scope.game.MaxBet = data.MaxBet;
+            $scope.game.MaxRaise = data.MaxRaise;
             initUserRates();
             $scope.$apply();
-            $scope.game.LastBet = data.LastBet;
             addLog(logs.bidMade, { name: player.Name, bidType: data.BidType }, data.BidType + '-note');
         }
     });
 
     eventAggregatorService.subscribe("biddingFinished", function (e, data) {
-        $scope.game.LastBet = $scope.game.SmallBind;
+        $scope.game.MaxBet = $scope.game.SmallBind;
         $scope.game.Bank = data.Bank;
         resetAllBids();
+        initUserRates();
+        $scope.$apply();
     });
 
 
@@ -247,7 +249,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
             var smallBlind = $scope.game.SmallBlind;
             
-            var minBet = $scope.game.LastBet * 2;
+            var minBet = $scope.game.MaxRaise  + $scope.game.MaxBet;
             var betRange = me.Cash - minBet;
             if (betRange > 0) {
                 var bet = minBet;

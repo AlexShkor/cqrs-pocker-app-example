@@ -24,9 +24,9 @@ namespace Poker.Views
         public List<PlayerDocument> Players { get; set; }
 
         public string CurrentPlayerId { get; set; }
-
-        public long LastBet { get; set; }
         public long Bank { get; set; }
+        public long MaxBet { get; set; }
+        public long MaxRaise { get; set; }
 
         public TableView()
         {
@@ -47,7 +47,7 @@ namespace Poker.Views
             player.Cash = bidInfo.NewCashValue;
             player.Bet = bidInfo.Bet;
             MarkBlindsIfGameStarts(player, bidInfo.BidType);
-            LastBet = bidInfo.LastBet;
+            MaxBet = bidInfo.GetMaxBet();
         }
 
         private void MarkBlindsIfGameStarts(PlayerDocument player, BidTypeEnum bidType)

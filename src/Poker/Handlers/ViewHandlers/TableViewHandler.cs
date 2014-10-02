@@ -82,14 +82,18 @@ namespace Poker.Handlers.ViewHandlers
 
         public void Handle(BidMade e)
         {
-            _tables.Update(e.Id, table => table.SetBid(e.Bid.UserId, e.Bid));
+            _tables.Update(e.Id, table =>
+            {
+                table.SetBid(e.Bid.UserId, e.Bid);
+                table.MaxRaise = e.Bid.MaxRaise;
+            });
         }
 
         public void Handle(BiddingFinished e)
         {
             _tables.Update(e.Id, table =>
             {
-                table.LastBet = table.SmallBlind;
+                table.MaxBet = table.SmallBlind;
                 table.Bank = e.Bank;
                 foreach (var player in table.Players)
                 {

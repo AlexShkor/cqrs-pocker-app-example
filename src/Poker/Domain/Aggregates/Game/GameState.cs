@@ -40,6 +40,8 @@ namespace Poker.Domain.Aggregates.Game
 
         public long LastBet { get; set; }
 
+        public long MaxRaise { get; set; }
+
         public readonly int MaxPlayers = 10;
 
         public GameTableState()
@@ -91,7 +93,7 @@ namespace Poker.Domain.Aggregates.Game
                     Players[playerCard.Position].Cards.Add(playerCard.Card);
                 }
             });
-            On((BidMade e) => AddBid(e.Bid));
+            On((BidMade e) => AddBidEvent(e.Bid));
             On((BiddingFinished e) =>
             {
                 LastBet = SmallBlind;
@@ -111,7 +113,7 @@ namespace Poker.Domain.Aggregates.Game
             });
         }
 
-        private void AddBid(BidInfo bid)
+        private void AddBidEvent(BidInfo bid)
         {
             CurrentBidding.AddBid(bid);
             Players[bid.Position].Bid = bid.Bid;
@@ -124,12 +126,13 @@ namespace Poker.Domain.Aggregates.Game
             }
             if (bid.BidType == BidTypeEnum.Raise)
             {
-                LastBet = bid.Odds;
+                LastBet = bid.Bet;
             }
             if (bid.BidType == BidTypeEnum.BigBlind)
             {
                 LastBet = SmallBlind;
             }
+            MaxRaise = bid.MaxRaise;
         }
 
         private void SitPlayers(IEnumerable<TablePlayer> players)
@@ -200,17 +203,18 @@ namespace Poker.Domain.Aggregates.Game
             {
                 throw new InvalidOperationException("Not enought cash for user {0} ");
             }
+            var bet = CurrentBidding.CurrentStage.GetBetForPlayer(position) + amount;
             return new BidInfo
             {
                 Position = position,
                 Bid = player.Bid + amount,
                 Odds = amount,
-                Bet = CurrentBidding.CurrentStage.GetBetForPlayer(position) + amount,
+                Bet = bet,
                 UserId = player.UserId,
                 NewCashValue = user.Cash - amount,
                 BiddingStage = CurrentBidding.Stage,
                 BidType = bidType,
-                LastBet = LastBet
+                MaxRaise = Math.Max(MaxRaise, bet - LastBet)
             };
 
         }
@@ -247,6 +251,7 @@ namespace Poker.Domain.Aggregates.Game
         public BidTypeEnum BidType { get; set; }
         public long LastBet { get; set; }
         public long Bet { get; set; }
+        public long MaxRaise { get; set; }
 
         public bool IsAllIn()
         {
@@ -256,6 +261,11 @@ namespace Poker.Domain.Aggregates.Game
         public bool IsFold()
         {
             return BidType == BidTypeEnum.Fold;
+        }
+
+        public long GetMaxBet()
+        {
+            return Math.Max(LastBet, Bet);
         }
     }
 
