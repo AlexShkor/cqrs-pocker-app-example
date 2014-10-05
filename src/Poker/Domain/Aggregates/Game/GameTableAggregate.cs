@@ -96,6 +96,12 @@ namespace Poker.Domain.Aggregates.Game
             {
                 if (CheckBiddingFinished())
                 {
+                    Apply(new BiddingFinished
+                    {
+                        Id = State.TableId,
+                        GameId = State.GameId,
+                        Bank = State.CurrentBidding.CurrentStage.GetBank()
+                    });
                     if (State.Deck.Count == 5)
                     {
                         var detector = new WinnerDetector();
@@ -116,6 +122,7 @@ namespace Poker.Domain.Aggregates.Game
                                         winner.Prize, winner.PokerHand.Score)).ToList(),
                             GameId = State.GameId
                         });
+                        //TODO: check for players with not enough money and dissconnect them
                         CreateGame(GenerateGameId());
                         return;
                     }
@@ -230,45 +237,43 @@ namespace Poker.Domain.Aggregates.Game
             IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
-            var bid = State.MaxBid - player.Bid;
+            var amount = State.MaxBid - player.Bid;
             if (!player.Fold)
             {
                 Apply(new BidMade
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    Bid = State.GetBidInfo(player.Position, bid, BidTypeEnum.Call)
+                    Bid = State.GetBidInfo(player.Position, amount, BidTypeEnum.Call)
                 });
                 NextTurn(player.Position);
             }
         }
 
-        public void Raise(string userId, long amount)
+        public void Raise(string userId, long betAmount)
         {
             IsCurrentPlayer(userId);
             var user = State.JoinedPlayers[userId];
             var player = State.Players[user.Position];
 
-            if (!RateMustBeGreaterThanMaxBidByBigBlind(player, amount))
-                throw new InvalidOperationException("Rate must be higher than max bid and multiple to Big Blind while raising");
-
+            if (betAmount % State.SmallBlind != 0)
+                throw new InvalidOperationException("Invalid bet. Should be able to devide on small blind.");
+            var minRaise = State.MaxRaise*2;
+            if (betAmount < minRaise && user.Cash >= minRaise)
+            {
+                throw new InvalidOperationException("While raising bet should be twice or more then previous bet.");
+            }
             if (!player.Fold)
             {
                 Apply(new BidMade
                 {
                     Id = State.TableId,
                     GameId = State.GameId,
-                    Bid = State.GetBidInfo(player.Position, amount, BidTypeEnum.Raise)
+                    Bid = State.GetBidInfo(player.Position, betAmount, BidTypeEnum.Raise)
                 });
                 NextTurn(player.Position);
             }
         }
-
-        private bool RateMustBeGreaterThanMaxBidByBigBlind(GamePlayer player, long amount)
-        {
-            return (player.Bid + amount > State.MaxBid) && (player.Bid + amount) % (State.SmallBlind * 2) == 0;
-        }
-
 
         public void Fold(string userId)
         {

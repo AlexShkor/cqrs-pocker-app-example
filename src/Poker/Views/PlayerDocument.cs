@@ -15,6 +15,7 @@ namespace Poker.Views
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
         public string AvatarId { get; set; }
+        public long Bet { get; set; }
 
         public PlayerDocument()
         {

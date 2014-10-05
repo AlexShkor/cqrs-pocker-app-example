@@ -6,7 +6,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     this.$stateParams = $stateParams;
     this.$http = $http;
     this.eventAggregatorService = eventAggregatorService;
-
+    
     signalsService.invoke("connectToTable", $stateParams.tableId);
 
     var timeForTurnConst = 20;
@@ -42,18 +42,12 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         $http.post("/game/call", { tableId: $scope.game.Id });
     };
 
-    $scope.raise = function () {
-
+    $scope.raise = function() {
         $scope.RaiseValue = $scope.rates[$scope.rateIndex];
-
-        if ($scope.RaiseValue > 0 && $scope.RaiseValue > $scope.game.MaxBid) {
-
-            var player = getPlayer($scope.game.CurrentPlayerId);
-            var amount = $scope.RaiseValue - player.Bid;
-
-            $http.post("/game/raise", { tableId: $scope.game.Id, amount: amount });
-            $scope.RaiseValue = null;
-        }
+        var player = getPlayer($scope.game.CurrentPlayerId);
+        var amount = $scope.RaiseValue - player.Bet;
+        $http.post("/game/raise", { tableId: $scope.game.Id, amount: amount });
+        $scope.RaiseValue = null;
     };
 
     $scope.join = function () {
@@ -156,14 +150,22 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         var player = getPlayer(data.UserId);
         if (player) {
             player.Cash = data.NewCashValue;
-            player.Bid = data.Bid;
+            player.Bet = data.Bet;
             $scope.game.MaxBid = data.MaxBid;
-
+            $scope.game.MaxBet = data.MaxBet;
+            $scope.game.MaxRaise = data.MaxRaise;
             initUserRates();
             $scope.$apply();
-
             addLog(logs.bidMade, { name: player.Name, bidType: data.BidType }, data.BidType + '-note');
         }
+    });
+
+    eventAggregatorService.subscribe("biddingFinished", function (e, data) {
+        $scope.game.MaxBet = $scope.game.SmallBind;
+        $scope.game.Bank = data.Bank;
+        resetAllBids();
+        initUserRates();
+        $scope.$apply();
     });
 
 
@@ -206,6 +208,12 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     });
 
 
+    function resetAllBids() {
+        for (var i = 0; i < $scope.game.Players.length; i++) {
+            $scope.game.Players[i].Bid = 0;
+        }
+    }
+
     function trustSuitsAsHtml(game) {
 
         for (var i = 0; i < game.Players.length; i++) {
@@ -239,36 +247,20 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
             var me = getPlayer($scope.game.MyId);
 
-            var bigBlind = $scope.game.SmallBlind * 2;
-            var availableCash = me.Cash - $scope.game.MaxBid + bigBlind;
-
-            if (availableCash > 0) {
-
-                var reminder = availableCash % bigBlind;
-                var loopCashValue = availableCash - reminder;
-                var rate = 0;
-
-                while (loopCashValue) {
-
-                    if (rate == 0) {
-                        rate = $scope.game.MaxBid;
-                        $scope.rates.push(rate);
-                    } else {
-                        rate += bigBlind;
-                        $scope.rates.push(rate);
-                    }
-
-                    loopCashValue -= bigBlind;
+            var smallBlind = $scope.game.SmallBlind;
+            
+            var minBet = $scope.game.MaxRaise  + $scope.game.MaxBet;
+            var betRange = me.Cash - minBet;
+            if (betRange > 0) {
+                var bet = minBet;
+                while (betRange) {
+                    $scope.rates.push(bet);
+                    bet += smallBlind;
+                    betRange -= smallBlind;
                 }
-
-                if (reminder != 0) {
-                    var lastRate = $scope.rates[$scope.rates.length - 1];
-                    $scope.rates.push(lastRate + reminder);
-                }
-
+                $scope.rates.push(bet);
                 $scope.rateIndex = 0;
                 $scope.rateMaxIndex = $scope.rates.length - 1;
-
 
                 $('.bubble').css('display', 'none');
             }

@@ -52,6 +52,9 @@ angular.module("hubs.service", ['event-agregator'])
             proxy.on('playerJoined', function (data) {
                 eventAggregatorService.publish('playerJoined', data);
             });
+            proxy.on('biddingFinished', function (data) {
+                eventAggregatorService.publish('biddingFinished', data);
+            });
 
         };
 

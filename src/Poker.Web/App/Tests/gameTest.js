@@ -23,7 +23,7 @@ describe('Game Controller Test', function () {
 
         Players: [
         {
-            Bid: 10,
+            Bet: 10,
             Cards: [],
             Cash: 990,
             CurrentTurn: true,
@@ -38,7 +38,7 @@ describe('Game Controller Test', function () {
         },
 
         {
-            Bid: 5,
+            Bet: 5,
             Cards: [],
             Cash: 995,
             CurrentTurn: false,
@@ -53,7 +53,7 @@ describe('Game Controller Test', function () {
         },
 
         {
-            Bid: 0,
+            Bet: 0,
             Cards: [],
             Cash: 1000,
             CurrentTurn: false,

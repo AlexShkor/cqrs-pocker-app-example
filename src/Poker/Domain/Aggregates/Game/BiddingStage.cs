@@ -24,5 +24,10 @@ namespace Poker.Domain.Aggregates.Game
             var maxBid = Bids.Values.Max(x => x.Bid);
             return Bids.Count == _playersCount && Bids.Values.All(x => x.IsAllIn() || x.IsFold() || x.Bid == maxBid);
         }
+
+        public long GetBetForPlayer(int position)
+        {
+            return Bids.ContainsKey(position) ? Bids[position].Bet : 0;
+        }
     }
 }

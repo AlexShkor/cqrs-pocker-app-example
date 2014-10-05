@@ -10,7 +10,6 @@ namespace Poker.Domain.Aggregates.Game
 {
     public sealed class GameTableState : AggregateState
     {
-
         public static readonly int[] Positions = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
         public Dictionary<string, TablePlayer> JoinedPlayers { get; set; }
@@ -38,6 +37,10 @@ namespace Poker.Domain.Aggregates.Game
         public List<Card> Deck { get; set; }
 
         public long MaxBid { get; set; }
+
+        public long LastBet { get; set; }
+
+        public long MaxRaise { get; set; }
 
         public readonly int MaxPlayers = 10;
 
@@ -90,7 +93,11 @@ namespace Poker.Domain.Aggregates.Game
                     Players[playerCard.Position].Cards.Add(playerCard.Card);
                 }
             });
-            On((BidMade e) => AddBid(e.Bid));
+            On((BidMade e) => AddBidEvent(e.Bid));
+            On((BiddingFinished e) =>
+            {
+                LastBet = SmallBlind;
+            });
             On((NextPlayerTurned e) =>
             {
                 CurrentPlayer = e.Player.Position;
@@ -106,7 +113,7 @@ namespace Poker.Domain.Aggregates.Game
             });
         }
 
-        private void AddBid(BidInfo bid)
+        private void AddBidEvent(BidInfo bid)
         {
             CurrentBidding.AddBid(bid);
             Players[bid.Position].Bid = bid.Bid;
@@ -117,6 +124,15 @@ namespace Poker.Domain.Aggregates.Game
             {
                 MaxBid = bid.Bid;
             }
+            if (bid.BidType == BidTypeEnum.Raise)
+            {
+                LastBet = bid.Bet;
+            }
+            if (bid.BidType == BidTypeEnum.BigBlind)
+            {
+                LastBet = SmallBlind;
+            }
+            MaxRaise = bid.MaxRaise;
         }
 
         private void SitPlayers(IEnumerable<TablePlayer> players)
@@ -179,23 +195,26 @@ namespace Poker.Domain.Aggregates.Game
             return new PlayerInfo(Players[position]);
         }
 
-        public BidInfo GetBidInfo(int position, long bid, BidTypeEnum bidType)
+        public BidInfo GetBidInfo(int position, long amount, BidTypeEnum bidType)
         {
             var player = Players[position];
             var user = JoinedPlayers[player.UserId];
-            if (user.Cash < bid)
+            if (user.Cash < amount)
             {
                 throw new InvalidOperationException("Not enought cash for user {0} ");
             }
+            var bet = CurrentBidding.CurrentStage.GetBetForPlayer(position) + amount;
             return new BidInfo
             {
                 Position = position,
-                Bid = player.Bid + bid,
-                Odds = bid,
+                Bid = player.Bid + amount,
+                Odds = amount,
+                Bet = bet,
                 UserId = player.UserId,
-                NewCashValue = user.Cash - bid,
+                NewCashValue = user.Cash - amount,
                 BiddingStage = CurrentBidding.Stage,
-                BidType = bidType
+                BidType = bidType,
+                MaxRaise = Math.Max(MaxRaise, bet - LastBet)
             };
 
         }
@@ -230,6 +249,9 @@ namespace Poker.Domain.Aggregates.Game
         public long NewCashValue { get; set; }
         public long Odds { get; set; }
         public BidTypeEnum BidType { get; set; }
+        public long LastBet { get; set; }
+        public long Bet { get; set; }
+        public long MaxRaise { get; set; }
 
         public bool IsAllIn()
         {
@@ -239,6 +261,11 @@ namespace Poker.Domain.Aggregates.Game
         public bool IsFold()
         {
             return BidType == BidTypeEnum.Fold;
+        }
+
+        public long GetMaxBet()
+        {
+            return Math.Max(LastBet, Bet);
         }
     }
 
