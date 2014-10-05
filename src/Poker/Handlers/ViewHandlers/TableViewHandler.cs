@@ -82,11 +82,7 @@ namespace Poker.Handlers.ViewHandlers
 
         public void Handle(BidMade e)
         {
-            _tables.Update(e.Id, table =>
-            {
-                table.SetBid(e.Bid.UserId, e.Bid);
-                table.MaxRaise = e.Bid.MaxRaise;
-            });
+            _tables.Update(e.Id, table => table.SetBid(e.Bid.UserId, e.Bid));
         }
 
         public void Handle(BiddingFinished e)
@@ -94,6 +90,7 @@ namespace Poker.Handlers.ViewHandlers
             _tables.Update(e.Id, table =>
             {
                 table.MaxBet = table.SmallBlind;
+                table.MinRaise = e.MinRaise;
                 table.Bank = e.Bank;
                 foreach (var player in table.Players)
                 {

@@ -8,6 +8,11 @@ namespace Poker.Domain.Aggregates.Game
         private readonly int _playersCount;
         public Dictionary<int, BidInfo> Bids { get; private set; }
 
+        public int PlayersCount
+        {
+            get { return _playersCount; }
+        }
+
         public BiddingStage(int playersCount)
         {
             _playersCount = playersCount;
@@ -16,18 +21,27 @@ namespace Poker.Domain.Aggregates.Game
 
         public long GetBank()
         {
-            return Bids.Values.Select(x => x.Bid).Sum();
+            return Bids.Values.Select(x => x.Bet).Sum();
         }
 
         public bool IsFinished()
         {
-            var maxBid = Bids.Values.Max(x => x.Bid);
-            return Bids.Count == _playersCount && Bids.Values.All(x => x.IsAllIn() || x.IsFold() || x.Bid == maxBid);
+            var maxBet = GetMaxBet();
+            return Bids.Count == _playersCount && Bids.Values.All(x => x.IsAllIn() || x.IsFold() || x.Bet == maxBet);
         }
 
         public long GetBetForPlayer(int position)
         {
             return Bids.ContainsKey(position) ? Bids[position].Bet : 0;
+        }
+
+        public long GetMaxBet()
+        {
+            if (!Bids.Any())
+            {
+                return 0;
+            }
+            return Bids.Max(x => x.Value.Bet);
         }
     }
 }

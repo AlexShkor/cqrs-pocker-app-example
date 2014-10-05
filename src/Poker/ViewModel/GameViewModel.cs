@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Poker.Views;
@@ -22,6 +23,7 @@ namespace Poker.ViewModel
             Players = view.Players.OrderBy(x => x.Position).Select(x => new PlayerViewModel(x, userId)).ToList();
             MaxBid = view.Players.Select(x => x.Bid).Max();
             IsGuest = view.Players.All(x => x.UserId != userId);
+            MinRaise = view.MinRaise;
         }
 
         public long MaxBet { get; set; }
@@ -47,6 +49,8 @@ namespace Poker.ViewModel
         public long MaxBid { get; set; }
 
         public long MaxRaise { get; set; }
+
+        public long MinRaise { get; set; }
 
         public bool IsGuest { get; set; }
     }

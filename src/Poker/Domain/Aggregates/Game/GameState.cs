@@ -97,6 +97,7 @@ namespace Poker.Domain.Aggregates.Game
             On((BiddingFinished e) =>
             {
                 LastBet = SmallBlind;
+                MaxRaise = 0;
             });
             On((NextPlayerTurned e) =>
             {
@@ -214,7 +215,8 @@ namespace Poker.Domain.Aggregates.Game
                 NewCashValue = user.Cash - amount,
                 BiddingStage = CurrentBidding.Stage,
                 BidType = bidType,
-                MaxRaise = Math.Max(MaxRaise, bet - LastBet)
+                MaxRaise = Math.Max(MaxRaise, amount - MaxRaise),
+                MinRaise = GetMinRaise()
             };
 
         }
@@ -238,6 +240,11 @@ namespace Poker.Domain.Aggregates.Game
         {
             return Players.Values.Count(x => x.Fold) == Players.Count - 1;
         }
+
+        public long GetMinRaise()
+        {
+           return Math.Max(CurrentBidding.CurrentStage.GetMaxBet(), BigBlind);
+        }
     }
 
     public class BidInfo
@@ -252,6 +259,7 @@ namespace Poker.Domain.Aggregates.Game
         public long LastBet { get; set; }
         public long Bet { get; set; }
         public long MaxRaise { get; set; }
+        public long MinRaise { get; set; }
 
         public bool IsAllIn()
         {

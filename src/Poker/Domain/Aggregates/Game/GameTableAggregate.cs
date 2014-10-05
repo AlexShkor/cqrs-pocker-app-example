@@ -100,7 +100,8 @@ namespace Poker.Domain.Aggregates.Game
                     {
                         Id = State.TableId,
                         GameId = State.GameId,
-                        Bank = State.CurrentBidding.CurrentStage.GetBank()
+                        Bank = State.CurrentBidding.CurrentStage.GetBank(),
+                        MinRaise = State.BigBlind
                     });
                     if (State.Deck.Count == 5)
                     {
@@ -258,7 +259,7 @@ namespace Poker.Domain.Aggregates.Game
 
             if (betAmount % State.SmallBlind != 0)
                 throw new InvalidOperationException("Invalid bet. Should be able to devide on small blind.");
-            var minRaise = State.MaxRaise*2;
+            var minRaise = State.GetMinRaise()*2;
             if (betAmount < minRaise && user.Cash >= minRaise)
             {
                 throw new InvalidOperationException("While raising bet should be twice or more then previous bet.");

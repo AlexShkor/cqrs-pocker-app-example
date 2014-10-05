@@ -6,7 +6,7 @@ namespace Poker.Domain.Aggregates.Game
 {
     public class BiddingInfo
     {
-        private int _playersCount;
+        private readonly int _playersCount;
         public List<BiddingStage> BiddingStages { get; private set; }
 
         public BiddingStage CurrentStage
@@ -46,15 +46,13 @@ namespace Poker.Domain.Aggregates.Game
             {
                 throw new InvalidOperationException("Can't got to next bidding stage, untill current is finished");   
             }
-            var newStage = new BiddingStage(_playersCount);
+            var newStagePlayersCount = _playersCount;
             if (BiddingStages.Any())
             {
-                var completeBids = CurrentStage.Bids.Where(x => x.Value.IsAllIn() || x.Value.IsFold());
-                foreach (var bid in completeBids)
-                {
-                    newStage.Bids.Add(bid.Key, bid.Value);
-                }
+                newStagePlayersCount = CurrentStage.PlayersCount -
+                                       CurrentStage.Bids.Values.Count(x => x.IsAllIn() || x.IsFold());
             }
+            var newStage = new BiddingStage(newStagePlayersCount);
             BiddingStages.Add(newStage);
 
         }

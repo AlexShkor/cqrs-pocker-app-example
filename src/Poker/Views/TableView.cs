@@ -27,6 +27,7 @@ namespace Poker.Views
         public long Bank { get; set; }
         public long MaxBet { get; set; }
         public long MaxRaise { get; set; }
+        public long MinRaise { get; set; }
 
         public TableView()
         {
@@ -48,6 +49,7 @@ namespace Poker.Views
             player.Bet = bidInfo.Bet;
             MarkBlindsIfGameStarts(player, bidInfo.BidType);
             MaxBet = bidInfo.GetMaxBet();
+            MinRaise = bidInfo.MinRaise;
         }
 
         private void MarkBlindsIfGameStarts(PlayerDocument player, BidTypeEnum bidType)
