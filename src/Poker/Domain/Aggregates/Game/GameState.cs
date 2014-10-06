@@ -38,7 +38,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public long MaxBid { get; set; }
 
-        public long MaxRaise { get; set; }
+        public long MaxRaisedValue { get; set; }
 
         public readonly int MaxPlayers = 10;
 
@@ -72,7 +72,7 @@ namespace Poker.Domain.Aggregates.Game
                 Deck = new List<Card>();
                 SitPlayers(e.Players);
                 CurrentBidding = new BiddingInfo(e.Players.Count);
-                MaxRaise = SmallBlind;
+                MaxRaisedValue = 0;
             });
             On((DealerAssigned e) =>
             {
@@ -95,12 +95,12 @@ namespace Poker.Domain.Aggregates.Game
             On((BidMade e) => AddBidEvent(e.Bid));
             On((BiddingFinished e) =>
             {
-                MaxRaise = SmallBlind;
+                MaxRaisedValue = 0;
             });
             On((NextPlayerTurned e) =>
             {
                 CurrentPlayer = e.Player.Position;
-                MaxRaise = e.MaxRaise;
+                MaxRaisedValue = e.MaxRaisedValue;
             });
             On((DeckDealed e) =>
             {
@@ -194,10 +194,10 @@ namespace Poker.Domain.Aggregates.Game
             {
                 throw new InvalidOperationException("Not enought cash for user {0} ");
             }
-            var bet = CurrentBidding.CurrentStage.GetBetForPlayer(position) + amount;
+            var bet = CalculateNewBet(position, amount);
             if (bidType == BidTypeEnum.Raise)
             {
-                MaxRaise = Math.Max(MaxRaise, amount - MaxRaise);
+                MaxRaisedValue = Math.Max(MaxRaisedValue, bet - CurrentBidding.CurrentStage.GetMaxBet());
             }
             return new BidInfo
             {
@@ -210,6 +210,11 @@ namespace Poker.Domain.Aggregates.Game
                 BiddingStage = CurrentBidding.Stage,
                 BidType = bidType
             };
+        }
+
+        public long CalculateNewBet(int position, long amount)
+        {
+           return CurrentBidding.CurrentStage.GetBetForPlayer(position) + amount;
         }
 
         public List<TablePlayer> CopyPlayers()
@@ -235,11 +240,20 @@ namespace Poker.Domain.Aggregates.Game
         public long GetMinBet()
         {
             var maxBet = CurrentBidding.CurrentStage.GetMaxBet();
-            if (maxBet == 0) //Pre-Flop only
+            if (maxBet == 0) //not Pre-Flop only
             {
                 return BigBlind;
             }
-            return maxBet + MaxRaise;
+            if (MaxRaisedValue == 0 && CurrentBidding.IsStage(BiddingStagesEnum.PreFlop))
+            {
+                return maxBet + SmallBlind;
+            }
+            return maxBet + MaxRaisedValue;
+        }
+
+        public long GetBank()
+        {
+            return CurrentBidding.BiddingStages.Sum(x => x.GetBank());
         }
     }
 

@@ -37,7 +37,7 @@ namespace Poker.Domain.Aggregates.Game
 
         public long GetBank()
         {
-            return CurrentStage.GetBank();
+            return BiddingStages.Sum(x => x.GetBank());
         }
 
         public void NextStage()
@@ -62,6 +62,11 @@ namespace Poker.Domain.Aggregates.Game
             return
                 Stage != (int) BiddingStagesEnum.PreFlop ||
                 CurrentStage.Bids.Values.All(x => x.BidType != BidTypeEnum.BigBlind);
+        }
+
+        public bool IsStage(BiddingStagesEnum stages)
+        {
+            return Stage == (int) stages;
         }
     }
 }

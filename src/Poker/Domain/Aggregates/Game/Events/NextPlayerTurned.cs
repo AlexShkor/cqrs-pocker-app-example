@@ -8,6 +8,6 @@ namespace Poker.Domain.Aggregates.Game.Events
         public string GameId { get; set; }
         public PlayerInfo Player { get; set; }
         public long MinBet { get; set; }
-        public long MaxRaise { get; set; }
+        public long MaxRaisedValue { get; set; }
     }
 }

@@ -248,7 +248,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             var smallBlind = $scope.game.SmallBlind;
 
             var minBet = $scope.game.MinBet;
-            var betRange = me.Cash - minBet;
+            var betRange = me.Cash - minBet + me.Bet;
             if (betRange > 0) {
                 var bet = minBet;
                 while (betRange) {
