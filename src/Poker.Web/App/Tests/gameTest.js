@@ -16,6 +16,7 @@ describe('Game Controller Test', function () {
         Deck: [],
         Id: "game123",
         MaxBid: 10,
+        MinBet: 10,
         MyId: "me1",
         Name: "Game 123",
         SmallBlind: 5,
@@ -128,7 +129,7 @@ describe('Game Controller Test', function () {
 
         http.flush();
         expect(scope.rates[0]).toEqual(10);
-        expect(scope.rates[scope.rates.length - 1]).toEqual(990);
+        expect(scope.rates[scope.rates.length - 1]).toEqual(1000);
     });
 
     it('should check that rates are multiple to Big Blind', function () {

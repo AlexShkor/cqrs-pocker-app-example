@@ -196,6 +196,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             addLog(logs.noteWinner, { name: winner.Name, hand: data.Winners[i].Hand }, 'highlight');
         }
         $scope.game.Bank = 0;
+        $scope.$apply();
         addLog(logs.gameFinished, null, 'highlight');
     });
 

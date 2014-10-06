@@ -79,7 +79,8 @@ namespace Poker.Tests.AggregateActionsTest.JoinPlayer
                     UserId = "me2",
                     Position = 2,
                     Bid = 2,
-                    Odds = 2,
+                    Bet = 2,
+                    Amount = 2,
                     BidType = BidTypeEnum.SmallBlind,
                     NewCashValue = 98
                 }
@@ -92,7 +93,8 @@ namespace Poker.Tests.AggregateActionsTest.JoinPlayer
                     UserId = "me1",
                     Position = 1,
                     Bid = 4,
-                    Odds = 4,
+                    Bet = 4,
+                    Amount = 4,
                     BidType = BidTypeEnum.BigBlind,
                     NewCashValue = 96
                 }
@@ -104,7 +106,8 @@ namespace Poker.Tests.AggregateActionsTest.JoinPlayer
                 {
                     UserId = "me2",
                     Position = 2
-                }
+                },
+                MinBet = 6
             };
         }
 

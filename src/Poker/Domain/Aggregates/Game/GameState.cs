@@ -119,7 +119,7 @@ namespace Poker.Domain.Aggregates.Game
             Players[bid.Position].Bid = bid.Bid;
             Players[bid.Position].AllIn = bid.IsAllIn();
             Players[bid.Position].Fold = bid.IsFold();
-            JoinedPlayers[bid.UserId].Cash -= bid.Odds;
+            JoinedPlayers[bid.UserId].Cash = bid.NewCashValue;
             if (bid.Bid > MaxBid)
             {
                 MaxBid = bid.Bid;
@@ -203,7 +203,7 @@ namespace Poker.Domain.Aggregates.Game
             {
                 Position = position,
                 Bid = player.Bid + amount,
-                Odds = amount,
+                Amount = amount,
                 Bet = bet,
                 UserId = player.UserId,
                 NewCashValue = user.Cash - amount,
@@ -264,7 +264,7 @@ namespace Poker.Domain.Aggregates.Game
         public int BiddingStage { get; set; }
         public long Bid { get; set; }
         public long NewCashValue { get; set; }
-        public long Odds { get; set; }
+        public long Amount { get; set; }
         public BidTypeEnum BidType { get; set; }
         public long Bet { get; set; }
 

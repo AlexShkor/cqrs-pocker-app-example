@@ -40,7 +40,7 @@ namespace Poker.Tests.AggregateStateTests.Methods
             var bid = _state.GetBidInfo(1, 10, BidTypeEnum.Call);
             Assert.AreEqual(1, bid.Position);
             Assert.AreEqual(88, bid.NewCashValue);
-            Assert.AreEqual(10, bid.Odds);
+            Assert.AreEqual(10, bid.Amount);
             Assert.AreEqual(12, bid.Bid);
             Assert.AreEqual("me1", bid.UserId);
             Assert.AreEqual(false, bid.IsAllIn());

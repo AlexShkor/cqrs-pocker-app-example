@@ -34,14 +34,19 @@ namespace Poker.Tests.AggregateActionsTest.Check
                 {
                     UserId = "me1",
                     Bid = 4,
+                    Bet = 4,
                     BidType = BidTypeEnum.Check,
                     BiddingStage = 0,
                     NewCashValue = 96,
                     Position = 1,
-                    Odds = 0
+                    Amount = 0
                 }
             };
-
+            yield return new BiddingFinished
+            {
+                Id = "123",
+                Bank = 8
+            };
             yield return new DeckDealed
             {
                 Id = "123"
@@ -49,7 +54,9 @@ namespace Poker.Tests.AggregateActionsTest.Check
             yield return new NextPlayerTurned
             {
                 Id = "123",
-                Player = new PlayerInfo(2, "me2")
+                Player = new PlayerInfo(2, "me2"),
+                MinBet = 4,
+                MaxRaisedValue = 0
             };
         }
 

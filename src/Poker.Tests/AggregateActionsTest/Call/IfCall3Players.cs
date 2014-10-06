@@ -30,10 +30,11 @@ namespace Poker.Tests.AggregateActionsTest.Call
                 {
                     UserId = "me2",
                     Position = 2,
-                    Odds = 4,
+                    Amount = 4,
                     Bid = 4,
+                    Bet = 4,
                     BidType = BidTypeEnum.Call,
-                    NewCashValue = 96
+                    NewCashValue = 96,
                 }
             };
             yield return new NextPlayerTurned
@@ -43,7 +44,8 @@ namespace Poker.Tests.AggregateActionsTest.Call
                 {
                     UserId = "me3",
                     Position = 3
-                }
+                },
+                MinBet = 6
             };
         }
 

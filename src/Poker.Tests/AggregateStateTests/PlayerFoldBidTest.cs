@@ -24,7 +24,7 @@ namespace Poker.Tests.AggregateStateTests
                     BiddingStage = 0,
                     NewCashValue = 995,
                     Position = 2,
-                    Odds = 0
+                    Amount = 0
                 }
             });
 

@@ -30,8 +30,9 @@ namespace Poker.Tests.AggregateActionsTest.Call
                 {
                     UserId = "me2",
                     Position = 2,
-                    Odds = 2,
+                    Amount = 2,
                     Bid = 4,
+                    Bet = 4,
                     NewCashValue = 96,
                     BidType = BidTypeEnum.Call
                 },
@@ -43,7 +44,8 @@ namespace Poker.Tests.AggregateActionsTest.Call
                 {
                     UserId = "me1",
                     Position = 1
-                }
+                },
+                MinBet = 6
             };
         }
 

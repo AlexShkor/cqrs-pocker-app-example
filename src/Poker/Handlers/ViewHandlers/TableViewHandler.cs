@@ -64,6 +64,7 @@ namespace Poker.Handlers.ViewHandlers
                     player.IsSmallBlind = false;
                     player.IsBigBlind = false;
                 }
+                view.Bank = 0;
             });
         }
 

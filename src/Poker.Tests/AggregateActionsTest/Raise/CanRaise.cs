@@ -30,8 +30,9 @@ namespace Poker.Tests.AggregateActionsTest.Raise
                 {
                     UserId = "me2",
                     Position = 2,
+                    Bet = 8,
                     Bid = 8,
-                    Odds = 6,
+                    Amount = 6,
                     NewCashValue = 92,
                     BidType = BidTypeEnum.Raise,
                 }
@@ -43,7 +44,9 @@ namespace Poker.Tests.AggregateActionsTest.Raise
                 {
                     UserId = "me1",
                     Position = 1
-                }
+                },
+                MinBet = 12,
+                MaxRaisedValue = 4
             };
         }
 

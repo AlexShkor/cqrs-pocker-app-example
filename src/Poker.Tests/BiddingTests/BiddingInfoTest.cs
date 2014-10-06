@@ -28,7 +28,7 @@ namespace Poker.Tests.BiddingTests
             SetBank60ForTwoPlayers(bidding);
             bidding.NextStage();
             SetBank60ForTwoPlayers(bidding);
-            Assert.AreEqual(60, bidding.GetBank());
+            Assert.AreEqual(120, bidding.GetBank());
         }
 
         public void SetBank60ForTwoPlayers(BiddingInfo bidding)
@@ -43,11 +43,11 @@ namespace Poker.Tests.BiddingTests
 
     internal static class BiddingInfoExtenssionForTest
     {
-        public static void AddTestBid(this BiddingInfo biddingInfo, int position, long bid)
+        public static void AddTestBid(this BiddingInfo biddingInfo, int position, long bet)
         {
             biddingInfo.AddBid(new BidInfo
             {
-                Bid = bid,
+                Bet = bet,
                 BiddingStage = biddingInfo.Stage,
                 Position = position,
                 UserId = "me" + position,

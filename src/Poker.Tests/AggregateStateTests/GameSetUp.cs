@@ -106,7 +106,7 @@ namespace Poker.Tests.AggregateStateTests
                     UserId = player2.UserId,
                     Position = player2.Position,
                     Bid = 5,
-                    Odds = 5,
+                    Amount = 5,
                     NewCashValue = 995,
                     BidType = BidTypeEnum.SmallBlind,
                 }
@@ -120,7 +120,7 @@ namespace Poker.Tests.AggregateStateTests
                     UserId = player1.UserId,
                     Position = player1.Position,
                     Bid = 10,
-                    Odds = 10,
+                    Amount = 10,
                     NewCashValue = 990,
                     BidType = BidTypeEnum.BigBlind,
                 }

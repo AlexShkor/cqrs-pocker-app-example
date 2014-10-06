@@ -34,7 +34,7 @@ namespace Poker.Tests.AggregateActionsTest.Fold
                     BiddingStage = 0,
                     NewCashValue = 98,
                     Position = 2,
-                    Odds = 0
+                    Amount = 0
                 }
             };
             yield return new GameFinished
@@ -84,7 +84,7 @@ namespace Poker.Tests.AggregateActionsTest.Fold
         [Test]
         public override void Test()
         {
-            ValidateEvents("GameId", "Players", "Cards", "Dealer", "SmallBlind", "BigBlind", "Bid", "Player");
+            ValidateEvents("GameId", "Players", "Cards", "Dealer", "SmallBlind", "BigBlind", "Bid", "Player", "MinBet");
         }
     }
 }

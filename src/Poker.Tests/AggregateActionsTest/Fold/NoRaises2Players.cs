@@ -34,7 +34,7 @@ namespace Poker.Tests.AggregateActionsTest.Fold
                     BiddingStage = 0,
                     NewCashValue = 100,
                     Position = 2,
-                    Odds = 0
+                    Amount = 0
                 }
             };
             yield return new NextPlayerTurned
@@ -44,7 +44,8 @@ namespace Poker.Tests.AggregateActionsTest.Fold
                 {
                     UserId = "me3",
                     Position = 3
-                }
+                },
+                MinBet = 6
             };
         }
 

@@ -33,17 +33,14 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
 
         public void Handle(BidMade e)
         {
-            var table = _db.Tables.GetById(e.Id);
-            var maxBid = table.Players.Select(x => x.Bid).Max();
             UsersHub.CurrentContext.Clients.Group(e.Id).bidMade(new
             {
                 UserId = e.Bid.UserId,
                 NewCashValue = e.Bid.NewCashValue,
                 Bid = e.Bid.Bid,
                 Bet = e.Bid.Bet,
-                Odds = e.Bid.Odds,
+                Odds = e.Bid.Amount,
                 BidType = ((BidTypeEnum)e.Bid.BidType).ToString(),
-                MaxBid = maxBid,
             });
         }
 

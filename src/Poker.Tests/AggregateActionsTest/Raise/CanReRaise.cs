@@ -37,8 +37,9 @@ namespace Poker.Tests.AggregateActionsTest.Raise
                 {
                     UserId = "me2",
                     Position = 2,
+                    Bet = 40,
                     Bid = 40,
-                    Odds = 20,
+                    Amount = 20,
                     BidType = BidTypeEnum.Raise,
                     NewCashValue = 60
                 }
@@ -51,14 +52,16 @@ namespace Poker.Tests.AggregateActionsTest.Raise
                 {
                     UserId = "me1",
                     Position = 1
-                }
+                },
+                MinBet = 50,
+                MaxRaisedValue = 10
             };
         }
 
         public override void ValidateState(GameTableAggregate a)
         {
             Assert.AreEqual(40, a.State.CurrentBidding.CurrentStage.Bids[2].Bid);
-            Assert.AreEqual(20, a.State.CurrentBidding.CurrentStage.Bids[2].Odds);
+            Assert.AreEqual(20, a.State.CurrentBidding.CurrentStage.Bids[2].Amount);
             Assert.AreEqual(2, a.State.CurrentBidding.CurrentStage.Bids[2].Position);
         }
 
