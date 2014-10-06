@@ -132,34 +132,35 @@ describe('Game Controller Test', function () {
         expect(scope.rates[scope.rates.length - 1]).toEqual(1000);
     });
 
-    it('should check that rates are multiple to Big Blind', function () {
+    it('should check that rates are multiple to Small Blind', function () {
 
         http.flush();
         for (var i = 0; i < scope.rates.length; i++) {
             var rate = scope.rates[i];
 
             if (i != scope.rates.length - 1)
-                expect(rate % (scope.game.SmallBlind * 2)).toEqual(0);
+                expect(rate % (scope.game.SmallBlind)).toEqual(0);
         }
     });
 
     it('should init My actual and max rates with reminder', function () {
 
-        game.Players[0].Cash = 802;
+        game.Players[0].Cash = 805;
+        game.Players[0].Bet = 10;
         http.flush();
         expect(scope.rates[0]).toEqual(10);
-        expect(scope.rates[scope.rates.length - 1]).toEqual(802);
+        expect(scope.rates[scope.rates.length - 1]).toEqual(815);
     });
 
-    it('should check that rates with reminder are multiple to Big Blind', function () {
+    it('should check that rates with reminder are multiple to Small Blind', function () {
 
-        game.Players[0].Cash = 802;
+        game.Players[0].Cash = 805;
         http.flush();
         for (var i = 0; i < scope.rates.length; i++) {
             var rate = scope.rates[i];
 
             if (i != scope.rates.length - 1)
-                expect(rate % (scope.game.SmallBlind * 2)).toEqual(0);
+                expect(rate % (scope.game.SmallBlind)).toEqual(0);
         }
     });
     

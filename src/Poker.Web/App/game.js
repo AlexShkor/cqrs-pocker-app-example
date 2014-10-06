@@ -46,7 +46,9 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         $scope.RaiseValue = $scope.rates[$scope.rateIndex];
         var player = getPlayer($scope.game.CurrentPlayerId);
         var amount = $scope.RaiseValue - player.Bet;
-        $http.post("/game/raise", { tableId: $scope.game.Id, amount: amount });
+        if (amount > 0) {
+            $http.post("/game/raise", { tableId: $scope.game.Id, amount: amount });
+        }
         $scope.RaiseValue = null;
     };
 
