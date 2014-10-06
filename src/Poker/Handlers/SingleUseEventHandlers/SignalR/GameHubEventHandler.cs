@@ -27,6 +27,7 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
             {
                 TableId = e.Id,
                 CurrentPlayerId = e.Player.UserId,
+                MinBet = e.MinBet
             });
         }
 
@@ -34,7 +35,6 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
         {
             var table = _db.Tables.GetById(e.Id);
             var maxBid = table.Players.Select(x => x.Bid).Max();
-
             UsersHub.CurrentContext.Clients.Group(e.Id).bidMade(new
             {
                 UserId = e.Bid.UserId,
@@ -42,10 +42,8 @@ namespace Poker.Handlers.SingleUseEventHandlers.SignalR
                 Bid = e.Bid.Bid,
                 Bet = e.Bid.Bet,
                 Odds = e.Bid.Odds,
-                LastBet = e.Bid.LastBet,
                 BidType = ((BidTypeEnum)e.Bid.BidType).ToString(),
                 MaxBid = maxBid,
-                MaxBet = e.Bid.GetMaxBet()
             });
         }
 

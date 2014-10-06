@@ -14,8 +14,6 @@ namespace Poker.ViewModel
             Name = view.Name;
             BuyIn = view.BuyIn;
             SmallBlind = view.SmallBlind;
-            MaxBet = view.MaxBet;
-            MaxRaise = view.MaxRaise;
             Bank = view.Bank;
             MyId = userId;
             CurrentPlayerId = view.CurrentPlayerId;
@@ -23,10 +21,10 @@ namespace Poker.ViewModel
             Players = view.Players.OrderBy(x => x.Position).Select(x => new PlayerViewModel(x, userId)).ToList();
             MaxBid = view.Players.Select(x => x.Bid).Max();
             IsGuest = view.Players.All(x => x.UserId != userId);
-            MinRaise = view.MinRaise;
+            MinBet = view.MinBet;
         }
 
-        public long MaxBet { get; set; }
+        public long MinBet { get; set; }
 
         public string Id { get; set; }
 
@@ -47,10 +45,6 @@ namespace Poker.ViewModel
         public List<PlayerViewModel> Players { get; set; }
 
         public long MaxBid { get; set; }
-
-        public long MaxRaise { get; set; }
-
-        public long MinRaise { get; set; }
 
         public bool IsGuest { get; set; }
     }

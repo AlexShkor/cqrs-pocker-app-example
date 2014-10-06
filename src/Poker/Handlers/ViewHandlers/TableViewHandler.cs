@@ -89,8 +89,6 @@ namespace Poker.Handlers.ViewHandlers
         {
             _tables.Update(e.Id, table =>
             {
-                table.MaxBet = table.SmallBlind;
-                table.MinRaise = e.MinRaise;
                 table.Bank = e.Bank;
                 foreach (var player in table.Players)
                 {
@@ -113,6 +111,7 @@ namespace Poker.Handlers.ViewHandlers
                     playerDocument.CurrentTurn = playerDocument.UserId == e.Player.UserId;
                 }
                 table.CurrentPlayerId = e.Player.UserId;
+                table.MinBet = e.MinBet;
             });
         }
 

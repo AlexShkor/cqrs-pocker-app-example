@@ -21,7 +21,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
     var load = function () {
         $http.post("/game/load/", { tableId: $stateParams.tableId }).success(function (data) {
             $scope.game = data;
-            $scope.RaiseValue = data.MaxBid;
+            $scope.RaiseValue = 0;
 
             initUserRates();
             trustSuitsAsHtml($scope.game);
@@ -151,10 +151,6 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         if (player) {
             player.Cash = data.NewCashValue;
             player.Bet = data.Bet;
-            $scope.game.MaxBid = data.MaxBid;
-            $scope.game.MaxBet = data.MaxBet;
-            $scope.game.MaxRaise = data.MaxRaise;
-            initUserRates();
             $scope.$apply();
             addLog(logs.bidMade, { name: player.Name, bidType: data.BidType }, data.BidType + '-note');
         }
@@ -164,7 +160,6 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
         $scope.game.MaxBet = $scope.game.SmallBind;
         $scope.game.Bank = data.Bank;
         resetAllBids();
-        initUserRates();
         $scope.$apply();
     });
 
@@ -185,6 +180,8 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
         $scope.game.CurrentPlayerId = data.CurrentPlayerId;
         $scope.timeForTurn = timeForTurnConst;
+        $scope.game.MinBet = data.MinBet;
+        initUserRates();
         $scope.$apply();
 
         addLog(logs.playerTurned, { name: currentPlayerName });
@@ -198,6 +195,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             var winner = getPlayer(data.Winners[i].UserId);
             addLog(logs.noteWinner, { name: winner.Name, hand: data.Winners[i].Hand }, 'highlight');
         }
+        $scope.game.Bank = 0;
         addLog(logs.gameFinished, null, 'highlight');
     });
 
@@ -210,7 +208,7 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
 
     function resetAllBids() {
         for (var i = 0; i < $scope.game.Players.length; i++) {
-            $scope.game.Players[i].Bid = 0;
+            $scope.game.Players[i].Bet = 0;
         }
     }
 
@@ -248,8 +246,8 @@ gameApp.controller("GameController", function ($scope, $stateParams, $http, $sce
             var me = getPlayer($scope.game.MyId);
 
             var smallBlind = $scope.game.SmallBlind;
-            
-            var minBet = $scope.game.MaxRaise  + $scope.game.MaxBet;
+
+            var minBet = $scope.game.MinBet;
             var betRange = me.Cash - minBet;
             if (betRange > 0) {
                 var bet = minBet;

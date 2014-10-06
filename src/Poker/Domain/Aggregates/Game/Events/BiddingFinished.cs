@@ -6,6 +6,5 @@ namespace Poker.Domain.Aggregates.Game.Events
     {
         public string GameId { get; set; }
         public long Bank { get; set; }
-        public long MinRaise { get; set; }
     }
 }
