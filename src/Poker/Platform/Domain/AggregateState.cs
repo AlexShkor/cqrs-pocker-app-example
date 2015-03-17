@@ -18,6 +18,16 @@ namespace Poker.Platform.Domain
             return this;
         }
 
+        public AggregateState()
+        {
+            
+        }
+
+        public AggregateState(Dictionary<Type, Action<object>> handlers)
+        {
+            _handlers = handlers;
+        }
+
         public void Invoke(object message)
         {
             var type = message.GetType();
